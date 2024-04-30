@@ -1,0 +1,1614 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from htmldemo.net/toro/toro/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 02 Mar 2024 15:22:33 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Toro - Minimal eCommerce HTML Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="asset/images/favicon.png">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+
+    <!-- All CSS is here
+	============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="asset/css/vendor/bootstrap.min.css">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="asset/css/vendor/font-awesome.css">
+    <link rel="stylesheet" href="asset/css/vendor/dlicon.css">
+    <!-- Others CSS -->
+    <link rel="stylesheet" href="asset/css/plugins/owl-carousel.css">
+    <link rel="stylesheet" href="asset/css/plugins/slick.css">
+    <link rel="stylesheet" href="asset/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="asset/css/plugins/jarallax.css">
+    <link rel="stylesheet" href="asset/css/plugins/easyzoom.css">
+    <link rel="stylesheet" href="asset/css/plugins/animate.css">
+    <link rel="stylesheet" href="asset/css/plugins/fullpage.css">
+    <link rel="stylesheet" href="asset/css/plugins/jquery-ui.css">
+    <link rel="stylesheet" href="asset/css/plugins/select2.min.css">
+    <link rel="stylesheet" href="asset/css/style.css">
+
+</head>
+
+<body>
+    <!-- modal for add address -->
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center" style="width: 160vw;">
+          <div class="modal-content d-flex justify-content-center" style="width: 600px;">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- <div class="tab-pane fade" id="account-info" role="tabpanel"> -->
+                    <div class="myaccount-content p-4">
+                        <div class="account-details-form">
+                            <form action="/addAddress" method="post" id="registerForm">
+        
+                                <div class="row"> 
+                                    <div class="col-lg-4">
+                                        <div class="single-input-item">
+                                            <label for="first-name" class="required" placeholder="Enter name">Name <span>*</span></label>
+                                            <input type="text" id="firstName" name="name" required/>
+                                            <span id="firstNameError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="single-input-item">
+                                            <label for="last-name" class="required" placeholder="Enter Phone no.">Mobile Number <span>*</span></label>
+                                            <input type="text" id="mobile" name="mobile" required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number"/>
+                                            <span id="mobileError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="single-input-item">
+                                            <label for="last-name" class="required" placeholder="Enter email">email <span>*</span></label>
+                                            <input type="text" id="email" name="email" required pattern="^[A-Za-z0-9.%+-]+@gmail\.com$" title="Please enter a valid email address"/>
+                                            <span id="emailError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <label for="first-name" class="required" placeholder="Enter Postal code">Zip Number <span>*</span></label>
+                                            <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}" title="Please enter a 6-digit pincode"/>
+                                            <span id="pinError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <label for="last-name" class="required">Locality <span>*</span></label>
+                                            <input type="text" id="locality" name="locality" required/>
+                                            <span id="localError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-input-item">
+                                    <label for="display-name" class="required">Address <span>*</span></label>
+                                    <textarea type="text" id="display-name" rows="3" placeholder="Enter full address" id="address" name="address" required></textarea>
+                                    <span id="addressError" style="color: red;"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <label for="first-name" class="required" placeholder="Enter City">City <span>*</span></label>
+                                            <input type="text" name="city" id="city" required/>
+                                            <span id="cityError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="single-input-item">
+                                            <label for="last-name" class="required">State <span>*</span></label>
+                                            <input type="text" id="state" name="state" required/>
+                                            <span id="stateError" style="color: red;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-input-item">
+                                    <a href="/myAccount"><button class="check-btn sqr-btn ">Cancel</button></a>
+                                    <button class="check-btn sqr-btn " id="submitBtn" type="submit">Add address</button>
+                                </div>
+                    
+                            </form>
+
+
+
+
+
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    
+
+    <div class="main-wrapper">
+
+<!-- modal for edit address -->
+
+        <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog d-flex justify-content-center" style="width: 160vw;">
+              <div class="modal-content d-flex justify-content-center" style="width: 600px;">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- <div class="tab-pane fade" id="account-info" role="tabpanel"> -->
+                        <div class="myaccount-content p-4">
+                            <div class="account-details-form">
+                                <form action="/updateAddress" method="post">
+            
+                                    <div class="row"> 
+                                        <div class="col-lg-4">
+                                            <div class="single-input-item">
+                                                <label for="first-name" class="required" placeholder="Enter name">Name <span>*</span></label>
+                                                <input type="text" id="nam" name="name" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="single-input-item">
+                                                <label for="last-name" class="required" placeholder="Enter Phone no.">Mobile Number <span>*</span></label>
+                                                <input type="number" id="mobil" name="mobile" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="single-input-item">
+                                                <label for="last-name" class="required" placeholder="Enter email">email <span>*</span></label>
+                                                <input type="text" id="emai" name="email" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <label for="first-name" class="required" placeholder="Enter Postal code">Pincode <span>*</span></label>
+                                                <input type="text" id="pincod" name="pincode" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <label for="last-name" class="required">Locality <span>*</span></label>
+                                                <input type="text" id="localit" name="locality" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <label for="display-name" class="required">Address <span>*</span></label>
+                                        <textarea type="text" id="addres" rows="3" placeholder="Enter full address" name="address" required></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <label for="first-name" class="required" placeholder="Enter City">City <span>*</span></label>
+                                                <input type="text" id="cit" name="cit" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <label for="last-name" class="required">State <span>*</span></label>
+                                                <input type="text" id="stat" name="state" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <a href="/myAccount"><button class="check-btn sqr-btn ">Cancel</button></a>
+                                        <button class="check-btn sqr-btn ">Edit address</button>
+                                    </div>
+                                    <input type="hidden" id="id" name="id">
+                        
+                                </form>
+    
+    
+    
+    
+    
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+        <header class="header-area section-padding-1">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="logo logo-width">
+                            <a href="index.html">
+                                <img src="asset/images/logo/logo.png" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 d-flex justify-content-center position-static">
+                        <div class="main-menu menu-lh-1 main-menu-padding-1">
+                            <nav>
+                                <ul>
+                                    <li class="position-static"><a href="/">Home <i class="fa fa-angle-down"></i></a>
+                                        <div class="mega-menu-style-1">
+                                            
+                                        </div>
+                                    </li>
+                                    <li><a href="/shop">Shop <i class="fa fa-angle-down"></i></a>
+                                        
+                                    </li> 
+                                    <li><a class="active" href="#">Account <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub-menu-width">
+                                            <li><a href="/myAccount">My Account</a></li>
+                                            <li><a href="/checkOut">Check Out</a></li>
+                                            <li><a href="/cart">Shopping Cart</a></li>
+                                            <li><a href="comming-soon.html">Wishlist</a></li>
+                                            <li><a href="comming-soon-2.html">Order Tracking</a></li>
+                                            <li><a href="faq.html">Compare</a></li>
+                                            <li><a href="/login">login / register</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub-menu-width">
+                                            <li><a href="about-us.html">About Us</a></li>
+                                            <li><a href="contact-us.html">Contact Page</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="comming-soon.html">Comming Soon 01</a></li>
+                                            <li><a href="comming-soon-2.html">Comming Soon 02</a></li>
+                                            <li><a href="faq.html">FAQ</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                    
+                                    
+                                    <li><a href="blog.html">Blog</a>
+                                       
+                                    </li>
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="header-right-wrap header-right-flex">
+                            <div class="same-style header-wishlist">
+                                <a href="wishlist.html"><i class="fa fa-heart-o"></i></a>
+                            </div>
+                            <div class="same-style cart-wrap">
+                                <a href="#" class="cart-active">
+                                    <i class="dlicon shopping_bag-20"></i>
+                                    <span class="count-style">02</span>
+                                </a>
+                            </div>
+                            <div class="same-style header-search">
+                                <a class="search-active" href="#">
+                                    <i class="dlicon ui-1_zoom"></i>
+                                </a>
+                            </div>
+                            <div class="same-style header-off-canvas">
+                                <a class="header-aside-button" href="#">
+                                    <i class="dlicon ui-3_menu-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="header-small-mobile section-padding-1">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="mobile-logo logo-width">
+                            <a href="index.html">
+                                <img alt="" src="asset/images/logo/logo.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mobile-header-right-wrap">
+                            <div class="header-right-wrap header-right-flex">
+                                <div class="same-style cart-wrap">
+                                    <a href="#" class="cart-active">
+                                        <i class="dlicon shopping_bag-20"></i>
+                                        <span class="count-style">02</span>
+                                    </a>
+                                </div>
+                                <div class="same-style header-off-canvas">
+                                    <a class="header-aside-button" href="#">
+                                        <i class="dlicon ui-3_menu-left"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- search start -->
+        <div class="search-content-wrap main-search-active">
+            <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
+            <div class="search-content">
+                <p>Start typing and press Enter to search</p>
+                <form class="search-form" action="#">
+                    <input type="text" placeholder="Search">
+                    <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                </form>
+            </div>
+        </div>
+        <!-- mini cart start -->
+        <div class="sidebar-cart-active">
+            <div class="sidebar-cart-all">
+                <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+                <div class="cart-content">
+                    <h3>Shopping Cart</h3>
+                    <ul>
+                        <li class="single-product-cart">
+                            <div class="cart-img">
+                                <a href="#"><img src="asset/images/cart/cart-1.jpg" alt=""></a>
+                            </div>
+                            <div class="cart-title">
+                                <h4><a href="#">Bejewelled velvet sandals</a></h4>
+                                <span> 1 × $49.00	</span>
+                            </div>
+                            <div class="cart-delete">
+                                <a href="#">×</a>
+                            </div>
+                        </li>
+                        <li class="single-product-cart">
+                            <div class="cart-img">
+                                <a href="#"><img src="asset/images/cart/cart-2.jpg" alt=""></a>
+                            </div>
+                            <div class="cart-title">
+                                <h4><a href="#">Contrast faux fur jacket</a></h4>
+                                <span> 1 × $49.00	</span>
+                            </div>
+                            <div class="cart-delete">
+                                <a href="#">×</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="cart-total">
+                        <h4>Subtotal: <span>$170.00</span></h4>
+                    </div>
+                    <div class="cart-checkout-btn">
+                        <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+                        <a class="no-mrg btn-hover cart-btn-style" href="/checkOut">checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- aside start -->
+        <div class="header-aside-active">
+            <div class="header-aside-wrap">
+                <a class="aside-close"><i class="dlicon ui-1_simple-remove"></i></a>
+                <div class="header-aside-content">
+                    <div class="mobile-menu-area">
+                        <div class="mobile-search">
+                            <form class="search-form" action="#">
+                                <input type="text" placeholder="Search entire store…">
+                                <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                            </form>
+                        </div>
+                        <div class="mobile-menu-wrap">
+                            <!-- mobile menu start -->
+                            <div class="mobile-navigation">
+                                <!-- mobile menu navigation start -->
+                                <nav>
+                                    <ul class="mobile-menu">
+                                        <li class="menu-item-has-children"><a href="index.html">Home</a>
+                                            <ul class="dropdown">
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 01</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index.html">Home 01</a></li>
+                                                        <li><a href="index-2.html">Home 02</a></li>
+                                                        <li><a href="index-3.html">Home 03</a></li>
+                                                        <li><a href="index-4.html">Home 04</a></li>
+                                                        <li><a href="index-5.html">Home 05</a></li>
+                                                        <li><a href="index-6.html">Home 06</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 02</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index-7.html">Home 07</a></li>
+                                                        <li><a href="index-8.html">Home 08</a></li>
+                                                        <li><a href="index-9.html">Home 09</a></li>
+                                                        <li><a href="index-10.html">Home 10</a></li>
+                                                        <li><a href="index-11.html">Home 11</a></li>
+                                                        <li><a href="index-12.html">Home 12</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 03</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index-13.html">Home 13</a></li>
+                                                        <li><a href="index-14.html">Home 14</a></li>
+                                                        <li><a href="index-15.html">Home 15</a></li>
+                                                        <li><a href="index-16.html">Home 16</a></li>
+                                                        <li><a href="index-17.html">Home 17</a></li>
+                                                        <li><a href="index-18.html">Home 18</a></li>
+                                                        <li><a href="index-19.html">Home 19</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">Pages</a>
+                                            <ul class="dropdown">
+                                                <li><a href="about-us.html">About Us</a></li>
+                                                <li><a href="contact-us.html">Contact Page</a></li>
+                                                <li><a href="404.html">404 Page</a></li>
+                                                <li><a href="comming-soon.html">Comming Soon 01</a></li>
+                                                <li><a href="comming-soon-2.html">Comming Soon 02</a></li>
+                                                <li><a href="faq.html">FAQ</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="shop-fullwide.html">shop</a>
+                                            <ul class="dropdown">
+                                                <li class="menu-item-has-children"><a href="#">Shop Layout</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="shop-fullwide.html">Shop Fullwidth</a></li>
+                                                        <li><a href="shop-sidebar.html">Shop Sidebar</a></li>
+                                                        <li><a href="shop-metro.html">Shop Metro Layout</a></li>
+                                                        <li><a href="shop-3-col.html">Shop 03 Columns</a></li>
+                                                        <li><a href="shop-2-col.html">Shop 02 Columns</a></li>
+                                                        <li><a href="shop-collection-1.html">Shop Collection 01</a></li>
+                                                        <li><a href="shop-collection-2.html">Shop Collection 02</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Product Layout</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="product-details.html">Single 01</a></li>
+                                                        <li><a href="product-details-2.html">Single 02</a></li>
+                                                        <li><a href="product-details-group.html">Grouped</a></li>
+                                                        <li><a href="product-details-sticky.html">Sticky Info</a></li>
+                                                        <li><a href="product-details-configurable.html">Configurable</a></li>
+                                                        <li><a href="product-details-thumbnail.html">Thumbnail</a></li>
+                                                        <li><a href="product-details-video.html">Video</a></li>
+                                                        <li><a href="product-details-affiliate.html">Affiliate</a></li>
+                                                        <li><a href="product-details-sidebar.html">Sidebar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Shop Pages </a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="my-account.html">My Account</a></li>
+                                                        <li><a href="checkout.html">Check Out</a></li>
+                                                        <li><a href="cart.html">Shopping Cart</a></li>
+                                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                                        <li><a href="order-tracking.html">Order Tracking</a></li>
+                                                        <li><a href="compare.html">Compare</a></li>
+                                                        <li><a href="login-register.html">login / register</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="shop-collection-1.html">Collection</a>
+                                            <ul class="dropdown">
+                                                <li><a href="shop-collection-1.html">Shop Collection 01</a></li>
+                                                <li><a href="shop-collection-2.html">Shop Collection 02</a></li>
+                                                <li><a href="shop-metro.html">Shop Metro Layout</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="blog.html">Blog</a>
+                                            <ul class="dropdown">
+                                                <li><a href="blog.html">Blog Style 01</a></li>
+                                                <li><a href="blog-2.html">Blog Style 02</a></li>
+                                                <li><a href="blog-3.html">Blog Style 03</a></li>
+                                                <li><a href="blog-details.html">Single Post Style 01</a></li>
+                                                <li><a href="blog-details-2.html">Single Post Style 02</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="shop-instagram.html">Instagram Shop </a></li>
+                                    </ul>
+                                </nav>
+                                <!-- mobile menu navigation end -->
+                            </div>
+                            <!-- mobile menu end -->
+                        </div>
+                        <div class="mobile-curr-lang-wrap">
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-language-active" href="#">Language <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown lang-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">English (US)</a></li>
+                                        <li><a href="#">English (UK)</a></li>
+                                        <li><a href="#">Spanish</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-currency-active" href="#">Currency <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown curr-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">USD</a></li>
+                                        <li><a href="#">EUR</a></li>
+                                        <li><a href="#">Real</a></li>
+                                        <li><a href="#">BDT</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-account-active" href="#">My Account <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown account-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Creat Account</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-aside-menu">
+                        <nav>
+                            <ul>
+                                <li><a href="#">About Toro</a></li>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">Collection</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">New Look</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <img src="asset/images/icon-img/payments.png" alt="payment">
+                    <p>Pellentesque mollis nec orci id tincidunt. Sed mollis risus eu nisi aliquet, sit amet fermentum justo dapibus.</p>
+                    <div class="aside-contact-info">
+                        <ul>
+                            <li><i class="dlicon ui-2_time-clock"></i>Monday - Friday: 9:00 - 19:00</li>
+                            <li><i class="dlicon ui-1_email-84"></i>Info@la-studioweb.com</li>
+                            <li><i class="dlicon tech-2_rotate"></i>(+55) 254. 254. 254</li>
+                            <li><i class="dlicon ui-1_home-minimal"></i>Helios Tower 75 Tam Trinh Hoang - Ha Noi - Viet Nam</li>
+                        </ul>
+                    </div>
+                    <div class="social-icon-style mb-25">
+                        <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                        <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                        <a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+                        <a class="behance" href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                    <div class="copyright">
+                        <p>© 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <div class="breadcrumb-title">
+                        <h2>My Account</h2>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="/">Home </a>
+                        </li>
+                        <li><span> &gt; </span></li>
+                        <li class="active"> My Account </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="my-account-area pt-100 pb-95">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-12">
+                        <div class="myaccount-tab-menu nav" role="tablist">
+                            <a href="#dashboad" class="active" data-bs-toggle="tab">
+                                Dashboard</a>
+                            <a href="#orders" data-bs-toggle="tab"> Orders</a>
+                            <a href="#download" data-bs-toggle="tab"> Download</a>
+                            <a href="#address-edit" data-bs-toggle="tab"> address</a>
+                            <a href="#account-info" data-bs-toggle="tab"> My Coupens</a>
+                            <a href="#myWallets" data-bs-toggle="tab"> My wallet</a>
+                            <a href="#resetPW" data-bs-toggle="tab"> Change Password </a>
+                            <a href="/logout"> Logout</a>
+                        </div>
+                        <!-- My Account Tab Menu End -->
+                        <!-- My Account Tab Content Start -->
+                        <div class="tab-content" id="myaccountContent">
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="welcome">
+                                        <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Alex Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                    </div>
+
+                                    <p class="mb-0">From your account dashboard. you can view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="orders" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="myaccount-table table-responsive text-center">
+
+                                    <div class="page-content">
+                                        <div class="container-fluid">
+                                            
+                                            
+                                            <div class="row d-flex justify-content-center mt-3">
+                                            <% Orders.forEach((data)=>{ %>
+                                                <% data.products.forEach((value)=>{%>
+                                                
+                                                <div class="col-xl-8">
+                                                    <div class="card border shadow mb-3" style="border-radius: 0 !important;">
+                                                       <a href="/orderDetails/<%=value._id %>"><div class="card-body">
+                                                            <div class="d-flex align-items-start border-bottom">
+                                                                <div class="me-4">
+                                                                <img src="/static/productImage/<%=value.productId.image[0] %>" height="95" width="80" alt="" class="avatar-lg">
+                                                            </div>
+                                                            <div class="flex-grow-1 align-items-start overflow-hidden">
+                                                                <div class="align-items-start mt-4">
+                                                                    <h5 class="text-truncate font-size-16"><a href="/#" class="text-dark"><%=value.productId.Name %></a></h5>
+                                                                    <!-- <p class="mb-1">Color : <span class="fw-medium">Gray</span></p>
+                                                                    <p>Size : <span class="fw-medium">08</span></p> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <ul class="list-inline mb-0 font-size-16">
+                                                                    <li class="list-inline-item">
+                                                                        <a href="#" class="text-muted px-1">
+                                                                            <i class="mdi mdi-trash-can-outline"></i>
+                                                                            <h5><span class="fw-medium"><%=value.status%> on <%=data.orderDate %></span></h5>
+                                                                            <h6>Your order has been <%=value.status %></h6>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <a href="#" class="text-muted px-1">
+                                                                            <i class="mdi mdi-heart-outline"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                       
+                
+                                                        <div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Quantity</p>
+                                                                        <h5 class="font-size-16"> <%=value.quantity %> Pcs</h5>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Price</p>
+                                                                        <% let amount=0 %>
+                                                                        <% amount=value.quantity*value.productId.Price %>
+                                                                        <h5 class="font-size-16">₹ <%=amount %>.00</h5>
+                                                                        <!-- <div class="d-inline-flex">
+                                                                             <select class="form-select form-select-sm w-lg">
+                                                                                <option value="1">1</option>
+                                                                                <option value="2"selected>2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                                <option value="6">6</option>
+                                                                                <option value="7">7</option>
+                                                                                <option value="8">8</option>
+                                                                            </select> -->
+                                                                        <!-- </div>  -->
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Total</p>
+                                                                        <h5 class="font-size-16">₹ .00</h5>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                
+                                                    </div>
+                                                </a>    
+                                                </div>
+                                                <!-- end card -->
+                                            </div>
+                                            <%}) %>
+                
+                                            <%})%>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="download" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="myaccount-table table-responsive text-center">
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Date</th>
+                                                    <th>Expire</th>
+                                                    <th>Download</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Haven - Free Real Estate PSD Template</td>
+                                                    <td>Aug 22, 2023</td>
+                                                    <td>Yes</td>
+                                                    <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>HasTech - Profolio Business Template</td>
+                                                    <td>Sep 12, 2023</td>
+                                                    <td>Never</td>
+                                                    <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="address-edit" role="tabpanel">
+                                <div class="myaccount-content">
+                                   
+                                      
+                                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="check-btn sqr-btn " id="staticBackdrop"><i class="ri-add-box-fill"></i> Add Address</a>
+                                    <br>
+                                    <address>
+                                        <br>
+                                        <div class="card" style="border-radius: 0 !important;">
+                                            <a href="#checkout-shippinginfo-collapse" class="collapsed text-dark" data-bs-toggle="collapse">
+                                                <div class="p-4">
+                                                    
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 me-3">
+                                                            <i class="bx bxs-truck text-primary h2"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1 overflow-hidden">
+                                                            <h5 class="font-size-16 mb-1">Shipping Info</h5>
+                                                            <p class="text-muted text-truncate mb-0">Neque porro quisquam est</p>
+                                                        </div>
+                                                        <div class="flex-shrink-0">
+                                                            <i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </a>
+    
+                                            <div id="checkout-shippinginfo-collapse" class="collapse">
+                                                <div class="p-4 border-top">
+                                                    <h5 class="font-size-14 mb-3">Shipping Info</h5>
+                                                    <div class="row">
+                                                        <% addr.forEach((addr)=>{ %>
+                                                           <% for(let i=0;i<addr.address.length;i++){ %>
+                                                            <% console.log(addr.address[i]._id); %>
+                                                        <div class="col-lg-4 col-sm-6" id="remove<%=addr.address[i]._id  %>">
+                                                            <div class="card border rounded active shipping-address mb-4" style="border-radius: 0 !important;">
+                                                                <div class="card-body">
+                                                                    <div class="d-flex justify-content-sm-between">
+                                                                    <h5 class="font-size-14 mb-4">Address 1</h5>
+                                                                    <div>
+                                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModall" class="float-end ms-1" data-bs-toggle="tooltip" data-placement="top" id="addresseditbutton" onclick="editAddress('<%= addr.address[i]._id%>')" title="Edit">
+                                                                        <i class="bx bx-pencil font-size-16"></i>
+                                                                        <i class="ri-edit-box-fill"></i>
+                                                                    </a>
+                                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#example" class="float-end ms-1" data-bs-toggle="tooltip" data-placement="top" id="deletebutton" onclick="deleteAddress('<%=addr.address[i]._id%>')" title="Delete">
+                                                                        <i class="ri-delete-bin-6-fill p-2" ></i>
+                                                                    </a>
+                                                                    
+                                                                    
+                                                                </div>
+                                                                </div>
+                                                                    
+                                                                    
+                                                                    <p><strong><%=addr.address[i].name %></strong></p>
+                                                                    <% console.log(addr.address[i].name); %>
+                                                                    <h5 class="font-size-14"><%=addr.address[i].addressData %></h5>
+                                                                    <p class="mb-1"><%=addr.address[i].locality %>, <%=addr.address[i].city %>,<br> <%=addr.address[i].state %></p>
+                                                                    <p class="mb-0">Mobile. <%=addr.address[i].mobile %></p>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <% } %>
+                                                     <%})%>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </address>
+                                   
+                                </div>
+                            </div>
+                            
+                            <!-- Single Tab Content End -->
+                            <!-- Single Tab Content Start -->
+                            <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="account-details-form">
+                                        <div class="page-content">
+                                            <div class="container-fluid">
+                                                
+                                                
+                                                <div class="row d-flex justify-content-center mt-3">
+                                            
+                                                    <div class="col-md-12">
+                                                        <div class="card border shadow mb-3" style="border-radius: 0 !important;">
+                                                           <a href="/orderDetails/"><div class="card-body">
+                                                                
+                                                           
+                    
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div id="addproduct-accordion" class="custom-accordion">
+                                                                        <div class="card">
+                                                                            <a href="#addproduct-billinginfo-collapse" class="text-dark" data-bs-toggle="collapse"
+                                                                            aria-expanded="true" aria-controls="addproduct-billinginfo-collapse">
+                                                                            <div class="p-5">
+                                                                                <h4 class="justify-content-center fw-bolder">Available Coupens</h4>
+                                                                                <br>
+                                                                                <div class="row">
+                                                                                    <% coupen.forEach(data=>{  %>
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="card">
+                                    
+                                                                                                <img class="card-img img-fluid" src="/static/productImage/<%=data.Image%>" alt="Card image">
+                                                                                                <div class="card-img-overlay">
+                                                                                                    
+                                                                                                    <h3 class="text-dark d-flex justify-content-center fw-bold "><%=data.name %></h3>
+                                                                                                    <h5 class="card-title text-dark d-flex justify-content-center fw-bold ">Get Extra <%=data.offer %> % off</h5>
+                                                                                                    <br>
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-12 d-flex justify-content-between ">
+                                                                                                    <h5 class="pt-1" id="couponCode">Coupen Code: <span class="fw-bold"><%=data.coupenCode %></span></h5>
+                                                                                                    <a onclick="copyCoupon()">Copy</a>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    <p class="card-text text-dark">on minimum ₹ <%=data.minLimit %> spend.</p>
+                                                                                                    <br>
+                                                                                                            <h6 class="card-text text-dark fw-bold d-flex justify-content-end">Valid till <%=data.expiryDate %></h6>
+                                                                                                            
+                                                                                                            <!-- <div class="d-flex justify-content-between ">
+                                                                                                            <a class="d-flex justify-content-end fw-bold" href="">View T&C</a>
+                                                                                                            </div> -->
+                                                                                                        
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <% }) %>
+                                                                                </div>
+                                                                                 
+                                            
+                                                                                </div>
+                                                                            </a>
+                                            
+                                                                            <!-- <div id="addproduct-billinginfo-collapse" class="collapse show"
+                                                                                data-bs-parent="#addproduct-accordion">
+                                                                                <div class="p-4 border-top w-100 ">
+                                                                                        <div class="row">
+                                                                                            <div class=" col-md-4 d-flex ">
+                                                                                                <div class=" text-center " style="width: 3rem;">
+                                                                                                        
+                                                                                                </div>
+                                                                                               
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class=" col-md-4 d-flex ">
+                                                                                                <div  style="width: 3rem;">
+                                                                                                    
+                                                                                            </div>
+                                                                                            <div  class=" w-75">
+                                                                                               
+                                                                                            </div>
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class=" col-md-4 d-flex">
+                                                                                              
+                                                                                            </div>
+                                                                                            <br>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-8">
+                                                                                               
+                                                                                            </div>
+                                                                                        </div>
+                                            
+                                                                                </div>
+                                                                            </div> -->
+                                            
+                                            
+                                                                         
+                                                                          
+                                            
+                                                                        </div> <!-- container-fluid -->
+                                                                    </div>
+                                            
+                                                                </div>
+                                                                <!-- end main content-->
+                                            
+                                                            </div>
+                    
+                                                        </div>
+                                                    </a>    
+                                                    </div>
+                                                    <!-- end card -->
+                                                </div>
+                                                
+                    
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <!-- <form action="#">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="single-input-item">
+                                                        <label for="first-name" class="required">First Name <span>*</span></label>
+                                                        <input type="text" id="first-name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="single-input-item">
+                                                        <label for="last-name" class="required">Last Name <span>*</span></label>
+                                                        <input type="text" id="last-name" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="single-input-item">
+                                                <label for="display-name" class="required">Display Name <span>*</span></label>
+                                                <input type="text" id="display-name" />
+                                            </div>
+                                            <div class="single-input-item">
+                                                <label for="email" class="required">Email Addres <span>*</span></label>
+                                                <input type="email" id="email" />
+                                            </div>
+                                            <fieldset>
+                                                <legend>Password change</legend>
+                                                <div class="single-input-item">
+                                                    <label for="current-pwd" class="required">Current password (leave blank to leave unchanged)</label>
+                                                    <input type="password" id="current-pwd" name="currentPwd"/>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="single-input-item">
+                                                            <label for="new-pwd" class="required">New password (leave blank to leave unchanged)</label>
+                                                            <input type="password" id="new-pwd" name="newPwd" />
+                                                            <span id="passwordError" style="color: red;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="single-input-item">
+                                                            <label for="confirm-pwd" class="required">Confirm new password</label>
+                                                            <input type="password" id="confirm-pwd" name="confirmPwd"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <div class="single-input-item">
+                                                <button class="check-btn sqr-btn ">Save Changes</button>
+                                            </div>
+                                        </form> -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            
+                            <div class="tab-pane fade" id="orders" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="myaccount-table table-responsive text-center">
+
+                                    <div class="page-content">
+                                        <div class="container-fluid">
+                                            
+                                            
+                                            <div class="row d-flex justify-content-center mt-3">
+                                            <% Orders.forEach((data)=>{ %>
+                                                <% data.products.forEach((value)=>{%>
+                                                
+                                                <div class="col-xl-8">
+                                                    <div class="card border shadow mb-3" style="border-radius: 0 !important;">
+                                                       <a href="/orderDetails/<%=value._id %>"><div class="card-body">
+                                                            <div class="d-flex align-items-start border-bottom">
+                                                                <div class="me-4">
+                                                                <img src="/static/productImage/<%=value.productId.image[0] %>" height="95" width="80" alt="" class="avatar-lg">
+                                                            </div>
+                                                            <div class="flex-grow-1 align-items-start overflow-hidden">
+                                                                <div class="align-items-start mt-4">
+                                                                    <h5 class="text-truncate font-size-16"><a href="/#" class="text-dark"><%=value.productId.Name %></a></h5>
+                                                                    <!-- <p class="mb-1">Color : <span class="fw-medium">Gray</span></p>
+                                                                    <p>Size : <span class="fw-medium">08</span></p> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="flex-shrink-0 ms-2">
+                                                                <ul class="list-inline mb-0 font-size-16">
+                                                                    <li class="list-inline-item">
+                                                                        <a href="#" class="text-muted px-1">
+                                                                            <i class="mdi mdi-trash-can-outline"></i>
+                                                                            <h5><span class="fw-medium"><%=value.status%> on <%=data.orderDate %></span></h5>
+                                                                            <h6>Your item has been <%=value.status %></h6>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <a href="#" class="text-muted px-1">
+                                                                            <i class="mdi mdi-heart-outline"></i>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                       
+                
+                                                        <div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Quantity</p>
+                                                                        <h5 class="font-size-16"> <%=value.quantity %> Pcs</h5>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Price</p>
+                                                                        <% let amount=0 %>
+                                                                        <% amount=value.quantity*value.productId.Price %>
+                                                                        <h5 class="font-size-16">₹ <%=amount %>.00</h5>
+                                                                        <!-- <div class="d-inline-flex">
+                                                                             <select class="form-select form-select-sm w-lg">
+                                                                                <option value="1">1</option>
+                                                                                <option value="2"selected>2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                                <option value="6">6</option>
+                                                                                <option value="7">7</option>
+                                                                                <option value="8">8</option>
+                                                                            </select> -->
+                                                                        <!-- </div>  -->
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="col-md-4">
+                                                                    <div class="mt-3">
+                                                                        <p class="text-muted mb-2">Total</p>
+                                                                        <h5 class="font-size-16">₹ .00</h5>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+                
+                                                    </div>
+                                                </a>    
+                                                </div>
+                                                <!-- end card -->
+                                            </div>
+                                            <%}) %>
+                
+                                            <%})%>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Single Tab Content End -->
+
+
+
+                            <div class="tab-pane fade" id="myWallets" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="myaccount-table table-responsive text-center">
+                                       <p><b>Wallet Total :  <%=total %> .00</b></p>
+                                        <table class="table table-bordered">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>wallet Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Qty</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (Array.isArray(returnedOrder) && returnedOrder.length > 0) { %> 
+                                                <% returnedOrder.forEach(item => { %>
+                                                <tr>
+                                                      <td><%=item.products[0].productId.Name %></td>
+                                                      <td><%=item.products[0].productId.Price %></td>
+                                                    <td><%=item.orderDate %></td>
+                                                    
+                                                      <td><%=item.products[0].quantity %></td>
+                                                    <td><%=item.products[0].quantity*item.products[0].productId.Price %></td>
+                                                    <!-- <td>Yes</td> -->
+                                                    <!-- <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td> -->
+                                                </tr>
+                                                <% }) %>
+                                                <% } else { %>
+                                                    <td colspan="4">No returned products found.</td>
+                                                  <% } %>
+                                             
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="resetPW" role="tabpanel">
+                                <div class="myaccount-content">
+                                    <div class="account-details-form">
+                                        <form action="/reset" id="registerForm" method="post">
+                                           
+                                            <fieldset>
+                                                <legend>Password change</legend>
+                                                <div class="single-input-item">
+                                                    <label for="current-pwd" >Current password (leave blank to leave unchanged)</label>
+                                                    <input type="password" id="currentpwd" name="currentPwd" required/>
+                                                    <div class="text-danger d-flex justify-content-center">
+                                                        <%=locals.msg%>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="single-input-item">
+                                                            <label for="new-pwd" >New password (leave blank to leave unchanged)</label>
+                                                            <input type="password" id="new-pwd" name="newPwd" required/>
+                                                            <span id="passwordError" style="color: red;"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="single-input-item">
+                                                            <label for="confirm-pwd" >Confirm new password</label>
+                                                            <input type="password" id="confirm-pwd" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p><span style="font-size: x-small;">*(password must contain 8 characters including uppercase, lowercase, and numbers)</p>
+                                            </fieldset>
+                                            <div class="single-input-item">
+                                                <button type="submit" class="check-btn sqr-btn ">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> <!-- Single Tab Content End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer-area section-padding-1 border-top-3">
+            <div class="container-fluid">
+                <div class="footer-top pt-100 pb-60">
+                    <div class="row">
+                        <div class="footer-column footer-width-24">
+                            <div class="footer-widget footer-about mb-30">
+                                <a href="index.html">
+                                    <img src="asset/images/logo/logo.png" alt="logo">
+                                </a>
+                                <p>Lorem ipsum dolor sit amet, magna habemus ius ad, qui minimum voluptar</p>
+                                <div class="social-icon-style-2 social-icon-hm4">
+                                    <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                                    <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                                    <a class="youtube" href="#"><i class="fa fa-youtube"></i></a>
+                                    <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-column footer-width-12">
+                            <div class="footer-widget footer-info-list-2 mb-30">
+                                <h3 class="footer-title">Company Link</h3>
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Help Center</a></li>
+                                    <li><a href="#">Our Team</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">The Blog</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-column footer-width-14">
+                            <div class="footer-widget footer-info-list-2 mb-30">
+                                <h3 class="footer-title">Userful Link</h3>
+                                <ul>
+                                    <li><a href="#">Guides & Articles</a></li>
+                                    <li><a href="#">Customer Reviews</a></li>
+                                    <li><a href="#">Coupon Codes</a></li>
+                                    <li><a href="#">Military Discount</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-column footer-width-19">
+                            <div class="footer-widget footer-info-list-2 footer-contect mb-30">
+                                <h3 class="footer-title">Contact info</h3>
+                                <ul>
+                                    <li><i class="dlicon ui-2_time-clock"></i> Monday - Friday: 9:00 - 19:00</li>
+                                    <li><i class="dlicon ui-1_email-83"></i> info@example.com</li>
+                                    <li><i class="dlicon tech-2_rotate"></i> (+612) 2531 5600</li>
+                                    <li><i class="dlicon ui-1_home-simple"></i> PO Box 1622 Colins Street West Victoria 8077 Australia</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-column footer-width-29 mb-30">
+                            <div class="contact-page-map">
+                                <div id="contact-map">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.838709675939!2d144.95320007668528!3d-37.817246734238516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4dd5a05d97%3A0x3e64f855a564844d!2s121%20King%20St%2C%20Melbourne%20VIC%203000%2C%20Australia!5e0!3m2!1sen!2sus!4v1670477011653!5m2!1sen!2sus" style="border:0;width:100%;height:100%;" allowfullscreen="" loading="lazy"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-botoom">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="copyright-2 text-center">
+                                <p>© 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="support-lists">
+            <ul>
+                <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
+                <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
+                <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
+            </ul>
+        </div>
+        <div class="view-demo-area">
+            <a class="view-demo-btn-active" href="#">More Demos</a>
+            
+        </div>
+    </div>
+
+    <!-- All JS is here
+============================================ -->
+<script>
+
+
+
+    const currentName=document.getElementById('nam')
+    const currentMobile=document.getElementById('mobil')
+    const currentEmail=document.getElementById('emai')
+    const currentPincode=document.getElementById('pincod')
+    const currentLocality=document.getElementById('localit')
+    const currentAddress=document.getElementById('addres')
+    const currentCity=document.getElementById('cit')
+    const currentState=document.getElementById('stat')
+    const currentId=document.getElementById('id')
+
+    function editAddress(id) {
+    fetch('/editAddresspage',{
+        method:"post",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({id})
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+        console.log(data.dataToEdit,'fgfgfgffhk')
+        const{name,mobile,email,pincode,locality,addressData,city,state,_id}=data.dataToEdit.address[0]
+        currentName.value=name,
+        currentMobile.value=mobile,
+        currentEmail.value=email,
+        currentPincode.value=pincode,
+        currentLocality.value=locality,
+        currentAddress.value=addressData,
+        currentCity.value=city,
+        currentState.value=state,
+        currentId.value=_id
+        // console.log('nittttttttc')
+    })
+}
+
+
+
+function deleteAddress(del){
+const card=document.getElementById(`remove${del}`);
+
+    fetch('/deleteAddress',{
+        method:'post',
+        headers:{
+            'Content-Type':'application/json'
+        },body:JSON.stringify({del})
+    }).then((res)=>res.json())
+    .then((data)=>{
+        card.remove()
+    })
+}
+
+ 
+
+
+document.getElementById('firstName').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('mobile').addEventListener('input', function(event) {
+    const mobile = this.value.trim();
+    const mobileRegex = /^\d{10}$/;
+    const mobileError = document.getElementById('mobileError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (!mobileRegex.test(mobile)) {
+        mobileError.textContent = 'Invalid Mobile';
+        submitBtn.disabled = true;
+    } else {
+        mobileError.textContent = '';
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+
+document.getElementById('email').addEventListener('input', function(event) {
+    const email = this.value.trim();
+    const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
+    const emailError = document.getElementById('emailError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (!emailRegex.test(email)) {
+        emailError.textContent = 'Invalid Email';
+        submitBtn.disabled = true;
+    } else {
+        emailError.textContent = '';
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+document.getElementById('pincode').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[0-9]{6}$/;
+    const firstNameError = document.getElementById('pinError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Zip';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('locality').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('localError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('address').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('addressError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+
+document.getElementById('city').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('cityError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('state').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('stateError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+
+function copyCoupon() {
+  var couponElement = document.getElementById("couponCode").querySelector("span");
+  var tempInput = document.createElement("input");
+  tempInput.value = couponElement.textContent;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  tempInput.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(tempInput);
+  alert("Coupon code copied: " + couponElement.textContent);
+}
+
+
+</script>
+    <!-- Modernizer JS -->
+    <script src="asset/js/vendor/modernizr-3.11.7.min.js"></script>
+    <!-- jquery -->
+    <script src="asset/js/vendor/jquery-v3.6.0.min.js"></script>
+    <!-- Popper JS -->
+    <script src="asset/js/vendor/popper.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="asset/js/vendor/bootstrap.min.js"></script>
+    <script src="asset/js/plugins/owl-carousel.js"></script>
+    <script src="asset/js/plugins/slick.js"></script>
+    <script src="asset/js/plugins/jarallax.min.js"></script>
+    <script src="asset/js/plugins/countdown.js"></script>
+    <script src="asset/js/plugins/magnific-popup.js"></script>
+    <script src="asset/js/plugins/instafeed.js"></script>
+    <script src="asset/js/plugins/tilt.js"></script>
+    <script src="asset/js/plugins/images-loaded.js"></script>
+    <script src="asset/js/plugins/isotope.js"></script>
+    <script src="asset/js/plugins/scrolloverflow-fullpage.js"></script>
+    <script src="asset/js/plugins/fullpage.js"></script>
+    <script src="asset/js/plugins/jquery-ui.js"></script>
+    <script src="asset/js/plugins/jquery-ui-touch-punch.js"></script>
+    <script src="asset/js/plugins/easyzoom.js"></script>
+    <script src="asset/js/plugins/resizesensor.js"></script>
+    <script src="asset/js/plugins/sticky-sidebar.js"></script>
+    <script src="asset/js/plugins/scrollup.js"></script>
+    <script src="asset/js/plugins/select2.min.js"></script>
+    <script src="asset/js/plugins/cookie.js"></script>
+    <script src="asset/js/plugins/bpopup.js"></script>
+    <script src="asset/js/plugins/wow.js"></script>
+    <script src="asset/js/plugins/ajax-mail.js"></script>
+    <!-- Main JS -->
+    <script src="asset/js/main.js"></script>
+
+</body>
+
+
+<!-- Mirrored from htmldemo.net/toro/toro/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 02 Mar 2024 15:22:33 GMT -->
+</html>

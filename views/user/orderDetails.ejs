@@ -1,0 +1,897 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<!-- Mirrored from htmldemo.net/toro/toro/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 02 Mar 2024 15:22:33 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Toro - Minimal eCommerce HTML Template</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/asset/images/favicon.png">
+
+    <!-- All CSS is here
+	============================================ -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/asset/css/vendor/bootstrap.min.css">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="/asset/css/vendor/font-awesome.css">
+    <link rel="stylesheet" href="/asset/css/vendor/dlicon.css">
+    <!-- Others CSS -->
+    <link rel="stylesheet" href="/asset/css/plugins/owl-carousel.css">
+    <link rel="stylesheet" href="/asset/css/plugins/slick.css">
+    <link rel="stylesheet" href="/asset/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="/asset/css/plugins/jarallax.css">
+    <link rel="stylesheet" href="/asset/css/plugins/easyzoom.css">
+    <link rel="stylesheet" href="/asset/css/plugins/animate.css">
+    <link rel="stylesheet" href="/asset/css/plugins/fullpage.css">
+    <link rel="stylesheet" href="/asset/css/plugins/jquery-ui.css">
+    <link rel="stylesheet" href="/asset/css/plugins/select2.min.css">
+    <link rel="stylesheet" href="/asset/css/style.css">
+    
+
+</head>
+
+<body>
+
+    <!-- return reason form -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- return reason form -->
+
+      
+    <div class="main-wrapper">
+        <header class="header-area section-padding-1">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="logo logo-width">
+                            <a href="index.html">
+                                <img src="/asset/images/logo/logo.png" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 d-flex justify-content-center position-static">
+                        <div class="main-menu menu-lh-1 main-menu-padding-1">
+                            <nav>
+                                <ul>
+                                    <li class="position-static"><a href="/">Home <i class="fa fa-angle-down"></i></a>
+                                        <div class="mega-menu-style-1">
+                                            
+                                        </div>
+                                    </li>
+                                    <li><a class="active" href="/shop">Shop <i class="fa fa-angle-down"></i></a>
+                                        
+                                    </li> 
+                                    <li><a href="#">Account <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub-menu-width">
+                                            <li><a href="/myAccount">My Account</a></li>
+                                            <li><a href="/checkOut">Check Out</a></li>
+                                            <li><a href="/cart">Shopping Cart</a></li>
+                                            <li><a href="comming-soon.html">Wishlist</a></li>
+                                            <li><a href="comming-soon-2.html">Order Tracking</a></li>
+                                            <li><a href="faq.html">Compare</a></li>
+                                            <li><a href="/login">login / register</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                                        <ul class="sub-menu-width">
+                                            <li><a href="about-us.html">About Us</a></li>
+                                            <li><a href="contact-us.html">Contact Page</a></li>
+                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="comming-soon.html">Comming Soon 01</a></li>
+                                            <li><a href="comming-soon-2.html">Comming Soon 02</a></li>
+                                            <li><a href="faq.html">FAQ</a></li>
+                                        </ul>
+                                    </li>
+                                   
+                                    
+                                    
+                                    <li><a href="blog.html">Blog</a>
+                                       
+                                    </li>
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2">
+                        <div class="header-right-wrap header-right-flex">
+                            <div class="same-style header-wishlist">
+                                <a href="wishlist.html"><i class="fa fa-heart-o"></i></a>
+                            </div>
+                            <div class="same-style cart-wrap">
+                                <a href="#" class="cart-active">
+                                    <i class="dlicon shopping_bag-20"></i>
+                                    <span class="count-style">02</span>
+                                </a>
+                            </div>
+                            <div class="same-style header-search">
+                                <a class="search-active" href="#">
+                                    <i class="dlicon ui-1_zoom"></i>
+                                </a>
+                            </div>
+                            <div class="same-style header-off-canvas">
+                                <a class="header-aside-button" href="#">
+                                    <i class="dlicon ui-3_menu-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="header-small-mobile section-padding-1">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="mobile-logo logo-width">
+                            <a href="index.html">
+                                <img alt="" src="/asset/images/logo/logo.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mobile-header-right-wrap">
+                            <div class="header-right-wrap header-right-flex">
+                                <div class="same-style cart-wrap">
+                                    <a href="#" class="cart-active">
+                                        <i class="dlicon shopping_bag-20"></i>
+                                        <span class="count-style">02</span>
+                                    </a>
+                                </div>
+                                <div class="same-style header-off-canvas">
+                                    <a class="header-aside-button" href="#">
+                                        <i class="dlicon ui-3_menu-left"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- search start -->
+        <div class="search-content-wrap main-search-active">
+            <a class="search-close"><i class="dlicon ui-1_simple-remove"></i></a>
+            <div class="search-content">
+                <p>Start typing and press Enter to search</p>
+                <form class="search-form" action="#">
+                    <input type="text" placeholder="Search">
+                    <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                </form>
+            </div>
+        </div>
+        <!-- mini cart start -->
+        <div class="sidebar-cart-active">
+            <div class="sidebar-cart-all">
+                <a class="cart-close" href="#"><i class="dlicon ui-1_simple-remove"></i></a>
+                <div class="cart-content">
+                    <h3>Shopping Cart</h3>
+                    <ul>
+                        <li class="single-product-cart">
+                            <div class="cart-img">
+                                <a href="#"><img src="/asset/images/cart/cart-1.jpg" alt=""></a>
+                            </div>
+                            <div class="cart-title">
+                                <h4><a href="#">Bejewelled velvet sandals</a></h4>
+                                <span> 1 × $49.00	</span>
+                            </div>
+                            <div class="cart-delete">
+                                <a href="#">×</a>
+                            </div>
+                        </li>
+                        <li class="single-product-cart">
+                            <div class="cart-img">
+                                <a href="#"><img src="/asset/images/cart/cart-2.jpg" alt=""></a>
+                            </div>
+                            <div class="cart-title">
+                                <h4><a href="#">Contrast faux fur jacket</a></h4>
+                                <span> 1 × $49.00	</span>
+                            </div>
+                            <div class="cart-delete">
+                                <a href="#">×</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="cart-total">
+                        <h4>Subtotal: <span>$170.00</span></h4>
+                    </div>
+                    <div class="cart-checkout-btn">
+                        <a class="btn-hover cart-btn-style" href="/cart">view cart</a>
+                        <a class="no-mrg btn-hover cart-btn-style" href="/checkOut">checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- aside start -->
+        <div class="header-aside-active">
+            <div class="header-aside-wrap">
+                <a class="aside-close"><i class="dlicon ui-1_simple-remove"></i></a>
+                <div class="header-aside-content">
+                    <div class="mobile-menu-area">
+                        <div class="mobile-search">
+                            <form class="search-form" action="#">
+                                <input type="text" placeholder="Search entire store…">
+                                <button class="button-search"><i class="dlicon ui-1_zoom"></i></button>
+                            </form>
+                        </div>
+                        <div class="mobile-menu-wrap">
+                            <!-- mobile menu start -->
+                            <div class="mobile-navigation">
+                                <!-- mobile menu navigation start -->
+                                <nav>
+                                    <ul class="mobile-menu">
+                                        <li class="menu-item-has-children"><a href="index.html">Home</a>
+                                            <ul class="dropdown">
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 01</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index.html">Home 01</a></li>
+                                                        <li><a href="index-2.html">Home 02</a></li>
+                                                        <li><a href="index-3.html">Home 03</a></li>
+                                                        <li><a href="index-4.html">Home 04</a></li>
+                                                        <li><a href="index-5.html">Home 05</a></li>
+                                                        <li><a href="index-6.html">Home 06</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 02</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index-7.html">Home 07</a></li>
+                                                        <li><a href="index-8.html">Home 08</a></li>
+                                                        <li><a href="index-9.html">Home 09</a></li>
+                                                        <li><a href="index-10.html">Home 10</a></li>
+                                                        <li><a href="index-11.html">Home 11</a></li>
+                                                        <li><a href="index-12.html">Home 12</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Demo Group 03</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="index-13.html">Home 13</a></li>
+                                                        <li><a href="index-14.html">Home 14</a></li>
+                                                        <li><a href="index-15.html">Home 15</a></li>
+                                                        <li><a href="index-16.html">Home 16</a></li>
+                                                        <li><a href="index-17.html">Home 17</a></li>
+                                                        <li><a href="index-18.html">Home 18</a></li>
+                                                        <li><a href="index-19.html">Home 19</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children"><a href="#">Pages</a>
+                                            <ul class="dropdown">
+                                                <li><a href="about-us.html">About Us</a></li>
+                                                <li><a href="contact-us.html">Contact Page</a></li>
+                                                <li><a href="404.html">404 Page</a></li>
+                                                <li><a href="comming-soon.html">Comming Soon 01</a></li>
+                                                <li><a href="comming-soon-2.html">Comming Soon 02</a></li>
+                                                <li><a href="faq.html">FAQ</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="shop-fullwide.html">shop</a>
+                                            <ul class="dropdown">
+                                                <li class="menu-item-has-children"><a href="#">Shop Layout</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="shop-fullwide.html">Shop Fullwidth</a></li>
+                                                        <li><a href="shop-sidebar.html">Shop Sidebar</a></li>
+                                                        <li><a href="shop-metro.html">Shop Metro Layout</a></li>
+                                                        <li><a href="shop-3-col.html">Shop 03 Columns</a></li>
+                                                        <li><a href="shop-2-col.html">Shop 02 Columns</a></li>
+                                                        <li><a href="shop-collection-1.html">Shop Collection 01</a></li>
+                                                        <li><a href="shop-collection-2.html">Shop Collection 02</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Product Layout</a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="product-details.html">Single 01</a></li>
+                                                        <li><a href="product-details-2.html">Single 02</a></li>
+                                                        <li><a href="product-details-group.html">Grouped</a></li>
+                                                        <li><a href="product-details-sticky.html">Sticky Info</a></li>
+                                                        <li><a href="product-details-configurable.html">Configurable</a></li>
+                                                        <li><a href="product-details-thumbnail.html">Thumbnail</a></li>
+                                                        <li><a href="product-details-video.html">Video</a></li>
+                                                        <li><a href="product-details-affiliate.html">Affiliate</a></li>
+                                                        <li><a href="product-details-sidebar.html">Sidebar</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item-has-children"><a href="#">Shop Pages </a>
+                                                    <ul class="dropdown">
+                                                        <li><a href="my-account.html">My Account</a></li>
+                                                        <li><a href="checkout.html">Check Out</a></li>
+                                                        <li><a href="cart.html">Shopping Cart</a></li>
+                                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                                        <li><a href="order-tracking.html">Order Tracking</a></li>
+                                                        <li><a href="compare.html">Compare</a></li>
+                                                        <li><a href="login-register.html">login / register</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="shop-collection-1.html">Collection</a>
+                                            <ul class="dropdown">
+                                                <li><a href="shop-collection-1.html">Shop Collection 01</a></li>
+                                                <li><a href="shop-collection-2.html">Shop Collection 02</a></li>
+                                                <li><a href="shop-metro.html">Shop Metro Layout</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children "><a href="blog.html">Blog</a>
+                                            <ul class="dropdown">
+                                                <li><a href="blog.html">Blog Style 01</a></li>
+                                                <li><a href="blog-2.html">Blog Style 02</a></li>
+                                                <li><a href="blog-3.html">Blog Style 03</a></li>
+                                                <li><a href="blog-details.html">Single Post Style 01</a></li>
+                                                <li><a href="blog-details-2.html">Single Post Style 02</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="shop-instagram.html">Instagram Shop </a></li>
+                                    </ul>
+                                </nav>
+                                <!-- mobile menu navigation end -->
+                            </div>
+                            <!-- mobile menu end -->
+                        </div>
+                        <div class="mobile-curr-lang-wrap">
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-language-active" href="#">Language <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown lang-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">English (US)</a></li>
+                                        <li><a href="#">English (UK)</a></li>
+                                        <li><a href="#">Spanish</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-currency-active" href="#">Currency <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown curr-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">USD</a></li>
+                                        <li><a href="#">EUR</a></li>
+                                        <li><a href="#">Real</a></li>
+                                        <li><a href="#">BDT</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="single-mobile-curr-lang">
+                                <a class="mobile-account-active" href="#">My Account <i class="fa fa-angle-down"></i></a>
+                                <div class="lang-curr-dropdown account-dropdown-active">
+                                    <ul>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Creat Account</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-aside-menu">
+                        <nav>
+                            <ul>
+                                <li><a href="#">About Toro</a></li>
+                                <li><a href="#">Help Center</a></li>
+                                <li><a href="#">Collection</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">New Look</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <img src="/asset/images/icon-img/payments.png" alt="payment">
+                    <p>Pellentesque mollis nec orci id tincidunt. Sed mollis risus eu nisi aliquet, sit amet fermentum justo dapibus.</p>
+                    <div class="aside-contact-info">
+                        <ul>
+                            <li><i class="dlicon ui-2_time-clock"></i>Monday - Friday: 9:00 - 19:00</li>
+                            <li><i class="dlicon ui-1_email-84"></i>Info@la-studioweb.com</li>
+                            <li><i class="dlicon tech-2_rotate"></i>(+55) 254. 254. 254</li>
+                            <li><i class="dlicon ui-1_home-minimal"></i>Helios Tower 75 Tam Trinh Hoang - Ha Noi - Viet Nam</li>
+                        </ul>
+                    </div>
+                    <div class="social-icon-style mb-25">
+                        <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                        <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                        <a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a>
+                        <a class="behance" href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                    <div class="copyright">
+                        <p>© 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb-area section-padding-1 bg-gray breadcrumb-ptb-1">
+            <div class="container-fluid">
+                <div class="breadcrumb-content text-center">
+                    <div class="breadcrumb-title">
+                        <h2>Order Details</h2>
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="/">Home </a>
+                        </li>
+                        <li><span> &gt; </span></li>
+                        <li>
+                            <a href="/myAccount">Order </a>
+                        </li>
+                       
+                        <li><span> &gt; </span></li>
+                        <li class="active"> Order Details </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- cart start -->
+        <div class="cart-main-area pt-90 pb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <form action="/">
+                        <div class="page-content">
+                            <div class="container-fluid">
+                               
+                                
+                                <div class="row d-flex justify-content-center mt-3">
+                              
+                                    
+                                    <div class="col-xl-10">
+                                        <div class="card border shadow mb-3" style="border-radius: 0 !important;">
+                                            <div class="card-body">
+                                                <div class="row d-flex justify-content-sm-between">
+                                              <div class="col-md-4">
+                                                <p class="text-muted mb-2">Delivery Address</p>
+                                            
+                                                <h5 class="font-size-16"><%=item.deliverAddress.name %></h5>
+                                                <h6 class="font-size-16"><%=item.deliverAddress.addressData %></h6>
+                                                <h6 class="font-size-16"><%=item.deliverAddress.city%>, <%=item.deliverAddress.state%>, <%=item.deliverAddress.pincode %></h6>
+                                                <br>
+                                                <h6 class="font-size-16">Phone Number. <%=item.deliverAddress.mobile %></h6>
+                                                
+
+
+                                              </div>  
+                                               <div class="col-md-4">
+                                                <p class="text-muted mb-2">More actions</p>
+
+                                               </div >
+                                               
+                                               <div class="col-md-4">
+                                                <p class="text-muted mb-2">Status</p>
+                                                <% if (item.products[0].returnReason !== 'None') { %>
+                                                    <p style="color: #fc4f4f"><b>Return requested</b></p>
+                                                     <% } else { %>
+                                                <% if(item.products[0].status!=='cancelled') {%>
+                                                <button class="bg-dark d-flex flex-column"><a class=" mb-2 text-bg-dark" style="width: 6rem;" onclick="OrderCancel('<%=item.products[0]._id%>')">Cancel Order</a></button>
+                                                    
+                                                <br>
+                                                <!-- <div class="col-md-2"> -->
+                                                    <button class="bg-dark d-flex flex-column" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><a class="mb-2 text-bg-dark" style="width: 6rem;" onclick="returnItem('<%=item.products[0]._id%>')">Return Item</a></button>                                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="exampleModal" data-whatever="@mdo">Open modal for @mdo</button> -->
+                                                <!-- </div> -->
+                                               <% }else{%>
+                                                <h5 class="d-flex justify-content-start">You <span style="color: #fc4f4f; margin: 0 5px;"><b> cancelled </b></span> the Order</h5>
+                                                <%}%>
+                                                <%}%>
+                                                </div>
+
+
+                                                
+                                            
+                                               
+                                               
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-10">
+                                        <div class="card border shadow mb-3" style="border-radius: 0 !important;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                              <div class="col-md-4 d-flex align-items-center">
+                                                <img src="/static/productImage/<%=item.products[0].productId.image[0] %>" width="100" alt="">
+                                                <div class="m-5">
+                                                <h5 class="font-size-16"><%=item.products[0].productId.Name %></h5>
+                                                <h5 class="font-size-16">₹ <%=item.products[0].productId.Price %>.00</h5>
+                                                 </div>
+                                                
+                                                
+
+
+                                              </div>  
+                                               <div class="col-md-8 d-flex justify-content-center mt-3 align-items-center">
+                                                
+                                                <!-- <div class="row  ">	 -->
+                                                    <div class=" col-md-2 order-tracking completed">
+                                                        <span class="is-complete"></span>
+                                                        <p>Ordered<br><span>Mon, June 24</span></p>
+                                                    </div>
+                                                    <div class=" col-md-2 order-tracking completed ">
+                                                        <span class="is-complete"></span>
+                                                        <p>Shipped<br><span>Tue, June 25</span></p>
+                                                    </div>
+                                                    <div class=" col-md-2 order-tracking completed">
+                                                        <span class="is-complete"></span>
+                                                        <p>Out for delivery<br><span>Fri, June 28</span></p>
+                                                    </div>
+                                                    <div class=" col-md-2 order-tracking">
+                                                    <span class="is-complete"></span>
+                                                    <p>Delivered<br><span>Fri, June 28</span></p>
+                                                </div>				  
+                                                     
+                                              <!-- </div> -->
+
+
+                                               </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                            
+    
+                                
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <footer class="footer-area section-padding-1 border-top-3">
+                            <div class="container-fluid">
+                                <div class="footer-top pt-100 pb-60">
+                                    <div class="row">
+                                        <div class="footer-column footer-width-24">
+                                            <div class="footer-widget footer-about mb-30">
+                                                <a href="index.html">
+                                                    <img src="/asset/images/logo/logo.png" alt="logo">
+                                                </a>
+                                                <p>Lorem ipsum dolor sit amet, magna habemus ius ad, qui minimum voluptar</p>
+                                                <div class="social-icon-style-2 social-icon-hm4">
+                                                    <a class="facebook" href="#"><i class="fa fa-facebook"></i></a>
+                                                    <a class="twitter" href="#"><i class="fa fa-twitter"></i></a>
+                                                    <a class="youtube" href="#"><i class="fa fa-youtube"></i></a>
+                                                    <a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="footer-column footer-width-12">
+                                            <div class="footer-widget footer-info-list-2 mb-30">
+                                                <h3 class="footer-title">Company Link</h3>
+                                                <ul>
+                                                    <li><a href="#">About Us</a></li>
+                                                    <li><a href="#">Help Center</a></li>
+                                                    <li><a href="#">Our Team</a></li>
+                                                    <li><a href="#">Privacy Policy</a></li>
+                                                    <li><a href="#">The Blog</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer-column footer-width-14">
+                                            <div class="footer-widget footer-info-list-2 mb-30">
+                                                <h3 class="footer-title">Userful Link</h3>
+                                                <ul>
+                                                    <li><a href="#">Guides & Articles</a></li>
+                                                    <li><a href="#">Customer Reviews</a></li>
+                                                    <li><a href="#">Coupon Codes</a></li>
+                                                    <li><a href="#">Military Discount</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer-column footer-width-19">
+                                            <div class="footer-widget footer-info-list-2 footer-contect mb-30">
+                                                <h3 class="footer-title">Contact info</h3>
+                                                <ul>
+                                                    <li><i class="dlicon ui-2_time-clock"></i> Monday - Friday: 9:00 - 19:00</li>
+                                                    <li><i class="dlicon ui-1_email-83"></i> info@example.com</li>
+                                                    <li><i class="dlicon tech-2_rotate"></i> (+612) 2531 5600</li>
+                                                    <li><i class="dlicon ui-1_home-simple"></i> PO Box 1622 Colins Street West Victoria 8077 Australia</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer-column footer-width-29 mb-30">
+                                            <div class="contact-page-map">
+                                                <div id="contact-map">
+                                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.838709675939!2d144.95320007668528!3d-37.817246734238516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4dd5a05d97%3A0x3e64f855a564844d!2s121%20King%20St%2C%20Melbourne%20VIC%203000%2C%20Australia!5e0!3m2!1sen!2sus!4v1670477011653!5m2!1sen!2sus" style="border:0;width:100%;height:100%;" allowfullscreen="" loading="lazy"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-botoom">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="copyright-2 text-center">
+                                                <p>© 2021 <a href="https://hasthemes.com/">Toro.</a> All rights reserved.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                        <div class="support-lists">
+                            <ul>
+                                <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
+                                <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
+                                <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
+                            </ul>
+                        </div>
+                       
+                    </div>     
+                    
+                    <style>
+                        /* Custom CSS */
+                        .swal2-content {
+                          font-size: 14px; /* Adjust font size */
+                        }
+                        
+                        .swal2-confirm {
+                          background-color: black !important; /* Change button color to black */
+                        }
+                      </style>
+                    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>             
+    <!-- Modernizer JS -->
+    <script>
+
+        //order cancel
+        
+        function OrderCancel(cancel){
+            console.log(cancel,'')
+            fetch('/cancelOrder',{
+                method:'POST',
+                headers:{
+                    'Content-Type':"application/json"
+                },body:JSON.stringify({cancel})
+            })
+        }
+
+
+
+       // order return
+
+        function returnItem(item){
+
+            Swal.fire({
+  text: "Please provide a reason for returning the item",
+  input: "text",
+  inputAttributes: {
+    autocapitalize: "off"
+  },
+  showCancelButton: true,
+  confirmButtonText: "Submit",
+  showLoaderOnConfirm: true,
+  preConfirm: async (reason) => { 
+    try {
+      if (!reason) {
+        throw new Error('You must provide a reason for returning the item.');
+      }
+      return reason;
+    } catch (error) {
+      Swal.showValidationMessage(error.message);
+    }
+  },
+  allowOutsideClick: () => !Swal.isLoading()
+}).then((result) => {
+  if (result.isConfirmed) {
+    const reason = result.value;
+    fetch('/returnOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ reason,item})
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to send reason to backend.');
+      }
+    
+    })
+    .catch(error => {
+      console.error('Error sending reason to backend:', error);
+    });
+
+    // Optionally, you can show the user some feedback after successfully sending the reason
+    Swal.fire({
+      title: "Reason submitted!",
+      text: "Thank you for providing the reason.",
+    });
+  }
+});
+
+        }
+
+//             Swal.fire({
+//   text: "Please provide a reason for returning the item",
+//   input: "text",
+//   inputAttributes: {
+//     autocapitalize: "off"
+//   },
+//   showCancelButton: true,
+//   confirmButtonText: "Submit",
+//   showLoaderOnConfirm: true,
+//   preConfirm: async (login) => {
+//     try {
+//       const githubUrl = `
+//         https://api.github.com/users/${login}
+//       `;
+//       const response = await fetch(githubUrl);
+//       if (!response.ok) {
+//         return Swal.showValidationMessage(`
+//           ${JSON.stringify(await response.json())}
+//         `);
+//       }
+//       return response.json();
+//     } catch (error) {
+//       Swal.showValidationMessage(`
+//         Request failed: ${error}
+//       `);
+//     }
+//   },
+//   allowOutsideClick: () => !Swal.isLoading()
+// }).then((result) => {
+//   if (result.isConfirmed) {
+//     Swal.fire({
+//       title: `${result.value.login}'s avatar`,
+//       imageUrl: result.value.avatar_url
+//     });
+//   }
+// }); 
+
+
+
+    
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/asset/js/vendor/modernizr-3.11.7.min.js"></script>
+    <!-- jquery -->
+    <script src="/asset/js/vendor/jquery-v3.6.0.min.js"></script>
+    <!-- Popper JS -->
+    <script src="/asset/js/vendor/popper.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="/asset/js/vendor/bootstrap.min.js"></script>
+    <script src="/asset/js/plugins/owl-carousel.js"></script>
+    <script src="/asset/js/plugins/slick.js"></script>
+    <script src="/asset/js/plugins/jarallax.min.js"></script>
+    <script src="/asset/js/plugins/countdown.js"></script>
+    <script src="/asset/js/plugins/magnific-popup.js"></script>
+    <script src="/asset/js/plugins/instafeed.js"></script>
+    <script src="/asset/js/plugins/tilt.js"></script>
+    <script src="/asset/js/plugins/images-loaded.js"></script>
+    <script src="/asset/js/plugins/isotope.js"></script>
+    <script src="/asset/js/plugins/scrolloverflow-fullpage.js"></script>
+    <script src="/asset/js/plugins/fullpage.js"></script>
+    <script src="/asset/js/plugins/jquery-ui.js"></script>
+    <script src="/asset/js/plugins/jquery-ui-touch-punch.js"></script>
+    <script src="/asset/js/plugins/easyzoom.js"></script>
+    <script src="/asset/js/plugins/resizesensor.js"></script>
+    <script src="/asset/js/plugins/sticky-sidebar.js"></script>
+    <script src="/asset/js/plugins/scrollup.js"></script>
+    <script src="/asset/js/plugins/select2.min.js"></script>
+    <script src="/asset/js/plugins/cookie.js"></script>
+    <script src="/asset/js/plugins/bpopup.js"></script>
+    <script src="/asset/js/plugins/wow.js"></script>
+    <script src="/asset/js/plugins/ajax-mail.js"></script>
+    <!-- Main JS -->
+    <script src="/asset/js/main.js"></script>
+    <style>
+	.hh-grayBox {
+	background-color: #F8F8F8;
+	margin-bottom: 20px;
+	padding: 35px;
+  margin-top: 20px;
+}
+.pt45{padding-top:45px;}
+.order-tracking{
+	text-align: center;
+	width: 20.33%;
+	position: relative;
+	display: block;
+}
+.order-tracking .is-complete{
+	display: block;
+	position: relative;
+	border-radius: 50%;
+	height: 24px;
+	width: 24px;
+	border: 0px solid #AFAFAF;
+	background-color: #393939;
+	margin: 0 auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+	z-index: 2;
+}
+.order-tracking .is-complete:after {
+	display: block;
+	position: absolute;
+	content: '';
+	height: 14px;
+	width: 7px;
+	top: -2px;
+	bottom: 0;
+	left: 5px;
+	margin: auto 0;
+	border: 0px solid #AFAFAF;
+	border-width: 0px 2px 2px 0;
+	transform: rotate(45deg);
+	opacity: 0;
+}
+.order-tracking.completed .is-complete{
+	border-color: #fc4f4f;
+	border-width: 0px;
+	background-color: #fc4f4f;
+}
+.order-tracking.completed .is-complete:after {
+	border-color: #fff;
+	border-width: 0px 3px 3px 0;
+	width: 7px;
+	left: 11px;
+	opacity: 1;
+}
+.order-tracking p {
+	color: #A4A4A4;
+	font-size: 16px;
+	margin-top: 8px;
+	margin-bottom: 0;
+	line-height: 20px;
+}
+.order-tracking p span{font-size: 14px;}
+.order-tracking.completed p{color: #000;}
+.order-tracking::before {
+	content: '';
+	display: block;
+	height: 3px;
+	width: calc(100% - 40px);
+	background-color: #393939;
+	top: 13px;
+	position: absolute;
+	left: calc(-50% + 20px);
+	z-index: 0;
+}
+.order-tracking:first-child:before{display: none;}
+.order-tracking.completed:before{background-color: #fc4f4f;}
+
+</style>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/toro/toro/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 02 Mar 2024 15:22:33 GMT -->
+</html>

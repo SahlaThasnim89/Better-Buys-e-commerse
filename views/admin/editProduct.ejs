@@ -1,0 +1,404 @@
+<%- include('../layouts/adminHeader') %>
+
+                    <div class="d-flex">
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-sm" data-feather="search"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
+                                <form class="p-3">
+                                    <div class="search-box">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control rounded" placeholder="Search here...">
+                                            <i class="mdi mdi-magnify search-icon"></i>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                      </div>
+            
+                        <div class="p-3  ">
+
+                            <a class="text-white " href="/admin/logout"><i class='bx bx-log-out text-muted font-size-18 align-middle me-1'></i> <span class="align-middle">Logout</span></a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </header>    
+    
+
+
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-flex align-items-center justify-content-between">
+                                    <h4 class="mb-0">Edit Product</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
+                                            <li class="breadcrumb-item active">Edit Product</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="addproduct-accordion" class="custom-accordion">
+                                    <div class="card">
+
+                                        <div id="addproduct-billinginfo-collapse" class="collapse show" data-bs-parent="#addproduct-accordion">
+                                            <div class="p-4 border-top">
+                                                <form action="/admin/editProduct/<%= product._id %>" id="myForm" enctype="multipart/form-data" method="post" >
+                                                   <div class="row">
+                                                    <div class="col-lg-12 text-danger">
+                                                       <%= locals.msg %>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="form-label" for="productname">Product Name</label>
+                                                        <input id="productname" name="productName" value="<%=product.Name %>"  type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label class="form-label" for="manufacturerbrand">Quantity</label>
+                                                        <input id="manufacturerbrand"  name="stock" min="1" max="100" value="<%=product.Quantity  %>" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="mb-3">
+                                                            <label for="choices-single-default" class="form-label">Category</label>
+                                                            <select class="form-control" data-trigger name="category"
+                                                                id="choices-single-category">
+                                                                    <% category.forEach(value=>{%>
+                                                                        <option value="<%= value._id %>" ><%=value.CategoryName%></option>
+                                                                      <%})%>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                    <div class="row mx-3">
+                                                      
+                                                        <div class="col-lg-8">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="productdesc">Product Description</label>
+                                                                <textarea class="form-control" name="Description" id="productdesc"  rows="1"><%=product.Description%></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="price">Price</label>
+                                                                <input id="price" name="price"  value="<%=product.Price%>" min="0" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            
+                                                        </div>
+                                                    
+                                                    </div>
+                                                    <br>
+                                                    <div class="d-flex justify-content-center">
+                
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><label for="image1"><img id="i1" src="/static/productImage/<%=product.image[0] %>" height="140" width="100"><br> <br><a type="button" class="btn btn-outline-dark waves-effect waves-light">replace</a></label></td>
+                                                                    <input type="file" onchange="hello(this,'1')" name="images" hidden accept="image/*" id="image1">
+                                                                    <input type="text" hidden value="<%=product.image[0] %>" name="pic" id="">
+                                                                    <td><label for="image2"><img id="i2" src="/static/productImage/<%=product.image[1] %>" height="140" width="100"><br> <br><a type="button" class="btn btn-outline-dark waves-effect waves-light">replace</a></label></td>
+                                                                    <input type="file" onchange="hello(this,'2')" name="images" hidden accept="image/*" id="image2">
+                                                                    <input type="text" hidden value="<%=product.image[1] %>" name="pic" id="">
+                                                                    <td><label for="image3"><img id="i3" src="/static/productImage/<%=product.image[2] %>" height="140" width="100"><br> <br><a type="button" class="btn btn-outline-dark waves-effect waves-light">replace</a></label></td>
+                                                                    <input type="file" onchange="hello(this,'3')" name="images" hidden accept="image/*" id="image3">
+                                                                    <input type="text" hidden value="<%=product.image[2] %>" name="pic" id="">
+                                                                    <td><label for="image4"><img id="i4" src="/static/productImage/<%=product.image[3] %>" height="140" width="100"><br> <br><a type="button" class="btn btn-outline-dark waves-effect waves-light">replace</a></label></td>
+                                                                    <input type="file" onchange="hello(this,'4')" name="images" hidden accept="image/*" id="image4">
+                                                                    <input type="text" hidden value="<%=product.image[3] %>" name="pic" id="">
+                                                                </tr>
+                
+                                                            </tbody>
+                                                            
+                                                        </table>
+                                                        <br>
+                                                        <br>
+                                                        <input type="hidden" name="id" value="<%= product._id %>">
+                                                    </div>
+                                                    <div class="d-flex justify-content-center py-2">
+                                                    <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Edit</button> 
+                                                  </div>
+                                                </div>
+                                 
+
+                    </form>
+
+                    </div> <!-- container-fluid -->
+                </div>
+   
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+        <!-- Right Sidebar -->
+  <!-- End Page-content -->
+
+  <%- include('../layouts/adminFooter') %>                              
+
+</div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Right Sidebar -->
+<a href="#" class="right-bar-toggle layout-setting-btn" id="right-bar-toggle">
+<i class="icon-sm mb-2" data-feather="settings"></i> <span class="align-middle">Settings</span>
+</a>
+
+<div class="right-bar">
+<div data-simplebar class="h-100">
+<div class="rightbar-title d-flex align-items-center bg-primary p-3">
+
+    <h5 class="m-0 me-2 text-white">Settings</h5>
+
+    <a href="javascript:void(0);" class="right-bar-toggle-close ms-auto">
+        <i class="mdi mdi-close noti-icon"></i>
+    </a>
+</div>
+
+<!-- Settings -->
+<hr class="m-0" />
+
+<div class="p-4">
+    <h6 class="mb-3">Choose Layout</h6>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout"
+            id="layout-vertical" value="vertical">
+        <label class="form-check-label" for="layout-vertical">Vertical</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout"
+            id="layout-horizontal" value="horizontal">
+        <label class="form-check-label" for="layout-horizontal">Horizontal</label>
+    </div>
+
+    <h6 class="mt-4 mb-3 pt-2">Theme Mode</h6>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-mode"
+            id="layout-mode-light" value="light">
+        <label class="form-check-label" for="layout-mode-light">Light</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-mode"
+            id="layout-mode-dark" value="dark">
+        <label class="form-check-label" for="layout-mode-dark">Dark</label>
+    </div>
+
+    <h6 class="mt-4 mb-3">Layout Width</h6>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-width"
+            id="layout-width-fluid" value="fluid" onchange="document.body.setAttribute('data-layout-size', 'fluid')">
+        <label class="form-check-label" for="layout-width-fluid">Fluid</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-width"
+            id="layout-width-boxed" value="boxed" onchange="document.body.setAttribute('data-layout-size', 'boxed')">
+        <label class="form-check-label" for="layout-width-boxed">Boxed</label>
+    </div>
+
+    <h6 class="mt-4 mb-3">Layout Position</h6>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-position"
+            id="layout-position-fixed" value="fixed" onchange="document.body.setAttribute('data-layout-scrollable', 'false')">
+        <label class="form-check-label" for="layout-position-fixed">Fixed</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-position"
+            id="layout-position-scrollable" value="scrollable" onchange="document.body.setAttribute('data-layout-scrollable', 'true')">
+        <label class="form-check-label" for="layout-position-scrollable">Scrollable</label>
+    </div>
+
+    <h6 class="mt-4 mb-3">Topbar Color</h6>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="topbar-color"
+            id="topbar-color-light" value="light" onchange="document.body.setAttribute('data-topbar', 'light')">
+        <label class="form-check-label" for="topbar-color-light">Light</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="topbar-color"
+            id="topbar-color-dark" value="dark" onchange="document.body.setAttribute('data-topbar', 'dark')">
+        <label class="form-check-label" for="topbar-color-dark">Dark</label>
+    </div>
+
+    <div id="sidebar-setting">
+        <h6 class="mt-4 mb-3 sidebar-setting">Sidebar Size</h6>
+
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-size"
+                id="sidebar-size-default" value="default" onchange="document.body.setAttribute('data-sidebar-size', 'lg')">
+            <label class="form-check-label" for="sidebar-size-default">Default</label>
+        </div>
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-size"
+                id="sidebar-size-compact" value="compact" onchange="document.body.setAttribute('data-sidebar-size', 'md')">
+            <label class="form-check-label" for="sidebar-size-compact">Compact</label>
+        </div>
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-size"
+                id="sidebar-size-small" value="small" onchange="document.body.setAttribute('data-sidebar-size', 'sm')">
+            <label class="form-check-label" for="sidebar-size-small">Small (Icon View)</label>
+        </div>
+
+        <h6 class="mt-4 mb-3 sidebar-setting">Sidebar Color</h6>
+
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-color"
+                id="sidebar-color-light" value="light" onchange="document.body.setAttribute('data-sidebar', 'light')">
+            <label class="form-check-label" for="sidebar-color-light">Light</label>
+        </div>
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-color"
+                id="sidebar-color-dark" value="dark" onchange="document.body.setAttribute('data-sidebar', 'dark')">
+            <label class="form-check-label" for="sidebar-color-dark">Dark</label>
+        </div>
+        <div class="form-check sidebar-setting">
+            <input class="form-check-input" type="radio" name="sidebar-color"
+                id="sidebar-color-brand" value="brand" onchange="document.body.setAttribute('data-sidebar', 'brand')">
+            <label class="form-check-label" for="sidebar-color-brand">Brand</label>
+        </div>
+    </div>
+
+    <h6 class="mt-4 mb-3">Direction</h6>
+
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-direction"
+            id="layout-direction-ltr" value="ltr">
+        <label class="form-check-label" for="layout-direction-ltr">LTR</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="layout-direction"
+            id="layout-direction-rtl" value="rtl">
+        <label class="form-check-label" for="layout-direction-rtl">RTL</label>
+    </div>
+</div>
+
+</div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- JAVASCRIPT -->
+<script src="asset/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="asset/libs/metismenujs/metismenujs.min.js"></script>
+<script src="asset/libs/simplebar/simplebar.min.js"></script>
+<script src="asset/libs/feather-icons/feather.min.js"></script>
+
+<!-- apexcharts -->
+<script src="asset/libs/apexcharts/apexcharts.min.js"></script>
+<!-- Chart JS -->
+<script src="asset/js/pages/chartjs.js"></script>
+
+<script src="asset/js/pages/dashboard.init.js"></script>
+
+<script src="asset/js/app.js"></script>
+
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function hello(e,id){
+    
+        const img=document.getElementById(`i${id}`)
+        e.nextSibling.value=Date.now()+' - '+e.files[0].name
+     
+     
+        img.src=URL.createObjectURL(e.files[0])
+    }
+    const form = document.getElementById(`myForm`);
+    const inp = form.querySelectorAll('input')
+    form.addEventListener('submit',(data)=>{
+        let flag=true;
+        inp.forEach(elem=>{
+            console.log(elem);
+            if(elem.value.trim()==''){
+                console.log('succes');
+                flag=false
+            }
+        })
+        if(flag !==true){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "plaese fill the all inputs!",
+               
+            });
+            console.log('jjjj');
+            data.preventDefault()
+        }
+    })
+</script>
+
+
+<script defer src="https://cdn.crop.guide/loader/l.js?c=DJNDTB"></script>
+       
+            </div> <!-- end slimscroll-menu-->
+        </div>
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- JAVASCRIPT -->
+        <script src="asset/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="asset/libs/metismenujs/metismenujs.min.js"></script>
+        <script src="asset/libs/simplebar/simplebar.min.js"></script>
+        <script src="asset/libs/feather-icons/feather.min.js"></script>
+
+        <!-- choices js -->
+        <script src="asset/libs/choices.js/public/asset/scripts/choices.min.js"></script>
+
+        <!-- dropzone plugin -->
+        <script src="asset/libs/dropzone/min/dropzone.min.js"></script>
+
+         <!-- init js -->
+         <script src="asset/js/pages/ecommerce-choices.init.js"></script>
+
+        <script src="asset/js/app.js"></script>
+
+        <style>
+            .delete{
+                width: 5vw;
+                height: 3vh;
+               
+                color: rgb(13, 13, 13);
+            }
+        </style>
+    </body>
+
+<!-- Mirrored from themesdesign.in/symox-laravel/layouts/ecommerce-add-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 Feb 2024 16:07:04 GMT -->
+</html>

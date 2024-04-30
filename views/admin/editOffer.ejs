@@ -1,0 +1,459 @@
+<%- include('../layouts/adminHeader') %>
+
+                    <div class="d-flex">
+                        <div class="dropdown d-inline-block">
+                            <button type="button" class="btn header-item"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon-sm" data-feather="search"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
+                                <form class="p-3">
+                                    <div class="search-box">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control rounded" placeholder="Search here...">
+                                            <i class="mdi mdi-magnify search-icon"></i>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                      </div>
+            
+                        <div class="p-3  ">
+
+                            <a class="text-white " href="/admin/logout"><i class='bx bx-log-out text-muted font-size-18 align-middle me-1'></i> <span class="align-middle">Logout</span></a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </header> 
+    <br>
+    <br>
+
+    <div id="addproduct-billinginfo-collapse " class="collapse show" data-bs-parent="#addproduct-accordion">
+        <div class="p-4 border-top  d-flex justify-content-center pt-5    ">
+         
+            <div class="w-50 d-flex justify-content-center " style="background-color: white;">
+                <form action="/admin/editOffer/<%=offer._id %>" method="post">
+                    <div class="d-flex justify-content-end ">
+                       <a href="/admin/Coupen"> <i class="ri-close-line text-dark " style="font-size: 1.4rem;"></i></a>
+                    </div>
+                    <div style="width: 40vw;padding: 2rem;">
+                        <% if(locals.error){ %>
+                            <h4><%=locals.error %></h4> 
+                             <% } %>
+                        <div class="mb-3">
+                            <label class="form-label" for="productname">Offer Name</label>
+                            <input id="offername" name="offername" placeholder="Enter Product Name" type="text" value="<%=offer.offerName %>" class="form-control" required>
+                            <div class="text-danger d-flex justify-content-center">
+                                <%=locals.msg%>
+                                </div>
+                        </div>
+        
+                        <div class="mb-2">
+                            <label class="form-label" for="productdesc"> Discount</label>
+                            <input id="productname" name="discount" placeholder="Enter Discount" type="text" class="form-control" value="<%=offer.discount %>" required>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label class="form-label" for="productdesc"> Validity</label>
+                            <input id="productname" name="valid" placeholder="Enter Validity" type="text" class="form-control" value="<%=offer.expiry %>"   required>
+                        </div>
+                        <br>
+                     <div class="justify-content-center d-flex ">
+                       <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Edit Offer</button> 
+                    </div> 
+                    
+                    </div>
+            </form>
+            </div>
+        
+        </div>
+    </div> 
+     
+    
+
+     <!-- End Page-content -->
+
+                
+     <%- include('../layouts/adminFooter') %>                              
+
+</div>
+<!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+<!-- Right Sidebar -->
+<a href="#" class="right-bar-toggle layout-setting-btn" id="right-bar-toggle">
+<i class="icon-sm mb-2" data-feather="settings"></i> <span class="align-middle">Settings</span>
+</a>
+
+<div class="right-bar">
+<div data-simplebar class="h-100">
+    <div class="rightbar-title d-flex align-items-center bg-primary p-3">
+
+        <h5 class="m-0 me-2 text-white">Settings</h5>
+
+        <a href="javascript:void(0);" class="right-bar-toggle-close ms-auto">
+            <i class="mdi mdi-close noti-icon"></i>
+        </a>
+    </div>
+
+    <!-- Settings -->
+    <hr class="m-0" />
+
+    <div class="p-4">
+        <h6 class="mb-3">Choose Layout</h6>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout"
+                id="layout-vertical" value="vertical">
+            <label class="form-check-label" for="layout-vertical">Vertical</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout"
+                id="layout-horizontal" value="horizontal">
+            <label class="form-check-label" for="layout-horizontal">Horizontal</label>
+        </div>
+
+        <h6 class="mt-4 mb-3 pt-2">Theme Mode</h6>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-mode"
+                id="layout-mode-light" value="light">
+            <label class="form-check-label" for="layout-mode-light">Light</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-mode"
+                id="layout-mode-dark" value="dark">
+            <label class="form-check-label" for="layout-mode-dark">Dark</label>
+        </div>
+
+        <h6 class="mt-4 mb-3">Layout Width</h6>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-width"
+                id="layout-width-fluid" value="fluid" onchange="document.body.setAttribute('data-layout-size', 'fluid')">
+            <label class="form-check-label" for="layout-width-fluid">Fluid</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-width"
+                id="layout-width-boxed" value="boxed" onchange="document.body.setAttribute('data-layout-size', 'boxed')">
+            <label class="form-check-label" for="layout-width-boxed">Boxed</label>
+        </div>
+
+        <h6 class="mt-4 mb-3">Layout Position</h6>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-position"
+                id="layout-position-fixed" value="fixed" onchange="document.body.setAttribute('data-layout-scrollable', 'false')">
+            <label class="form-check-label" for="layout-position-fixed">Fixed</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-position"
+                id="layout-position-scrollable" value="scrollable" onchange="document.body.setAttribute('data-layout-scrollable', 'true')">
+            <label class="form-check-label" for="layout-position-scrollable">Scrollable</label>
+        </div>
+
+        <h6 class="mt-4 mb-3">Topbar Color</h6>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="topbar-color"
+                id="topbar-color-light" value="light" onchange="document.body.setAttribute('data-topbar', 'light')">
+            <label class="form-check-label" for="topbar-color-light">Light</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="topbar-color"
+                id="topbar-color-dark" value="dark" onchange="document.body.setAttribute('data-topbar', 'dark')">
+            <label class="form-check-label" for="topbar-color-dark">Dark</label>
+        </div>
+
+        <div id="sidebar-setting">
+            <h6 class="mt-4 mb-3 sidebar-setting">Sidebar Size</h6>
+
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-size"
+                    id="sidebar-size-default" value="default" onchange="document.body.setAttribute('data-sidebar-size', 'lg')">
+                <label class="form-check-label" for="sidebar-size-default">Default</label>
+            </div>
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-size"
+                    id="sidebar-size-compact" value="compact" onchange="document.body.setAttribute('data-sidebar-size', 'md')">
+                <label class="form-check-label" for="sidebar-size-compact">Compact</label>
+            </div>
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-size"
+                    id="sidebar-size-small" value="small" onchange="document.body.setAttribute('data-sidebar-size', 'sm')">
+                <label class="form-check-label" for="sidebar-size-small">Small (Icon View)</label>
+            </div>
+
+            <h6 class="mt-4 mb-3 sidebar-setting">Sidebar Color</h6>
+
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-color"
+                    id="sidebar-color-light" value="light" onchange="document.body.setAttribute('data-sidebar', 'light')">
+                <label class="form-check-label" for="sidebar-color-light">Light</label>
+            </div>
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-color"
+                    id="sidebar-color-dark" value="dark" onchange="document.body.setAttribute('data-sidebar', 'dark')">
+                <label class="form-check-label" for="sidebar-color-dark">Dark</label>
+            </div>
+            <div class="form-check sidebar-setting">
+                <input class="form-check-input" type="radio" name="sidebar-color"
+                    id="sidebar-color-brand" value="brand" onchange="document.body.setAttribute('data-sidebar', 'brand')">
+                <label class="form-check-label" for="sidebar-color-brand">Brand</label>
+            </div>
+        </div>
+
+        <h6 class="mt-4 mb-3">Direction</h6>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-direction"
+                id="layout-direction-ltr" value="ltr">
+            <label class="form-check-label" for="layout-direction-ltr">LTR</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="layout-direction"
+                id="layout-direction-rtl" value="rtl">
+            <label class="form-check-label" for="layout-direction-rtl">RTL</label>
+        </div>
+    </div>
+
+</div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<style>
+    @media (max-width:900px) {
+      .aa {
+        width: 100% !important;
+      }
+    }
+
+    @font-face {
+      font-family: req;
+      src: url(/fonts/611aee5b70cc88187b78993c_GRIFTER.otf);
+    }
+
+    .aa {
+      width: 50%;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0;
+    }
+
+    body {
+      overflow: hidden !important;
+    }
+
+    .container-scroller {
+      overflow: hidden;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none !important;
+    }
+    #imageL3,
+    #imageL1,
+    #imageL2,
+    #imageL0 {
+      display: none;
+      opacity: 0;
+      font-family: req;
+    }
+    #msgP{
+      letter-spacing: .1rem;
+    text-transform: uppercase;
+    font-family: req;
+    }
+    
+    .l:hover #imageL3,
+    .l:hover #imageL1,
+    .l:hover #imageL2,
+    .l:hover #imageL0 {
+      opacity: 1;
+    }
+  </style>
+<!-- JAVASCRIPT -->
+<script>
+
+    for (let i = 0; i < 3; i++) {
+      const icon = document.getElementById(`icon${i}`)
+      icon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        const text = document.getElementById(`p${i}`);
+        const im = document.getElementById(`i${i}`);
+        const imL = document.getElementById(`imageL${i}`);
+        const inp = document.getElementById(`images${i}`);
+        inp.value = '';
+        im.src = '';
+        im.style.display = 'none';
+        text.style.display = 'block';
+        imL.style.display = 'none';
+        icon.style.opacity = 0;
+      });
+    }
+  
+    const textInput = document.querySelectorAll('.text');
+    const err1 = document.getElementById('err1');
+    const submit11 = document.querySelector('.submit');
+  
+    document.getElementById('myForm').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+    const msgP = document.getElementById(`msgP`);
+    const form = document.getElementById('myForm')
+    const imgco = document.querySelector('.image')
+    form.addEventListener('submit', (ev) => {
+     
+     
+          const inp0 = document.getElementById(`images0`);
+          const inp1 = document.getElementById(`images1`);
+          const inp2 = document.getElementById(`images2`);
+          const inp3 = document.getElementById(`images3`);
+          if (inp1.value !== '' &&inp2.value!==''&&inp0.value!==''&&inp3.value!=='' ) {
+            form.submit()
+            
+          } else {
+          msgP.textContent='please fill images';
+          imgco.style.height='10rem'
+          ev.preventDefault();
+        }
+  
+      
+      })
+  
+    function hello(e, i) {
+      const text = document.getElementById(`p${i}`);
+      const im = document.getElementById(`i${i}`);
+      const imL = document.getElementById(`imageL${i}`);
+  
+      im.src = URL.createObjectURL(e.files[0]);
+      const icon = document.getElementById(`icon${i}`)
+      icon.style.opacity = 1;
+      im.style.display = 'block';
+      text.style.display = 'none';
+      imL.style.display = 'flex';
+    }
+  
+    const regex = /^[a-zA-Z-]/;
+  
+    textInput.forEach((inputElement, i) => {
+      const errorElement = document.getElementById(`err${i + 1}`);
+  
+      inputElement.addEventListener('input', function (event) {
+        const inputValue = event.target.value;
+  
+        if (inputValue.trim() !== '' && !/\d/.test(inputValue)) {
+          submit11.style.pointerEvents = 'all';
+          submit11.style.opacity = 1;
+  
+  
+  
+          errorElement.textContent = '';
+          inputElement.style.borderColor = 'green';
+        } else {
+          const submit11 = document.querySelector('.submit');
+          errorElement.textContent = 'Only contains alphabets, no space or numbers allowed.';
+          inputElement.style.borderColor = 'red';
+          submit11.style.pointerEvents = 'none';
+          submit11.style.opacity = 0.5;
+        }
+      });
+    });
+  
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+      textInput.forEach((inputElement, i) => {
+        const inputValue = inputElement.value.trim();
+        const regex = /^[a-zA-Z]/;
+  
+        if (!regex.test(inputValue)) {
+          document.getElementById(`err${i + 1}`).textContent = 'Only contains alphabets, no space or numbers allowed.';
+          inputElement.style.borderColor = 'red';
+          event.preventDefault();
+        }
+      });
+    });
+  
+  
+  
+  
+  </script>
+<script src="asset/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="asset/libs/metismenujs/metismenujs.min.js"></script>
+<script src="asset/libs/simplebar/simplebar.min.js"></script>
+<script src="asset/libs/feather-icons/feather.min.js"></script>
+
+<!-- apexcharts -->
+<script src="asset/libs/apexcharts/apexcharts.min.js"></script>
+<!-- Chart JS -->
+<script src="asset/js/pages/chartjs.js"></script>
+
+<script src="asset/js/pages/dashboard.init.js"></script>
+
+<script src="asset/js/app.js"></script>
+
+
+
+
+    <!-- <script>
+        function validateForm() {
+            var name = document.getElementById('productname').value;
+            var description = document.getElementById('productdesc').value;
+            var nameError = document.getElementById('nameError');
+            var descriptionError = document.getElementById('descriptionError');
+            nameError.innerHTML = "";
+            descriptionError.innerHTML = "";
+    
+            if (name.trim() === "") {
+                nameError.innerHTML = "Name is required";
+                return false;
+            }
+    
+            if (description.trim() === "") {
+                descriptionError.innerHTML = "Description is required";
+                return false;
+            }
+    
+            document.getElementById('categoryForm').submit();
+        }
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const form = document.getElementById(`myForm`);
+        const inp = form.querySelectorAll('input');
+        const textArea=document.querySelector('textarea');
+
+        form.addEventListener('submit',(data)=>{
+            let flag=true;
+            inp.forEach(elem=>{
+                if(elem.value.trim()==''&& textArea.value.trim()==''){
+                    flag=false
+                }
+            })
+            if(flag !==true){
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "plaese fill the all inputs!",
+                   
+                });
+                data.preventDefault()
+            }
+        })
+    </script>
+
+</body>
+
+</html>

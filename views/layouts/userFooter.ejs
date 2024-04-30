@@ -1,0 +1,21 @@
+const name = req.body.name;
+            const nameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+        
+            if (!nameRegex.test(name.trim())) {
+                req.flash('msg','Invalid Name Provided');
+              res.redirect("/signUp");
+            }
+
+            const mobileRegex = /^\d{10}$/;
+            if (!mobileRegex.test(req.body.phone)) {
+                req.flash('msg','Invalid Mobile Number Povided');
+              return res.redirect("/signUp");
+            }
+        
+
+            const email = req.body.email;
+            const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
+            if (!emailRegex.test(email)) {
+                req.flash('msg','Invalid Email Provided');
+              res.redirect('/signUp');
+            }
