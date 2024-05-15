@@ -37,7 +37,7 @@
         <div class="p-4 border-top  d-flex justify-content-center pt-5    ">
          
             <div class="w-50 d-flex justify-content-center " style="background-color: white;">
-                <form action="/admin/addCoupen" method="post" enctype="multipart/form-data">
+                <form action="/admin/addCoupen" method="post" enctype="multipart/form-data" id="coupenAdd">
                     <div class="d-flex justify-content-end ">
                        <a href="/admin/Coupen"> <i class="ri-close-line text-dark " style="font-size: 1.4rem;"></i></a>
                     </div>
@@ -46,25 +46,34 @@
                         <div class=" col-md-6 mb-1">
                             <label class="form-label" for="productname"> Name</label>
                             <input id="name" name="name" placeholder="Enter Name" type="text" class="form-control" required>
+                            <span id="NameError" style="color: red;"></span>
                            
                         </div>
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Validity</label>
-                            <input id="valid" name="valid" placeholder="Enter Validity" type="text" class="form-control" required>
+                            <input id="valid" name="valid" placeholder="Enter Validity" type="number" class="form-control" min="1" required>
                            
                         </div>
-                        <div class=" col-md-6 mb-3">
-                            <label class="form-label" for="productname"> Minimun Limit</label>
-                            <input id="minimum" name="minimum" placeholder="Enter Minimum Limit" type="text" class="form-control" required>
+                        <div class=" col-md-3 mb-3">
+                            <label class="form-label" for="productname"> Min. Limit</label>
+                            <input id="minimum" name="minimum" placeholder="Enter Minimum Limit" type="number" class="form-control" min="1" required>
                         </div>
-                        <div class=" col-md-6 mb-3">
-                            <label class="form-label" for="productname"> Maximum Limit</label>
-                            <input id="maximum" name="maximum" placeholder="Enter Maximum Limit" type="text" class="form-control" required>
+                        <div class=" col-md-3 mb-3">
+                            <label class="form-label" for="productname"> Max. Limit</label>
+                            <input id="maximum" name="maximum" placeholder="Enter Maximum Limit" type="number" class="form-control" min="1" required>
                         </div>
+                        <div class=" col-md-3 mb-3">
+                          <label class="form-label" for="productname"> Min. Purchase</label>
+                          <input id="minimum" name="minBuy" placeholder="Enter Minimum Amount to purchase" type="number" class="form-control" min="1" required>
+                      </div>
+                      <div class=" col-md-3 mb-3">
+                          <label class="form-label" for="productname"> Max. Purchase</label>
+                          <input id="maximum" name="maxBuy" placeholder="Enter Maximum Amount to purchase" type="number" class="form-control" min="1"  required>
+                      </div>
                         
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Offer</label>
-                            <input id="offer" name="offer" placeholder="Enter Offer Percentage" type="text" class="form-control" required>
+                            <input id="offer" name="offer" placeholder="Enter Offer Percentage" type="number" class="form-control" min="1" max="99" required>
                         </div>
                        
                         <div class=" col-md-6 mb-0">
@@ -126,7 +135,7 @@
                       </div>
                     
                      <div class="justify-content-center d-flex py-2">
-                       <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Add Coupen</button> 
+                       <button id="submitBtn" class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Add Coupen</button> 
                     </div> 
                     
                     </div>
@@ -448,6 +457,31 @@
     });
   
   
+
+    document.getElementById('name').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('NameError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('coupenAdd').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
   
   
   </script>

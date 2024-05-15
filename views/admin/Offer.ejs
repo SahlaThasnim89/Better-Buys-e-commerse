@@ -104,16 +104,9 @@
                                                                 <tr>
                                                                     <th>No</th>
                                                                     <th>Offer</th>
-                                                                    <th>Type</th>
-                                                                    <th>Item</th>
                                                                     <th>Discount</th>
-                                                                    <!-- <th>Old Price</th>
-                                                                    <th>New Price</th> -->
-                                                                    <th>Expiry</th>
                                                                      <th>Edit</th>
                                                                     <th>Delete</th>
-                                                                    <!-- <th>Status</th>
-                                                                    <th>Edit</th> -->
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -130,16 +123,7 @@
                                                                         <%=elements.offerName %>
                                                                     </td>
                                                                     <td>
-                                                                        <%=elements.Type %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%= elements.productId ? elements.productId.Name : elements.categoryId ? elements.categoryId.CategoryName : "Unknown" %>
-                                                                    </td>
-                                                                    <td>
                                                                         <%=elements.discount %> %
-                                                                    </td>
-                                                                    <td>
-                                                                        <%=elements.expiry %> days
                                                                     </td>
                                                                     
                                                                     <td>

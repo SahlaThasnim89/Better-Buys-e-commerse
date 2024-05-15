@@ -7,6 +7,7 @@ require('dotenv').config()
 
 
 
+
 const userController=require("../controllers/userController")
 const cartController=require('../controllers/cartController')
 const userProfileController=require('../controllers/userProfileController')
@@ -16,6 +17,7 @@ const CoupenController=require('../controllers/coupenController')
 
 
 const userMiddleware=require("../middleware/userMiddleware")
+
 
 
 
@@ -32,19 +34,15 @@ user_route.get('/forgetpw',userController.forgetpw)
 user_route.post('/forgetpw',userController.getEmail)
 user_route.post('/resetpw',userController.fpReset)
 
+//minicart
+user_route.post('/miniCart', userController.miniCart); 
 
 //shop
-user_route.get("/shop",userController.shoplist)
+user_route.get('/shop', userController.unifiedShop); 
+// user_route.get('/shop', userController.shoplist); 
+// user_route.get('/sort/:id',userController.lowTohigh) 
+// user_route.get('/cate/:id',userController.categoryWise) 
 user_route.get('/product/:id',userController.singleProduct)
-
-//sort
-user_route.get('/sort/:id',userController.lowTohigh)
-
-//category wise fiter
-user_route.get('/cate/:id',userController.categoryWise)
-
-
-
 
 //cart
 user_route.get('/cart',userMiddleware.isLogged,cartController.cartPage)
@@ -66,7 +64,7 @@ user_route.post('/update',cartController.edited)
 
 //userProfile
 user_route.get('/myAccount',userMiddleware.isLogged,userProfileController.myAccount)
-user_route.post('/reset',userProfileController.resetPassword)
+user_route.post('/reset',userMiddleware.isLogged,userProfileController.resetPassword)
 user_route.post('/addAddress',userProfileController.addAddress)
 user_route.post('/editAddresspage',userProfileController.editAddressPage)
 user_route.post('/updateAddress',userProfileController.updateAddress)
@@ -77,14 +75,24 @@ user_route.post('/deleteAddress',userProfileController.deleteAddress)
 
 //order
 user_route.post('/order',orderController.orderProduct)
-user_route.get('/orderDetails/:id',userMiddleware.isLogged,orderController.OrderDetails)
+user_route.get('/orderDetails/:id',orderController.OrderDetails)
 user_route.post('/cancelOrder',orderController.orderCancel)
 user_route.post('/returnOrder',orderController.returnItem)
 user_route.post('/razorPay',orderController.razorPay)
+// user_route.post('/successPayment',orderController.SuccessPayment)
+
+//retry Payment
+user_route.post('/retryPayment',orderController.retryPayment)
+//retry success
+user_route.post('/retrySuccess',orderController.retryUpdate)
 
 
-//wallet
-// user_route.post('/addToWallet',orderController.walletAmount)
+
+
+//blog
+user_route.get('/blog',userController.blog)
+//contact
+user_route.get('/contact',userController.Contact)
 
 
 //wishlist
@@ -96,7 +104,8 @@ user_route.post('/removeItem',wishlistController.removeItem)
 //coupen
 user_route.post('/applyCoupen',cartController.applyCoupen)
 
-
+//for invoice
+user_route.get('/invoice/:id',orderController.invoice)
 
 
 // thanks

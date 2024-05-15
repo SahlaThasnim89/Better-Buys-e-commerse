@@ -1,15 +1,20 @@
 const User=require('../model/userModel')
 const Coupen=require('../model/coupenModel')
-const moment = require('moment');
 const { name } = require('ejs');
-const expiryDate=moment()
 
 
 //admin side
 const coupen=async(req,res)=>{
     try {
+        const limit=3
+        const page=Number(req.query.page)||1;
+        const skip=(page-1)*limit;
+
+        const count=await Coupen.countDocuments()
+        const pages=Math.ceil(count/limit)
         const coupen=await Coupen.find()
-        res.render('admin/coupenPage',{coupen}) 
+        res.render('admin/coupenPage',{coupen,pages,
+            currentPage:page,}) 
     } catch (error) {
        console.log(error.message); 
     }
@@ -38,20 +43,23 @@ const generatecode = () => {
 const coupenAdding=async(req,res)=>{
     try {
         const images=req.file.filename
-        const {name,valid,minimum,maximum,offer,description}=req.body
-        const ExpiredOn = expiryDate.add(valid,'days')
+        const {name,valid,minimum,maximum,offer,description,minBuy,maxBuy}=req.body
+        const currentDate = new Date();
+        const expiryDate = new Date(currentDate);
+        expiryDate.setDate(currentDate.getDate() + parseInt(valid));
         const user = req.session.user;
         const Add=new Coupen({           
             name:name,
             validity:valid,
             offer:offer,
+            minPurchase:minBuy,
+            maxPurchase:maxBuy,
             minLimit:minimum,
             maxLimit:maximum,
             description:description,
             Image:images,
             coupenCode:generatecode(),
-            expiryDate:ExpiredOn.format('DD-MM-YYYY')
-
+            expiryDate:expiryDate
         })
         const newCoupen= await Add.save()
         res.redirect('/admin/Coupen')
@@ -72,11 +80,13 @@ const editPage=async(req,res)=>{
 
 const CoupenEditing=async(req,res)=>{
     try {
-        const {name,valid,offer,minimum,maximum,description,id}=req.body
+        const {name,valid,minimum,maximum,offer,description,minBuy,maxBuy,id}=req.body
         const edit=await Coupen.findOneAndUpdate({_id:id},{$set:{
         name:name,
         validity:valid,
         offer:offer,
+        minPurchase:minBuy,
+        maxPurchase:maxBuy,
         minLimit:minimum,
         maxLimit:maximum,
         description:description,

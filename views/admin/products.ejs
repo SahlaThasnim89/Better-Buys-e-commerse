@@ -108,7 +108,8 @@
                                                                 <th>Category</th>
                                                                
                                                                 <th>Price</th>
-                                                                
+                                                                <th>offer</th>
+                                                                <th>Offer Price</th>
                                                                 <th>Qty</th>
                                                                 <th>Description</th>
                                                                 <th>Date</th>
@@ -139,11 +140,21 @@
                                                                 <td>
                                                                     <%= value.CategoryName %>
                                                                 </td>
-                                                                
                                                                 <td>
-                                                                    <%=value.Price%>/-
+                                                                    <%= value.Price %>
                                                                 </td>
-                                                                <!-- <td></td> -->
+                                                                <td>
+                                                                    <select name="offer" id="offerget<%=value._id %>" onchange="offer('<%=value._id%>')">
+                                                                        <%  offers.forEach(element => { %>
+                                                                             <option value="<%=element.discount%>" <% if (element.discount===value.Offer){%> selected<%} %>><%=element.discount%></option>
+                                                                       <% }); %>                                                                       
+                                                                     </select>
+                                                                </td>
+                                                                <td id="offerPrice<%=value._id %>">
+                                                                    
+                                                                    <%=Math.round(value.OfferPrice)%>
+                                                                </td>
+                                                                
                                                                 <td>
                                                                     <%=value.Quantity%>
                                                                 </td>
@@ -210,46 +221,7 @@
                                         </div>
                                         <br>
                                         
-                                        <div class="row g-0 text-center text-sm-start">
-
-
-                                            <div class="col-sm-12 d-flex justify-content-center ">
-                                                <ul
-                                                    class="pagination pagination-rounded justify-content-center justify-content-sm-end mb-sm-0">
-                                                    <li class="page-item disabled">
-                                                        <a href="#" class="page-link"><i
-                                                                class="mdi mdi-chevron-left"></i></a>
-                                                    </li>
-    
-                                                    <% if (locals.currentPage > 1) { %>
-                                                    <li class="page-item active">
-                                                        <a href="?page=<%= locals.currentPage - 1 %>" class="page-link"></a>
-                                                    </li>
-                                                    <% } %>
-    
-                                                    <% for (let i = 1; i <= locals.pages; i++) { %>
-                                                    <li class="page-item <%= locals.currentPage === i ? 'active' : '' %>">
-                                                        <a href="?page=<%= i %>" class="page-link"><%= i %></a>
-                                                    </li>
-                                                    <% } %>
-                                                    <% if (locals.currentPage < locals.pages) { %>
-                                                    <li class="page-item">
-                                                        <a href="?page=<%= locals.currentPage + 1 %>" class="page-link"></a>
-                                                    </li>
-                                                    <% } %>
-                                                    <!-- <li class="page-item">
-                                                        <a href="#" class="page-link">4</a>
-                                                    </li>
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link">5</a>
-                                                    </li> -->
-                                                    <li class="page-item">
-                                                        <a href="#" class="page-link"><i
-                                                                class="mdi mdi-chevron-right"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div><!-- end col -->
-                                        </div><!-- end row -->
+                                        <%- include('../layouts/adPagination') %>
                                     </div>
                                     <!-- <ul class="pagination pagination-rounded justify-content-end mb-2">
                                         <li class="page-item disabled">
@@ -533,6 +505,30 @@ fetch('/admin/unlistProduct',{
     }
 });
 }
+
+
+function offer(productId){
+
+    const offer=document.getElementById('offerget'+productId).value
+    const offerPrice= document.getElementById('offerPrice'+productId)
+
+
+    
+fetch('/admin/offerSelect',{
+    method:'POST',
+    headers:{
+      'content-Type':'application/json'
+    },
+    body:JSON.stringify({productId,offer})
+  })
+  .then((res)=>res.json())
+.then((data)=>{
+    console.log(data,'ghjgyguytu');
+    offerPrice.textContent=data.price
+    console.log(offerPrice.textContent);
+})
+}
+
 
             </script>
 

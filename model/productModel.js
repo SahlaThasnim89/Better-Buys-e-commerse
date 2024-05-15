@@ -34,16 +34,13 @@ const ProductSchema = new mongoose.Schema({
   image: {
     type: Array,
     required: true
+  },
+  Offer:{
+    type:Number,
+  },
+  OfferPrice:{
+    type:Number
   }
-  // hasOffer:{
-  //   type:Boolean,
-  //   required:true,
-  //   default:false
-  // },
-  // Offer:{
-  //   type:mongoose.Schema.Types.ObjectId,
-  //   ref:"Offer"
-  // }
 
 })
 

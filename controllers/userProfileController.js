@@ -3,27 +3,39 @@ const User=require('../model/userModel')
 const Address=require('../model/addressModel')
 const Order=require('../model/orderModel')
 const Coupen=require('../model/coupenModel')
+const Cart=require('../model/cartModel')
 const bcrypt=require("bcrypt")
 const session=require('express-session')
+const Offer=require('../model/offerModel')
+const Wallet=require('../model/walletModel')
 
 
 const myAccount=async(req,res)=>{
+    const customer=await User.findOne({_id:req.session.user}).populate({path:'coupen.coupenId',model:'Coupen'})
     const addr=await Address.find({UserId:req.session.user})
     const order=await Order.find({UserId:req.session.user}).populate('products.productId').sort({orderDate:-1})
-    const coupen=await Coupen.find()
     const returnedOrder=await Order.find({UserId:req.session.user, 'products.status': 'returned'}).populate('products.productId')
-
+    const offersFound = await Offer.find();
+    const wallet=await Wallet.findOne({userId:req.session.user}).sort({'transaction.returnDate':-1})
     let total=0
 
         returnedOrder.forEach((item) => {
-            // const price = item.productId ? item.productId.Price : 0;
+            //const price = item.productId ? item.productId.Price : 0;
             const quantity = Number(item.products[0].quantity);
-            const price = Number(item.products[0].productId.Price);  
+            const price = Number(item.products[0].productId.OfferPrice);  
             total += price * quantity; 
         })
 
+
+        //refferral
+        const baseURL = "http://localhost:3000/register";
+        const referralCode =await User.findOne({_id:req.session.user})
+        const referralLink = `${baseURL}?ref=${referralCode._id}`;
+        const link=await User.findOneAndUpdate({_id:referralCode._id},{$set:{refferalLink:referralLink}},{new:true})    
+
+
     const msg=req.flash('msg')
-    res.render('user/myAccount',{msg,addr,Orders:order,coupen,returnedOrder,total})
+    res.render('user/myAccount',{msg,addr,Orders:order,returnedOrder,total,customer,link,wallet})
 }
 
 
@@ -47,17 +59,6 @@ const resetPassword=async(req,res)=>{
         console.log(error.message);
     }
 }
-
-
-
-// const address=async(req,res)=>{
-//     try {
-//         const address=
-//     } catch (error) {
-//         console.log(error.message);
-//     }
-// }
-
 
 
 
@@ -102,7 +103,6 @@ const addAddress=async(req,res)=>{
             const{id}=req.body
 
             const dataToEdit=await Address.findOne({'address._id':id},{'address.$':1})
-            console.log(dataToEdit);
             res.json({dataToEdit})
         } catch (error) {
             console.log(error.message);
@@ -145,6 +145,7 @@ const addAddress=async(req,res)=>{
             console.log(error.message);
         }
     }
+
 
 
 

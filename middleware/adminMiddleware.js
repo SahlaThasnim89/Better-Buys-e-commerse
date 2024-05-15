@@ -6,6 +6,7 @@ const isLogged=(req,res,next)=>{
         }else{
             next()
         } 
+        // next()
     } catch (error) {
         console.log(error.message);
     }
@@ -18,6 +19,8 @@ const isLogout=(req,res,next)=>{
         }else{
             next()
         }
+        // next()
+        
     } catch (error) {
         console.log(error.message);
     }

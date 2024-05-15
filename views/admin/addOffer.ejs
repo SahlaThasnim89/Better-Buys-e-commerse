@@ -45,7 +45,7 @@
                         <% if(locals.error){ %>
                             <h4><%=locals.error %></h4> 
                              <% } %>
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-12">
                             <label class="form-label" for="productname">Offer Name</label>
                             <input id="productname" name="name" placeholder="Enter Name" type="text" class="form-control" required>
                             <div class="text-danger d-flex justify-content-center">
@@ -53,48 +53,16 @@
                                 </div>
                         </div>
         
-                        <div class="mb-2 col-md-6">
+                        <div class="mb-2 col-md-12">
                             <label class="form-label" for="productdesc"> Discount</label>
-                            <input id="productname" name="discount" placeholder="Enter Discount" type="text" class="form-control" required>
+                            <input id="productname" name="discount" placeholder="Enter Discount" type="number" class="form-control" min="1" max="99" required>
                         </div>
 
-                        <div class="mb-2 col-md-4">
-                            <label class="form-label" for="validity">Validity</label>
-                            <input id="validity" name="validity" placeholder="Enter Validity" type="text" class="form-control" required>
-                        </div>
-                        
-                       <!-- Select for Type -->
-<div class="col-lg-4 col-sm-4">
-    <label class="form-label" for="type-select">Type</label>
-    <select class="form-select" id="type-select" name="type" required>
-        <option value="" selected>Select Type</option>
-        <option value="category">Category</option>
-        <option value="product">Product</option>
-    </select>
-</div>
+                    
 
 
-<!-- Category Dropdown (Initially Hidden) -->
-<div class="col-lg-4 col-sm-4" id="category" hidden>
-    <label class="form-label" for="category">Select Category</label>
-    <select class="form-select" name="TypeName">
-        <option value="" selected>Select Category</option>
-        <% category.forEach(cat => { %>
-            <option value="<%= cat._id %>"><%= cat.CategoryName %></option>
-        <% }); %>
-    </select>
-</div>
 
-<!-- Product Dropdown (Initially Hidden) -->
-<div class="col-lg-4 col-sm-4" id="product" hidden>
-    <label class="form-label" for="product">Select Product</label>
-    <select class="form-select" name="TypeName">
-        <option value="" selected>Select Product</option>
-        <% product.forEach(prod => { %>
-            <option value="<%= prod._id %>"><%= prod.Name %></option>
-        <% }); %>
-    </select>
-</div>
+
                            
                         <br>
                      <div class="justify-content-center d-flex  mt-3">
@@ -326,26 +294,7 @@
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function() {
-    const typeSelect = document.getElementById("type-select");
-    const categoryDiv = document.getElementById("category");
-    const productDiv = document.getElementById("product");
 
-    typeSelect.addEventListener("change", function() {
-        const selectedType = typeSelect.value;
-
-        if (selectedType === "category") {
-            categoryDiv.hidden = false;
-            productDiv.hidden = true;
-        } else if (selectedType === "product") {
-            productDiv.hidden = false;
-            categoryDiv.hidden = true;
-        } else {
-            categoryDiv.hidden = true;
-            productDiv.hidden = true;
-        }
-    });
-});
 
 
 

@@ -1,10 +1,24 @@
 const Category=require("../model/CategoryModel")
+const Offer=require("../model/offerModel")
 
 
 //to get category page
 const category=async(req,res)=>{
-    const category=await Category.find()
-    res.render('admin/categoryManage',{category})   
+    try {
+        const limit=4
+        const page=Number(req.query.page)||1;
+        const skip=(page-1)*limit;
+
+        const count=await Category.countDocuments()
+        const pages=Math.ceil(count/limit)
+        const category=await Category.find().skip(skip).limit(limit)
+        const offers=await Offer.find()
+        res.render('admin/categoryManage',{category,offers,pages,
+            currentPage:page,})   
+    } catch (error) {
+        console.log(error.message);
+    }
+    
  }
 
 

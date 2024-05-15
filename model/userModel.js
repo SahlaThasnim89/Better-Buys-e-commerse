@@ -45,7 +45,21 @@ const userSchema=new mongoose.Schema({
         isClaimed:{
             type:Boolean,
             default:false
+        },
+        validity:{
+            type:Date,
+            required:true
+        },
+        coupenCode:{
+            type:String,
+            required:true
         }
-    }]
+    }],
+    refferalLink:{
+        type:String,
+    }
 })
 module.exports=mongoose.model("User",userSchema)
+
+
+

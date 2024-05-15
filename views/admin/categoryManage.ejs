@@ -86,6 +86,7 @@
                                                   <tr>
                                                     <th scope="col">Sl.No </th>
                                                     <th scope="col">Name</th>
+                                                    <th scope="col">Offer</th>
                                                     <th scope="col">Description</th>
                                                     <th scope="col">Edit</th>
                                                     <th scope="col">Status</th>
@@ -101,6 +102,15 @@
                                                            <%= value.CategoryName %>
                                                             
                                                         </td>
+                                                        <td>
+                                                            
+                                                            <select name="offer" id="offerget<%=value._id %>" onchange="offer('<%=value._id%>')">
+                                                                <%  offers.forEach(element => { %>
+                                                                   
+                                                                     <option value="<%=element.discount%>" <% if (element.discount===value.Offer){%> selected<%} %>><%=element.discount%></option>
+                                                               <% }); %>                                                                       
+                                                             </select>
+                                                        </td>
                                                         <td><%=value.Description %></td>
                                                         
                                                         <td> <a href="/admin/editCategory/<%= value._id %>"> <button type="button" class="btn btn-dark" style="width: 50px;height: 40px;">
@@ -109,11 +119,11 @@
                                                      
                                                       <td>
                                                         <% if(value.is_blocked===false){%>
-                                                         <button type="button" class="btn btn-danger" id="block<%=value._id%>" onclick="categoryBlock('<%= value._id%>')">
+                                                         <button type="button" class="btn btn-dark" id="block<%=value._id%>" onclick="categoryBlock('<%= value._id%>')">
                                                              <i class="bx bx-block font-size-16 align-middle"></i>
                                                          </button>
                                                          <% }else{ %>
-                                                         <button type="button" class="btn btn-success" id="block<%=value._id%>" onclick="categoryBlock('<%= value._id%>')">
+                                                         <button type="button" class="btn btn-dark" id="block<%=value._id%>" onclick="categoryBlock('<%= value._id%>')">
                                                              <i class="bx bx-check-double font-size-16 align-middle"></i>
                                                          </button>
                                                          <%}%>
@@ -121,7 +131,7 @@
 
 
 
-                                                    <td onclick="deleteRow('<%=value._id%>')"> <button type="button" class="btn btn-danger" style="width: 50px;height: 40px;">
+                                                    <td onclick="deleteRow('<%=value._id%>')"> <button type="button" class="btn btn-dark" style="width: 50px;height: 40px;">
                                                       <i class="mdi mdi-trash-can d-block font-size-4"></i>
                                                   </button> </td>
                                                     </tr>
@@ -129,6 +139,9 @@
                                                       <% }) %>
                                                 </tbody>
                                             </table>
+                                            <br>
+                                            <br>
+                                            <%- include('../layouts/adPagination') %>
                                         </div>
                                         <!-- <div class="row mt-4">
                                             <div class="col-sm-6">
@@ -362,14 +375,14 @@
 
    var btn = document.getElementById("block" + id);
    
-   if (btn.classList.contains('btn-danger')) {
+   if (btn.classList.contains('btn-dark')) {
                
-               btn.classList.remove('btn-danger');
+               btn.classList.remove('btn-dark');
                btn.classList.add('btn-success');
                btn.innerHTML = '<i class="bx bx-check-double font-size-16 align-middle"></i>';
            } else {
-               btn.classList.remove('btn-success');
-               btn.classList.add('btn-danger');
+               btn.classList.remove('btn-dark');
+               btn.classList.add('btn-dark');
                btn.innerHTML = '<i class="bx bx-block font-size-16 align-middle"></i>';
            }
     
@@ -432,6 +445,26 @@
   })
 
     }
+
+
+
+    function offer(categoryId){
+
+const offer=document.getElementById('offerget'+categoryId).value
+
+
+
+
+fetch('/admin/CategoryOfferSelect',{
+method:'POST',
+headers:{
+  'content-Type':'application/json'
+},
+body:JSON.stringify({categoryId,offer})
+})
+
+
+}
                   </script>
 
         <!-- JAVASCRIPT -->

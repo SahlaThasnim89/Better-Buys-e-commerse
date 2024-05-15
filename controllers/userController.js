@@ -3,15 +3,44 @@ const bcrypt = require("bcrypt")
 const nodemailer = require("nodemailer")
 const Product = require("../model/productModel")
 const Offer = require('../model/offerModel')
+const Category = require('../model/CategoryModel')
+const Cart = require('../model/cartModel')
+const Wallet = require('../model/walletModel')
+
+
 
 const home = async (req, res) => {
-    const activeProd = await Product.find({ is_listed: true })
-    res.render("user/homepage", { haveuser: req.session.user, product: activeProd })
-}
+    try {
+        const activeProd = await Product.find({ is_listed: true });
+        const cart = await Cart.findOne({ clientId: req.session.user }).populate('products.productId');
+
+        if (!cart) {
+            console.error('Cart not found for user:', req.session.user);
+            return res.render("user/homepage", { haveuser: req.session.user, product: activeProd, cart: [] });
+        }
+        if (!cart.products || cart.products.length === 0) {
+            console.error('No products in the cart');
+            return res.render("user/homepage", { haveuser: req.session.user, product: activeProd, cart: [] });
+        }
+
+        const products = cart.products;
+        res.render("user/homepage", { haveuser: req.session.user, product: activeProd, cart: products });
+
+    } catch (error) {
+        console.error('Error in home function:', error);
+        req.flash('msg', 'An error occurred while loading the homepage.');
+    }
+};
+
 
 //for registration form
 const registrationForm = async (req, res) => {
     try {
+        const linkId = req.query.ref
+        const referer = await User.findOne({ _id: linkId })
+        if(referer){
+        req.session.refferer = referer._id
+        }
         const msg = req.flash('err')
         res.render("user/register", { msg })
     } catch (error) {
@@ -87,7 +116,6 @@ function combineOTP(parts) {
 
 const OtpMailSending = async (userData, otp) => {
     try {
-        // Configure Nodemailer transporter
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -96,9 +124,6 @@ const OtpMailSending = async (userData, otp) => {
             },
         })
 
-
-
-
         const mailOptions = {
             from: 'sahlathasnim2002@gmail.com',
             to: userData.email,
@@ -106,7 +131,6 @@ const OtpMailSending = async (userData, otp) => {
             text: `Your OTP is:${otp}`
         }
 
-        // Send email and handle the response
         const info = await transporter.sendMail(mailOptions)
         console.log(`Email sent:${info}`);
     } catch (error) {
@@ -123,25 +147,50 @@ const EnteredOTP = async (req, res) => {
             req.body.digit3,
             req.body.digit4
         ]
-        console.log(otpParts);
-
-        // Combine the entered OTP parts into a single OTP
         const enteredOTP = combineOTP(otpParts)
-        console.log('enteredOTP:', enteredOTP);
-
 
         if (req.session.otp) {
-            // Retrieve the stored OTP from the session
             const storedOTP = req.session.otp
-            console.log('storedOTP:', storedOTP)
+            console.log(storedOTP);
 
-            // Check if the entered OTP is valid
+            // Check entered OTP is valid
             if (enteredOTP == storedOTP) {
                 const user = new User(req.session.userData)
                 await user.save();
                 req.session.user = user._id
-                console.log(user);
+                const wallet=new Wallet({userId:req.session.user})
+                await wallet.save()
+                const find = await User.findOne({ _id: req.session.refferer })
+                if (find) {
+                    const refferringBonus = await Wallet.findOneAndUpdate({ userId: find._id },
+                        {
+                            $inc: { balance: 100 },
+                            $push: {
+                                transaction: {
+                                    amount: 100,
+                                    type: 'credit',
+                                    description: 'Refferal Bonus'
+                                }
+                            }
+                        },
+                        { new: true, upsert: true }
+                    );
 
+                    const ReferrelBonus = await Wallet.findOneAndUpdate({ userId: req.session.user },
+                        {
+                            $inc: { balance: 50 },
+                            $push: {
+                                transaction: {
+                                    amount: 50,
+                                    type: 'credit',
+                                    description: 'Welcome Bonus'
+                                }
+                            }
+                        },
+                        { new: true, upsert: true }
+                    );
+                }
+                req.session.refferer = null
                 res.redirect('/')
             } else {
                 req.flash('err', 'OTP is incorrect');
@@ -150,8 +199,6 @@ const EnteredOTP = async (req, res) => {
 
         } else {
             const stored = req.session.otpforget
-            console.log('stored:', stored)
-            console.log(enteredOTP, 'aaaaaaaaaaaaa');
             if (enteredOTP == stored) {
                 res.render('user/forgotReset')
             } else {
@@ -172,7 +219,6 @@ const resendOtp = async (req, res) => {
         req.session.otp = undefined
         if (req.session.otp === undefined) {
             req.session.otp = generateOTP()
-            console.log(req.session.otp);
             await OtpMailSending(req.session.userData, req.session.otp);
             res.redirect('/otp')
         }
@@ -202,7 +248,7 @@ const loginUser = async (req, res) => {
                     req.session.user = checkUser._id
                     res.redirect('/')
                 } else {
-                    const errormsg = "Password is incorrect";
+                    const errormsg = "Password is invalid";
                     req.flash("err", errormsg);
                     res.redirect('/login')
                 }
@@ -266,51 +312,107 @@ const fpReset = async (req, res) => {
 }
 
 
-//shop page
-
-        const shoplist = async (req, res) => {
-            try {
-              const limit = 12;
-              const page = Number(req.query.page) || 1;
-              const skip = (page - 1) * limit;
-          
-              const count = await Product.countDocuments({ is_listed: true });
-              const pages = Math.ceil(count / limit);
-          
-              let productAdmin = await Product.find({ is_listed: true })
-                                             .populate('Category')
-                                             .skip(skip)
-                                             .limit(limit);
-          
-              productAdmin = productAdmin.filter(
-                product => product.Category && !product.Category.is_blocked
-              );
-          
-              if (req.query.search) {
-                const content = new RegExp(`.*${req.query.search.trim()}.*`, 'i');
-                productAdmin = await Product.find({
-                  $and: [
-                    { $or: [{ Name: content }, { Description: content }] },
-                    { is_listed: true },
-                  ],
-                }).populate('Category').exec();
-              }
-          
-              const noMatchingItems = productAdmin.length === 0;
-              const offersFound = await Offer.find();
-          
-              res.render('user/shop', {
-                productAdmin,
-                pages,
-                currentPage: page,
-                noMatchingItems,
-                offersFound,
-              });
+//mini cart
+const miniCart = async (req, res) => {
+    try {
+        const cart = await Cart.findOne({ clientId: req.session.user }).populate('products.productId');
+        console.log(cart);
+        if (cart) {
+            res.send({cart})
+        } else {
+            res.send({ set: 'No products in cart' })
+        }
 
     } catch (error) {
         console.log(error.message);
     }
 }
+
+//shop page
+const unifiedShop = async (req, res) => {
+    try {
+        const limit = 12;
+        const page = Number(req.query.page) || 1;
+        const skip = (page - 1) * limit;
+
+        const sortOptions = {
+            lowtoHigh: { Price: 1 },
+            highTolow: { Price: -1 },
+            alphabetic: { Name: 1 },
+            reverseAplphabet: { Name: -1 },
+            latest: { _id: -1 }
+        };
+
+        const sort = sortOptions[req.query.sort] || { Name: -1 };
+
+        let query = { is_listed: true };
+
+        if (req.query.category) {
+            const categoryName = req.query.category;
+            const productsInCategory = await Product.aggregate([
+                {
+                    $lookup: {
+                        from: 'categories',
+                        localField: 'Category',
+                        foreignField: '_id',
+                        as: 'category',
+                    },
+                },
+                { $unwind: '$category' },
+                {
+                    $match: {
+                        'category.CategoryName': categoryName,
+                        is_listed: true,
+                    },
+                },
+            ]);
+
+            const productIds = productsInCategory.map(p => p._id);
+            query._id = { $in: productIds };
+        }
+
+        if (req.query.search) {
+            const content = new RegExp(`.*${req.query.search.trim()}.*`, 'i');
+            query = {
+                $and: [
+                    query,
+                    { $or: [{ Name: content }] },
+                ],
+            };
+        }
+
+        const count = await Product.countDocuments(query);
+        const pages = Math.ceil(count / limit);
+
+        let products = await Product.find(query)
+            .populate('Category')
+            .skip(skip)
+            .limit(limit)
+            .sort(sort);
+
+        const noMatchingItems = products.length === 0;
+        const offersFound = await Offer.find();
+        const cart = await Cart.findOne({ clientId: req.session.user }).populate('products.productId');
+
+        res.render('user/shop', {
+            productAdmin: products,
+            pages,
+            currentPage: page,
+            noMatchingItems,
+            offersFound,
+            cart: cart ? cart.products : [],
+        });
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("An error occurred");
+    }
+};
+
+
+
+
+
 
 
 
@@ -319,10 +421,40 @@ const singleProduct = async (req, res) => {
         const product = req.params.id
         if (product.length === 24) {
             const selected = await Product.findOne({ _id: product }).populate('Category')
+            const related = await Product.find()
             if (selected) {
+                const relatedProducts = related
+                    .filter(
+                        (prod) =>
+                            prod.Category._id.toString() === selected.Category._id.toString() &&
+                            prod._id.toString() !== selected._id.toString()
+                    )
+                    .slice(0, 5);
+
+
+                function getLastWord(str) {
+                    const words = str.trim().split(/\s+/);
+                    return words[words.length - 1];
+                }
+
+                const selectedProductName = selected.Name;
+                const lastWordOfSelected = getLastWord(selectedProductName);
+
+                const relatedItem = related
+                    .filter((prod) => {
+                        const lastWordOfProduct = getLastWord(prod.Name);
+                        return lastWordOfProduct === lastWordOfSelected && prod._id.toString() !== selected._id.toString();
+                    })
+                    .slice(0, 5);
+
+
                 const offersFound = await Offer.find()
-                res.render('user/productDesc', { data: selected,
-                                                    offersFound})
+                res.render('user/productDesc', {
+                    data: selected,
+                    offersFound,
+                    relatedProducts,
+                    relatedItem
+                })
             } else {
                 res.redirect('/error')
             }
@@ -335,111 +467,6 @@ const singleProduct = async (req, res) => {
     }
 
 }
-
-
-
-//sort
-const lowTohigh = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { search } = req.query;
-  
-      const sortOptions = {
-        lowtoHigh: { Price: 1 },
-        highTolow: { Price: -1 },
-        alphabetic: { Name: 1 },
-        reverseAplphabet: { Name: -1 },
-      };
-  
-      const sort = sortOptions[id] || { Name: -1 };
-      let arrange = await Product.find({ is_listed: true }).sort(sort);
-  
-      if (search) {
-        const content = new RegExp(`.*${search.trim()}.*`, 'i');
-        arrange = await Product.find({
-          $and: [
-            { $or: [{ Name: content }, { Description: content }, { date: content }] },
-            { is_listed: true },
-          ],
-        }).populate('Category').exec();
-      }
-  
-      const noMatchingItems = arrange.length === 0;
-      const offersFound = await Offer.find();
-  
-      res.render('user/shop', { productAdmin: arrange, noMatchingItems, offersFound });
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-
-
-        const categoryWise = async (req, res) => {
-            try {
-              const { id } = req.params;
-              const { search } = req.query;
-          
-              const sortOptions = {
-                lowtoHigh: { Price: 1 },
-                highTolow: { Price: -1 },
-                alphabetic: { Name: 1 },
-                reverseAplphabet: { Name: -1 },
-              };
-          
-              const sort = sortOptions[req.query.sort] || { Name: -1 };
-          
-              let productData = await Product.aggregate([
-                {
-                  $lookup: {
-                    from: 'categories',
-                    localField: 'Category',
-                    foreignField: '_id',
-                    as: 'category',
-                  },
-                },
-                { $unwind: '$category' },
-                {
-                  $match: {
-                    'category.CategoryName': id,
-                    is_listed: true,
-                  },
-                },
-              ]);
-          
-              productData = await Product.find({
-                _id: { $in: productData.map((p) => p._id) },
-              })
-                .populate('Category')
-                .sort(sort);
-          
-              if (search) {
-                const content = new RegExp(`.*${search.trim()}.*`, 'i');
-                productData = await Product.find({
-                  $and: [
-                    { _id: { $in: productData.map((p) => p._id) } },
-                    { $or: [{ Name: content }, { Description: content }] },
-                    { is_listed: true },
-                  ],
-                })
-                  .populate('Category')
-                  .sort(sort);
-              }
-          
-              const noMatchingItems = productData.length === 0;
-              const offersFound = await Offer.find();
-          
-              res.render('user/shop', {
-                productAdmin: productData,
-                noMatchingItems,
-                offersFound,
-              });
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-
 
 
 
@@ -457,20 +484,15 @@ const page404 = async (req, res) => {
     res.render("user/404")
 }
 
-// const home=async(req,res)=>{
-//     res.render("user/shop")
-// }
+const blog=async(req,res)=>{
+    res.render("user/blog")
+}
+
+const Contact=async(req,res)=>{
+    res.render("user/contact")
+}
 
 
-
-//for user side offers on products
-// const applyOffer=async(req,res)=>{
-//  try {
-//     const 
-//  } catch (error) {
-//     console.log(error.message);
-//  }
-// }
 
 
 
@@ -491,12 +513,15 @@ module.exports = {
     getEmail,
     fpReset,
 
-    shoplist,
+    miniCart,
+    unifiedShop,
+    // lowTohigh,
+    // categoryWise,
     singleProduct,
-    lowTohigh,
-    categoryWise,
-
+    
+    blog,
     page404,
+    Contact,
 
 
     thanks

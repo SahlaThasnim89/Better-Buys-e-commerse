@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/users_list")
+mongoose.connect("mongodb+srv://Sahla:123sahala@ecomarese.ee0tfwe.mongodb.net/?retryWrites=true&w=majority&appName=Ecomarese")
 const morgan=require('morgan')
 const express=require("express")
 const session=require("express-session")
@@ -8,6 +8,7 @@ const path = require('path')
 const flash = require('express-flash');
 const Swal = require('sweetalert2')
 require ('dotenv').config()
+
 
 
 
@@ -36,7 +37,7 @@ Swal.fire({
 //load static assets
 app.use("/static",express.static(path.join(__dirname,"public")))
 app.use("/asset",express.static(path.join(__dirname,"public/user/asset")))
-app.use("/asset",express.static(path.join(__dirname,"public/admin/asset")))
+app.use("/asset",express.static(path.join(__dirname,"public/admin/asset/")))
 
 
 
@@ -48,6 +49,10 @@ app.use("/",userRoute)
 //for admin
 const adminRoute=require('./routes/adminRoute')
 app.use('/admin',adminRoute)
+
+app.get('*',(req,res)=>{
+  res.redirect('/error')
+})
 
 
 

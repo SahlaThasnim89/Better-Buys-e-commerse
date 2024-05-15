@@ -17,23 +17,26 @@ const product = async (req, res) => {
         const pages=Math.ceil(count/limit)
 
 
-        const product = await Product.find().populate('Category').skip(skip).limit(limit)// Use .populate() to replace the ObjectId with the actual Category document
-        // Modify the product data to include the category name
+        const product = await Product.find().populate('Category').skip(skip).limit(limit)
         const modifiedProducts = product.map(product => ({
             Name: product.Name,
             Description: product.Description,
-            CategoryName: product.Category ? product.Category.CategoryName : 'Uncategorized', // Extract CategoryName from the populated Category
+            CategoryName: product.Category ? product.Category.CategoryName : 'Uncategorized', 
             Price: product.Price,
             is_listed: product.is_listed,
             Quantity: product.Quantity,
             date: product.date,
             image: product.image,
-            _id: product._id
+            _id: product._id,
+            OfferPrice:product.OfferPrice,
+            Offer:product.Offer
         }));
-        // console.log("modif : ", Products);
+        const offers=await Offer.find()
         res.render('admin/products', { product: modifiedProducts ,
                                         pages,
-                                        currentPage:page});
+                                        currentPage:page,
+                                        offers
+                                    });
     } catch (error) {
         console.error(error);
     }
@@ -59,7 +62,8 @@ const addingProduct = async (req, res) => {
             Price: req.body.price,
             Quantity: req.body.stock,
             date: currentDate.format('DD/MM/YYYY'),
-            image: images
+            image: images,
+            OfferPrice:req.body.price
         })
         console.log(addedProduct);
         const newCategory = await addedProduct.save()
@@ -88,7 +92,8 @@ const editProduct = async (req, res) => {
 //to get edited product data in list
 const editedProductData = async (req, res) => {
     try {
-        const { productName, Description, category, price, stock,id } = req.body
+        const { productName, Description, category, price, stock,id,offer } = req.body
+        const newPrice=price-(price*offer/100)
         if(price<=0 || stock<0 ){
             req.flash('err','price and quantity cannot be a negative value')
             res.redirect(`/admin/editProduct/${id}`)
@@ -119,7 +124,8 @@ const editedProductData = async (req, res) => {
             Price: price,
             Quantity: stock,
             date: currentDate.format('DD/MM/YYYY'),
-            image: img
+            image: img,
+            OfferPrice:newPrice
         }, { new: true })
       
         if (edited) {

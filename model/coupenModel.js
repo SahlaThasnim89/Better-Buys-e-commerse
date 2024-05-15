@@ -10,7 +10,7 @@ const coupenSchema=new mongoose.Schema({
         required:true
     },
     expiryDate:{
-        type:String,
+        type:Date,
         required:true   
     },
     offer:{
@@ -19,6 +19,14 @@ const coupenSchema=new mongoose.Schema({
     },
     Image:{
         type:String,
+        required:true
+    },
+    minPurchase:{
+        type:Number,
+        required:true
+    },
+    maxPurchase:{
+        type:Number,
         required:true
     },
     minLimit:{
@@ -35,6 +43,10 @@ const coupenSchema=new mongoose.Schema({
     },
     coupenCode:{
         type:String,
+        required:true
+    },
+    expiryDate:{
+        type:Date,
         required:true
     }
 

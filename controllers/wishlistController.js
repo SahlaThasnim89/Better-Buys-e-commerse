@@ -8,7 +8,6 @@ const wishList=async(req,res)=>{
     try {
         const {user}=req.session
         const wishlist= await Wishlist.findOne({UserId:user}).populate('products.ProductId')
-        // console.log(wishlist,'drdrdrdrrdrrdd');
         res.render('user/wishlist',{data:wishlist})
     } catch (error) {
         console.log(error.message);

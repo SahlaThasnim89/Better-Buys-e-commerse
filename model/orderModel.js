@@ -5,11 +5,20 @@ const orderSchema= new mongoose.Schema({
         required:true,
         ref:'User'
     },
+    orderId: {
+        type: String,
+        unique: true,
+        required: true,
+      },
     products:[{
         productId:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,
             ref:"Product"
+        },
+        productPrice:{
+            type:Number,
+            required:true
         },
         quantity:{
             type:String,
@@ -18,7 +27,7 @@ const orderSchema= new mongoose.Schema({
         },
         status:{
             type:String,
-            statu:['Placed','shipped','delivered','returned','cancelled'],
+            statu:['Placed','pending','shipped','delivered','returned','cancelled'],
             default:'Placed'
             // enum:['pending','shipped','delivered','cancelled']
         },
@@ -43,21 +52,26 @@ const orderSchema= new mongoose.Schema({
         },
     paymentMethod:{
         type:String,
-        enum:['Online Payment', 'Cash on Delivery'],
+        enum:['UPI', 'Cash on Delivery','wallet'],
         required:true
     },
     orderDate:{
-        type:String,
-        required:true,
+        type:Date,
+        default:Date.now,
     },
     paymentStatus:{
         type:String,
         enum:['Paid', 'Pending', 'Failed'],
         required:true,
-    }
-
-
-   
+    },
+    CoupenOffer:{
+        type:Number,
+        default:0
+    },
+    OfferDiscount:{
+        type:Number,
+        default:0
+    }   
 })
 
 module.exports=mongoose.model('Order',orderSchema)
