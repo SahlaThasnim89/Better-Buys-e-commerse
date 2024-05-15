@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/users_list")
+mongoose.connect("mongodb+srv://Sahla:123sahala@ecomarese.ee0tfwe.mongodb.net/?retryWrites=true&w=majority&appName=Ecomarese")
 const morgan=require('morgan')
 const express=require("express")
 const session=require("express-session")
@@ -49,9 +49,9 @@ app.use("/",userRoute)
 const adminRoute=require('./routes/adminRoute')
 app.use('/admin',adminRoute)
 
-// app.get('*',(req,res)=>{
-//   res.redirect('/error')
-// })
+app.get('*',(req,res)=>{
+  res.redirect('/error')
+})
 
 
 
