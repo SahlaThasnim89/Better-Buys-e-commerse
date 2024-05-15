@@ -69,10 +69,10 @@
                                             <div class="p-4">
         
                                                 <div class="d-flex align-items-center">
-                                                 
+                
                                                     <div class="flex-grow-1 overflow-hidden">
-                                                        <h5 class="font-size-14 mb-1">Date:<%=details.orderDate%></h5>
-                                                        <p class="text-muted text-truncate mb-0">Order Id:#<%=details._id%></p>
+                                                        <h5 class="font-size-14 mb-1">Date:<%=details.orderDate.toLocaleDateString()%></h5>
+                                                        <p class="text-muted text-truncate mb-0">Order Id:<%=details.orderId%></p>
                                                     </div>
                                                     <div class="flex-shrink-0">
                                                         <i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>
@@ -105,8 +105,8 @@
                                                         </div>
                                                         <div  class=" w-75">
                                                             <h5 >Order info</h5>
-                                                            <h6>Pay Method:<%=details.paymentMethod %></h6>
-                                                            <h6>Payment Status:</h6>
+                                                            <h6>Payment Method:<%= details.paymentMethod %></h6>
+                                                            <h6>Payment Status: <%=details.paymentStatus %></h6>
                                                         </div>
                                                         </div>
                                                         <br>
@@ -133,6 +133,7 @@
                                                                     <tr class="bg-transparent">
                                                                         <td>Product</td>
                                                                         <td>Price</td>
+                                                                        
                                                                         <td>Quantity</td>
                                                                         <td>Total</td>
                                                                         <td>Order Status</td>
@@ -144,41 +145,73 @@
                                                                     <% details.products.forEach((product)=>{ %>
                                                                     <tr>
                                                                         <td><img src="/static/productImage/<%=product.productId.image[0]%>" height="100" alt=""><br><span><%=product.productId.Name%></span></td>
-                                                                        <td ><%=product.productId.Price%>.00</td>
+                                                                        <td ><%=product.productPrice%>.00
+                                                                        <% if(product.productId.Offer>0) {%>
+                                                                        <p>(<%=product.productId.Offer %>% off)</p>
+                                                                        <%}%>
+                                                                    </td>
+                                                                    
                                                                         <td><%=product.quantity %></td>
-                                                                        <td><%=product.productId.Price*product.quantity %>.00</td>
-                                                                        <% console.log(product.status); %>
+                                                                        <td><%=product.productPrice*product.quantity %>.00</td>
                                                                         <% if(product.status==='returned'){%>
                                                                             <td><p>Order return approved</p></td>
                                                                         
                                                                         <% } %>
 
-                                                                        <% if (product.status !== 'returned') { %> 
-                                                                        <% if(product.returnReason!=='None'){ %>
-                                                                            <td> 
-                                                                                <div class="btn-group">
-                                                                                    <button class="btn text-black" onclick="approve('<%=product._id%>')">requested to return</button>
-                                                                                </div>
-                                                                        </td>
-                                                                        <%}else{ %>
+                                                                       
+                                                                   
                                                                         <td>  
                                                                                  <select name="productStatus" onchange="updateOrderStatus('<%= product._id %>')" id="orderStatus_<%= product._id %>">
                                                                             <option value="Placed" <%=product.status=== 'Placed' ? 'selected' : '' %>>Placed</option>
-                                                                            <option value="Shipped" <%= product.status=== 'Shipped' ? 'selected' : '' %>>Shipped</option>
-                                                                            <option value="Delivery" <%= product.status=== 'Delivery' ? 'selected' : '' %>>Delivery</option>
-                                                                            <option value="Cancelled" <%= product.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                                                            <option value="shipped" <%= product.status=== 'shipped' ? 'selected' : '' %>>Shipped</option>
+                                                                            <option value="delivered" <%= product.status=== 'delivered' ? 'selected' : '' %>>Delivery</option>
+                                                                            <option value="cancelled" <%= product.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
                                                                         </select>
                                                                         </td>
-                                                                        <% } %>
-                                                                        <% } %>
+                                                                       
                                                                       
                                                                     </tr>
-                                                                    <% }) %>
+                                                                    
+                                                                    <% let offerPrice %>
+                                                                    <% if(details.CoupenOffer>0){%>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td><strong>coupen applied</strong></td>
+                                                                        <td><strong><%=details.CoupenOffer%>%</strong></td>
+                                                                        <%
+                                                                        let totalPrice = 0
+                                                                        details.products.forEach(val => {
+                                                                        const price = val.productPrice * val.quantity; 
+                                                                        totalPrice += price; 
+                                                                        });
+                                                                        offerPrice=totalPrice*(details.CoupenOffer/100) %>
+                                                                        <td><strong><%=Math.round(offerPrice)%>.00</strong></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                <%}%>
+
+                                                                <% }) %>
+                                                               
+                                                                    <!-- <tr>
+                                                                        <td></td>
+                                                                        <td><strong>Offer applied</strong></td>
+                                                                        <td><strong>%</strong></td>
+                                                                        <td><strong>0.00</strong></td>
+                                                                        <td></td>
+                                                                    </tr>  -->
                                                                     <tr>
                                                                         <td></td>
                                                                         <td></td>
-                                                                        <td>Total</td>
-                                                                        <td><%=details.orderAmount%>.00</td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td><strong>Total</strong></td>
+                                                                        <td></td>
+                                                                        <td><strong><%=Math.round(details.orderAmount)%>.00</strong></td>
+                                                                        <td></td>
                                                                     </tr>
                                                                 </thead>
                                                             </table>

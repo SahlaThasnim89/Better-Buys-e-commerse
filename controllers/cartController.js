@@ -2,6 +2,10 @@ const Cart = require('../model/cartModel')
 const Product = require('../model/productModel')
 const Address = require('../model/addressModel')
 const Coupen=require('../model/coupenModel')
+const User=require('../model/userModel')
+const Offer=require('../model/offerModel')
+const Wallet=require('../model/walletModel')
+
 
 
 
@@ -9,7 +13,8 @@ const cartPage = async (req, res) => {
     try {
         const { user } = req.session;
         const cart = await Cart.findOne({ clientId: user }).populate('products.productId');
-         res.render('user/cart', { data: cart, user });
+        const offersFound = await Offer.find();
+         res.render('user/cart', { data: cart, user, offersFound});
     } catch (error) {
         console.log(error.message);
         res.status(500).send('Internal Server Error');
@@ -20,7 +25,7 @@ const cartPage = async (req, res) => {
 const addtoCart = async (req, res) => {
     try {
         const id = req.body.id
-        const prodData = await Product.findOne({ _id: id })
+        const prodData = await Product.findOne({ _id: id, Quantity:{$gte:0}})
         const added = await Cart.findOne({
             clientId: req.session.user,
             products: {
@@ -30,10 +35,10 @@ const addtoCart = async (req, res) => {
             }
 
         })
-        if (!added) {
+        if (!added && prodData.Quantity>0) {
             const add = await Cart.findOneAndUpdate(
                 { clientId: req.session.user },
-                { $addToSet: { products: { productId: id, quantity: req.body.quantity } } },
+                { $addToSet: { products: { productId: prodData, quantity: req.body.quantity } } },
                 { new: true, upsert: true }
             );
  
@@ -83,11 +88,14 @@ const checkout = async (req, res) => {
         const coupen=req.body.couponId
         const id = await Address.findOne({ UserId: user })
         const check = await Cart.findOne({ clientId: user }).populate('products.productId')
+        const offersFound = await Offer.find();
+        const wallet=await Wallet.findOne({userId:user})
         
         if (!check || check.products.length === 0) {
             return res.render('user/cart', { data: check, id });
         }
-        res.render('user/checkout', { id, check ,msg, coupen})
+    
+        res.render('user/checkout', { id, check ,msg, coupen, offersFound,wallet})
 
     } catch (error) {
         console.log(error.message);
@@ -208,22 +216,35 @@ const edited=async(req,res)=>{
 const applyCoupen=async(req,res)=>{
     try {
        const {coupen,data}=req.body
-       req.session.coupenCode=coupen
-       const coupondata=await Coupen.findOne({coupenCode:req.session.coupenCode})
+    //    req.session.coupenCode=coupen
+    //    const coupens=await Coupen.findOne({coupenCode:req.session.coupenCode})
+       const coupondata=await User.findOne({_id:req.session.user,'coupen.coupenCode':coupen,'coupen.isClaimed':false},{'coupen.$':1}).populate('coupen.coupenId')
+       if (!coupondata) {
+        req.flash('msg', 'Coupon already used');
+        return res.redirect('/checkOut');
+      }
+      
+console.log(coupondata);
 
+      req.session.coupondata=coupondata
          let discountAmount = 0;
          let subTotal = data
+         let coupenId
 
-         if (coupondata) {
-             discountAmount = Math.ceil(subTotal * coupondata.offer / 100);
+         coupondata.coupen.forEach(element => {
+             coupenId=element.coupenId
+         });
+         
+         if (coupenId) {
+             discountAmount = Math.ceil(subTotal * coupenId.offer / 100);
              Total = Math.ceil(subTotal - discountAmount);
              
          }else{
             discountAmount = 0;
             Total = Math.ceil(subTotal - discountAmount);
          }
-
-       res.send({coupondata, discountAmount, Total})
+        
+       res.send({coupenId, discountAmount, Total})
     } catch (error) {
         console.log(error.message);
     }

@@ -115,6 +115,7 @@
                                                   <%  }) %>
                                                 </tbody><!-- end tbody -->
                                             </table><!-- end table -->
+                                            <%- include('../layouts/adPagination') %>
                                         </div>
 
                                         <div class="row g-0 text-center text-sm-start">
@@ -354,7 +355,7 @@
                 
                 Swal.fire({
          title: "Are you sure?",
-         text: "You won't be able to revert this!",
+
          showCancelButton: true,
          confirmButtonColor: "black",
          cancelButtonColor: "#d33",

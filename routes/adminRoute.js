@@ -82,11 +82,21 @@ admin_route.post('/addOffer',adminController.AddingOffer)
 admin_route.get('/editOffer/:id',adminController.EditPage)
 admin_route.post('/editOffer/:id',adminController.editOffer)
 admin_route.post('/deleteOffer/:id',adminController.removeOffer)
+admin_route.post('/offerSelect',adminController.productOffer)
+admin_route.post('/CategoryOfferSelect',adminController.CategoryOffer)
 
 
-//for invoice
- admin_route.get('/invoiceList',adminController.invoiceList)
- admin_route.get('/invoiceDetails',adminController.invoiceDetails)
+//for salesReport
+admin_route.get('/salesReport/:id',adminController.salesReport)
+admin_route.post('/getDate',adminController.getcustomDate)
+
+
+//for return requests
+admin_route.get('/returnList',adminController.returnList)
+
+//chart
+admin_route.get('/chart',adminController.chart)
+
 
 
 

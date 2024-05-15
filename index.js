@@ -36,7 +36,7 @@ Swal.fire({
 //load static assets
 app.use("/static",express.static(path.join(__dirname,"public")))
 app.use("/asset",express.static(path.join(__dirname,"public/user/asset")))
-app.use("/asset",express.static(path.join(__dirname,"public/admin/asset")))
+app.use("/asset",express.static(path.join(__dirname,"public/admin/asset/")))
 
 
 
@@ -48,6 +48,10 @@ app.use("/",userRoute)
 //for admin
 const adminRoute=require('./routes/adminRoute')
 app.use('/admin',adminRoute)
+
+// app.get('*',(req,res)=>{
+//   res.redirect('/error')
+// })
 
 
 

@@ -14,8 +14,7 @@ const CategorySchema=new mongoose.Schema({
         default:false
     },
     Offer:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Offer"
-      }
+        type:Number
+    }
 })
 module.exports=mongoose.model("Category",CategorySchema)

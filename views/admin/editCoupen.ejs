@@ -50,21 +50,30 @@
                         </div>
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Validity</label>
-                            <input id="valid" name="valid" placeholder="Enter Validity" type="text" value="<%=edit.validity %>" class="form-control" required>
+                            <input id="valid" name="valid" placeholder="Enter Validity" type="number" min="1" value="<%=edit.validity %>" class="form-control" required>
                            
                         </div>
-                        <div class=" col-md-6 mb-3">
-                            <label class="form-label" for="productname"> Minimun Limit</label>
-                            <input id="minimum" name="minimum" placeholder="Enter Minimum Limit" type="text" value="<%=edit.minLimit %>" class="form-control" required>
+                      
+                        <div class=" col-md-3 mb-3">
+                            <label class="form-label" for="productname"> Min. Limit</label>
+                            <input id="minimum" name="minimum" placeholder="Enter Minimum Limit" type="number" value="<%=edit.minLimit %>" min="1" class="form-control" required>
                         </div>
-                        <div class=" col-md-6 mb-3">
-                            <label class="form-label" for="productname"> Maximum Limit</label>
-                            <input id="maximum" name="maximum" placeholder="Enter Maximum Limit" type="text" value="<%=edit.maxLimit %>" class="form-control" required>
+                        <div class=" col-md-3 mb-3">
+                            <label class="form-label" for="productname"> Max. Limit</label>
+                            <input id="maximum" name="maximum" placeholder="Enter Maximum Limit" type="number" value="<%=edit.maxLimit %>" min="1" class="form-control" required>
                         </div>
+                        <div class=" col-md-3 mb-3">
+                          <label class="form-label" for="productname"> Min. Purchase</label>
+                          <input id="minimum" name="minBuy" placeholder="Enter Minimum Amount to purchase" type="number" value="<%=edit.minPurchase %>" min="1" class="form-control" required>
+                      </div>
+                      <div class=" col-md-3 mb-3">
+                          <label class="form-label" for="productname"> Max. Purchase</label>
+                          <input id="maximum" name="maxBuy" placeholder="Enter Maximum Amount to purchase" type="number" value="<%=edit.maxPurchase %>" min="1" class="form-control" required>
+                      </div>
                         
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Offer</label>
-                            <input id="offer" name="offer" placeholder="Enter Offer Percentage" type="text" value="<%=edit.offer %>" class="form-control" required>
+                            <input id="offer" name="offer" placeholder="Enter Offer Percentage" type="number" value="<%=edit.offer %>" min="1" max="99" class="form-control" required>
                         </div>
                        
                         <div class=" col-md-6 mb-0">
