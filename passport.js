@@ -9,7 +9,7 @@ passport.use(
         {
             clientID: process.env.CLIENTID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: "https://betterbuys.cloud/auth/google/callback",
         },
         async (accessToken, refreshToken, profile, done) => {
             

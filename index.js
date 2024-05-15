@@ -10,9 +10,6 @@ const Swal = require('sweetalert2')
 require ('dotenv').config()
 
 
-
-
-
 const app=express()
 
 
@@ -58,6 +55,6 @@ app.get('*',(req,res)=>{
 
 app.listen(port, () => {
     console.log(
-      `Server is successfully running. Click here for more info: \x1b[34mhttp://localhost:3000`
+      `Server is successfully running. Click here for more info: \x1b[34mhttps://betterbuys.cloud`
     );
   });
