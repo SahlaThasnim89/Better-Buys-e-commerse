@@ -10,9 +10,6 @@ const Swal = require('sweetalert2')
 require ('dotenv').config()
 
 
-
-
-
 const app=express()
 
 
@@ -53,6 +50,9 @@ app.use('/admin',adminRoute)
 app.get('*',(req,res)=>{
   res.redirect('/error')
 })
+
+
+
 
 
 

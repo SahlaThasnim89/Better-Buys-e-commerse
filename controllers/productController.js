@@ -79,10 +79,14 @@ const addingProduct = async (req, res) => {
 const editProduct = async (req, res) => {
     try {
         const productId = req.params.id;
+        if (product.length === 24) {
         const msg=req.flash('err')
         const product = await Product.findOne({ _id: productId })
         const category=await Category.find()
         res.render('admin/editProduct', { product,category,msg})
+        }else{
+            res.redirect('/admin/error')
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -142,10 +146,13 @@ const editedProductData = async (req, res) => {
 const blockProduct = async (req, res) => {
     try {
         const ProductId = req.body.id
+        if (ProductId.length === 24) {
         const ProductStatus = await Product.findOne({ _id: ProductId })
         ProductStatus.is_listed = !ProductStatus.is_listed
         ProductStatus.save()
-
+        }else{
+            res.redirect('/admin/error')
+        }
     } catch (error) {  
         console.log(error.message);
     }
@@ -156,8 +163,12 @@ const blockProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const productId = req.params.id
+        if (productId.length === 24) {
         const toDelete = await Product.deleteOne({ _id: productId })
         res.redirect('/admin/products')
+        }else{
+            res.redirect('/admin/error')
+        }
     } catch (error) {
         console.log(error.message);
     }
