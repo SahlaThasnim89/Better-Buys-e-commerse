@@ -697,14 +697,13 @@
                                         <%= locals.msg %>
                                     </div>
                                     <div class="Place-order mt-30">
+                                        
                                         <!-- <a href="#" id="placeOrderBtn">Place Order</a> -->
-                                        <%if(value.quantity<value.productId.OfferPrice){%>
+                                       
                                             <button class="btn btn-dark btn-hover" id="placeOrderBtn" type="button"
                                             onclick="Submit(getTotalAmount() ,'<%= check.clientId %>')"
                                             style="border-radius: 0 !important; height: 2rem;">Place Order</button>
-                                        <%}else{%>
-                                            <button class="btn btn-dark btn-hover" onclick="stockout()" href="/checkOut">Place Order</button>
-                                        <%}%>
+                                       
                                       
                                     </div>
                                     <input type="hidden" name="total" value="<%=parseInt(Total)%>">
