@@ -65,8 +65,9 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <% let isStock=false %> 
                                                     <% if(value.productId.Quantity<value.quantity) {%>
-                                                        <% let isStock=false %> 
+                                                        <% isStock=true %> 
                                                         <input type="hidden" id="qtyy" value="true">
                                                        <%} %>
                                                     <% let cartItemTotal= value.productId.OfferPrice*value.quantity %>
@@ -98,7 +99,11 @@
                                             </ul>
                                         </div>
                                         <div class="grand-btn">
+                                            <% if(isStock=true){ %> 
                                             <a href="/checkOut">Proceed to checkout</a>
+                                            <% }else{ %>
+                                                <a href="" disabled>Proceed to checkout</a>
+                                               <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -423,7 +428,7 @@ function deleteItem(delet,qty) {
 
 const check=document.getElementById('qtyy').value
 if(check){
-    isStock=true
+    
     const Toast = Swal.mixin({
         toast: true,
         position: "bottom",
@@ -443,7 +448,7 @@ if(check){
       Toast.fire({
         text: "Item is stock out"
       });
-      window.location.href = '/cart';
+      
 }
 
 

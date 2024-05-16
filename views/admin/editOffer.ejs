@@ -37,7 +37,7 @@
         <div class="p-4 border-top  d-flex justify-content-center pt-5    ">
          
             <div class="w-50 d-flex justify-content-center " style="background-color: white;">
-                <form action="/admin/editOffer/<%=offer._id %>" method="post">
+                <form action="/admin/editOffer/<%=offer._id %>" method="post" id="myForm">
                     <div class="d-flex justify-content-end ">
                        <a href="/admin/offers"> <i class="ri-close-line text-dark " style="font-size: 1.4rem;"></i></a>
                     </div>
@@ -47,7 +47,9 @@
                              <% } %>
                         <div class="mb-3">
                             <label class="form-label" for="productname">Offer Name</label>
-                            <input id="offername" name="offername" placeholder="Enter Product Name" type="text" value="<%=offer.offerName %>" class="form-control" required>
+                            <input id="offername" name="offername" placeholder="Enter Name" type="text" value="<%=offer.offerName %>" class="form-control" required>
+                            <span id="firstNameError" style="color: red;"></span>
+
                             <div class="text-danger d-flex justify-content-center">
                                 <%=locals.msg%>
                                 </div>
@@ -285,6 +287,35 @@
   </style>
 <!-- JAVASCRIPT -->
 <script>
+
+// document.getElementById('offername').addEventListener('input', function(event) {
+//     const firstName = this.value.trim();
+//     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+//     const firstNameError = document.getElementById('firstNameError');
+//     const submitBtn = document.getElementById('submitBtn');
+
+
+    
+//     if (!firstNameRegex.test(firstName)) {
+//         firstNameError.textContent = 'Invalid Name';
+//         submitBtn.disabled = true;
+//     } else {
+//         firstNameError.textContent = ''; 
+//         submitBtn.disabled = false;
+//     }
+// });
+
+// document.getElementById('myForm').addEventListener('submit', function(event) {
+//     event.preventDefault();
+
+//     const submitBtn = document.getElementById('submitBtn');
+//     if (!submitBtn.disabled) {
+//         this.submit();
+//     }
+// });
+
+
+
 
     for (let i = 0; i < 3; i++) {
       const icon = document.getElementById(`icon${i}`)

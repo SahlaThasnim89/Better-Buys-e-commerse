@@ -79,7 +79,7 @@ admin_route.post('/editCoupen/:id',coupenController.CoupenEditing)
 admin_route.get('/offers',adminMiddleware.isLogged,adminController.Offers)
 admin_route.get('/addOffer',adminMiddleware.isLogged,adminController.forAddOffer)
 admin_route.post('/addOffer',adminController.AddingOffer)
-admin_route.get('/editOffer/:id',adminController.EditPage)
+admin_route.get('/editOffer/:id',adminMiddleware.isLogged,adminController.EditPage)
 admin_route.post('/editOffer/:id',adminController.editOffer)
 admin_route.post('/deleteOffer/:id',adminController.removeOffer)
 admin_route.post('/offerSelect',adminController.productOffer)
@@ -87,16 +87,21 @@ admin_route.post('/CategoryOfferSelect',adminController.CategoryOffer)
 
 
 //for salesReport
-admin_route.get('/salesReport/:id',adminController.salesReport)
+admin_route.get('/salesReport/:id',adminMiddleware.isLogged,adminController.salesReport)
 admin_route.post('/getDate',adminController.getcustomDate)
 
 
 //for return requests
-admin_route.get('/returnList',adminController.returnList)
+admin_route.get('/returnList',adminMiddleware.isLogged,adminController.returnList)
 
 //chart
-admin_route.get('/chart',adminController.chart)
+admin_route.get('/chart',adminMiddleware.isLogged,adminController.chart)
 
+//ledgerBook
+admin_route.get('/ledger',adminMiddleware.isLogged,adminController.ledgerBook)
+
+//error
+admin_route.get('/error',adminController.adError)
 
 
 

@@ -46,6 +46,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="productname"> Name</label>
                             <input id="productname" name="CategoryName" value="<%=category.CategoryName %>" type="text" class="form-control" required>
+                            <span id="firstNameError" style="color: red;"></span>
                         </div>
         
                         <div class="mb-0">
@@ -258,6 +259,31 @@
         //         data.preventDefault()
         //     }
         // })
+        document.getElementById('productname').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
     </script>
     
 

@@ -572,6 +572,22 @@ const chart = async (req, res) => {
 }
 
 
+const ledgerBook=async(req,res)=>{
+    try {
+        const orders=await Order.find({'products.status':'delivered'})
+       res.render('admin/ledgerBook',{orders}) 
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const adError=async(req,res)=>{
+    try {
+        res.render("admin/404page")
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 
 module.exports = {
@@ -605,7 +621,13 @@ module.exports = {
     returnList,
 
     //chart
-    chart
+    chart,
+
+    //ledgerBook
+    ledgerBook,
+
+    //error
+    adError
 
 
 }

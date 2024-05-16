@@ -98,6 +98,7 @@
                                                 <label class="form-label" for="productname">Product Name</label>
                                                 <input id="productname" required name="productName"
                                                     placeholder="Enter Product Name" type="text" class="form-control">
+                                                    <span id="firstNameError" style="color: red;"></span>
                                             </div>
                                             <div class="mb-3 col-lg-4 col-md-4">
                                                 <label for="choices-single-default"
@@ -247,7 +248,7 @@
                                   </div>
         
                                   <div class="mt-2 d-flex justify-content-center align-items-center">
-                                  <button class="btn btn-dark" onclick="succeess(su)"> <i class=" bx bx-file me-1"></i> Add Product</button>
+                                  <button class="btn btn-dark" id="submitBtn" onclick="succeess(su)"> <i class=" bx bx-file me-1"></i> Add Product</button>
                                   </div>   
                                                 </div>
                                             </div>
@@ -661,6 +662,33 @@
 
 
 <script>
+    document.getElementById('productname').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
     const form = document.getElementById(`myForm`);
     const inp = form.querySelectorAll('input')
     form.addEventListener('submit', (e) => {

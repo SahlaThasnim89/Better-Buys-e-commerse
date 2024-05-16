@@ -75,7 +75,7 @@ user_route.post('/deleteAddress',userProfileController.deleteAddress)
 
 //order
 user_route.post('/order',orderController.orderProduct)
-user_route.get('/orderDetails/:id',orderController.OrderDetails)
+user_route.get('/orderDetails/:id',userMiddleware.isLogged,orderController.OrderDetails)
 user_route.post('/cancelOrder',orderController.orderCancel)
 user_route.post('/returnOrder',orderController.returnItem)
 user_route.post('/razorPay',orderController.razorPay)
@@ -90,13 +90,13 @@ user_route.post('/retrySuccess',orderController.retryUpdate)
 
 
 //blog
-user_route.get('/blog',userController.blog)
+user_route.get('/blog',userMiddleware.isLogged,userController.blog)
 //contact
-user_route.get('/contact',userController.Contact)
+user_route.get('/contact',userMiddleware.isLogged,userController.Contact)
 
 
 //wishlist
-user_route.get('/wishlist',wishlistController.wishList)
+user_route.get('/wishlist',userMiddleware.isLogged,wishlistController.wishList)
 user_route.post('/addtoWishlist',wishlistController.addToWishlist)
 user_route.post('/removeItem',wishlistController.removeItem)
 
@@ -105,7 +105,7 @@ user_route.post('/removeItem',wishlistController.removeItem)
 user_route.post('/applyCoupen',cartController.applyCoupen)
 
 //for invoice
-user_route.get('/invoice/:id',orderController.invoice)
+user_route.get('/invoice/:id',userMiddleware.isLogged,orderController.invoice)
 
 
 // thanks

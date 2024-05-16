@@ -127,25 +127,31 @@
                     <!-- <div class="tab-pane fade" id="account-info" role="tabpanel"> -->
                         <div class="myaccount-content p-4">
                             <div class="account-details-form">
-                                <form action="/updateAddress" method="post">
+                                <form action="/updateAddress" method="post" id="registerForm2">
             
                                     <div class="row"> 
                                         <div class="col-lg-4">
                                             <div class="single-input-item">
                                                 <label for="first-name" class="required" placeholder="Enter name">Name <span>*</span></label>
                                                 <input type="text" id="nam" name="name" required/>
+                                                <span id="firstNameError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="single-input-item">
                                                 <label for="last-name" class="required" placeholder="Enter Phone no.">Mobile Number <span>*</span></label>
-                                                <input type="number" id="mobil" name="mobile" required/>
+                                                <input type="number" id="mobil" name="mobile" required required pattern="[0-9]{10}" title="Please enter a 10-digit mobile number"/>
+                                                <span id="mobileError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="single-input-item">
                                                 <label for="last-name" class="required" placeholder="Enter email">email <span>*</span></label>
-                                                <input type="text" id="emai" name="email" required/>
+                                                <input type="text" id="emai" name="email" required pattern="^[A-Za-z0-9.%+-]+@gmail\.com$" title="Please enter a valid email address"/>
+                                                <span id="emailError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                     </div>
@@ -154,37 +160,47 @@
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
                                                 <label for="first-name" class="required" placeholder="Enter Postal code">Pincode <span>*</span></label>
-                                                <input type="text" id="pincod" name="pincode" required/>
+                                                <input type="text" id="pincod" name="pincode" required pattern="[0-9]{6}" title="Please enter a 6-digit pincode"/>
+                                                <span id="pinError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
                                                 <label for="last-name" class="required">Locality <span>*</span></label>
                                                 <input type="text" id="localit" name="locality" required/>
+                                                <span id="localError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="single-input-item">
                                         <label for="display-name" class="required">Address <span>*</span></label>
                                         <textarea type="text" id="addres" rows="3" placeholder="Enter full address" name="address" required></textarea>
+                                        <span id="addressError2" style="color: red;"></span>
+
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
                                                 <label for="first-name" class="required" placeholder="Enter City">City <span>*</span></label>
                                                 <input type="text" id="cit" name="cit" required/>
+                                                <span id="cityError2" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
                                                 <label for="last-name" class="required">State <span>*</span></label>
                                                 <input type="text" id="stat" name="state" required/>
+                                                <span id="stateError" style="color: red;"></span>
+
                                             </div>
                                         </div>
                                     </div>
                                     <div class="single-input-item">
                                         <a href="/myAccount"><button class="check-btn sqr-btn ">Cancel</button></a>
-                                        <button class="check-btn sqr-btn ">Edit address</button>
+                                        <button class="check-btn sqr-btn " id="submitBtn2">Edit address</button>
                                     </div>
                                     <input type="hidden" id="id" name="id">
                         
@@ -288,7 +304,8 @@
 
                                                                         <!-- <p><span class="fw-medium" style="color: red;">Payment Failed</span></p> -->
                                                                         <form id="retryForm" action="/retrySuccess" method="post">
-                                                                        <button type="button" onclick="retryPayment('<%=data.orderAmount%>')"><span class="fw-medium style" style="color: red;">Payment Failed? Retry</span></button>
+                                                                            <br>
+                                                                        <button type="btn" onclick="retryPayment('<%=data.orderAmount%>')"><span class="fw-medium style" style="color: black;">Payment Failed? Retry</span></button>
                                                                         <input type="hidden" id="status" name="status">
                                                                         <input type="hidden" id="OrderId" name="orderId" value="<%=data._id %>">
                                                                     </form>
@@ -1053,14 +1070,224 @@ const card=document.getElementById(`remove${del}`);
     })
 }
 
+
+//edit address validate
+
+document.getElementById('nam').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+document.getElementById('mobil').addEventListener('input', function(event) {
+    const mobile = this.value.trim();
+    const mobileRegex = /^\d{10}$/;
+    const mobileError = document.getElementById('mobileError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    if (!mobileRegex.test(mobile)) {
+        mobileError.textContent = 'Invalid Mobile';
+        submitBtn.disabled = true;
+    } else {
+        mobileError.textContent = '';
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('emai').addEventListener('input', function(event) {
+    const email = this.value.trim();
+    const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
+    const emailError = document.getElementById('emailError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    if (!emailRegex.test(email)) {
+        emailError.textContent = 'Invalid Email';
+        submitBtn.disabled = true;
+    } else {
+        emailError.textContent = '';
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('pincod').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[0-9]{6}$/;
+    const firstNameError = document.getElementById('pinError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Zip';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('localit').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('localError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('addres').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('addressError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('cit').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('cityError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+document.getElementById('stat').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('stateError2');
+    const submitBtn = document.getElementById('submitBtn2');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+document.getElementById('registerForm2').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn2');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
  
 
+
+//add address validate
 
 document.getElementById('firstName').addEventListener('input', function(event) {
     const firstName = this.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
     const firstNameError = document.getElementById('firstNameError');
     const submitBtn = document.getElementById('submitBtn');
+
 
     
     if (!firstNameRegex.test(firstName)) {
