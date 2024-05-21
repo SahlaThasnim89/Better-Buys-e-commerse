@@ -124,7 +124,17 @@ const editedCategoryData=async(req,res)=>{
   
 }
 
-
+//to delete category from the list
+const deleteCategory=async(req,res)=>{
+    try {
+        const categoryId=req.params.id
+        const toDelete=await Category.deleteOne({_id:categoryId})
+        res.redirect('/admin/category')
+    } catch (error) {
+        console.log(error.message);
+    }
+    
+}
 
 
 module.exports={
@@ -134,4 +144,5 @@ module.exports={
     blockCategory,
     editCategory,
     editedCategoryData,
+    deleteCategory
 }

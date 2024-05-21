@@ -49,6 +49,7 @@ admin_route.post('/addcategory',categoryController.addCategoryData)
 admin_route.post('/blockCategory',categoryController.blockCategory)
 admin_route.get('/editCategory/:id',categoryController.editCategory)
 admin_route.post('/editCategory',categoryController.editedCategoryData)
+admin_route.post('/deleteCategory/:id',categoryController.deleteCategory)
 
 //for product
 admin_route.get('/products',adminMiddleware.isLogged,productController.product)
