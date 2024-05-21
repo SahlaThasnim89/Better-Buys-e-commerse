@@ -242,7 +242,8 @@
                 </div>
             </div>
         </div>
-        <%=locals.msg%>
+        <div> <%=locals.msg%></div>
+       
         <div class="my-account-area pt-100 pb-95">
             <div class="container">
                 <div class="row flex-row-reverse">
@@ -251,7 +252,7 @@
                             <a href="#dashboad" class="active" data-bs-toggle="tab">
                                 Dashboard</a>
                             <a href="#orders" data-bs-toggle="tab"> Orders</a>
-                            <a href="#download" data-bs-toggle="tab"> Download</a>
+                            <!-- <a href="#download" data-bs-toggle="tab"> Download</a> -->
                             <a href="#address-edit" data-bs-toggle="tab"> address</a>
                             <a href="#account-info" data-bs-toggle="tab"> My Coupens</a>
                             <a href="#myWallets" data-bs-toggle="tab"> My wallet</a>
@@ -285,6 +286,7 @@
                                             
                                             
                                             <div class="row d-flex justify-content-center mt-3">
+                                                <% if(Orders.length>0){ %>
                                             <% Orders.forEach((data)=>{ %>
                                                 <% data.products.forEach((value)=>{%>
                                                 
@@ -305,7 +307,9 @@
                                                                         <!-- <p><span class="fw-medium" style="color: red;">Payment Failed</span></p> -->
                                                                         <form id="retryForm" action="/retrySuccess" method="post">
                                                                             <br>
-                                                                        <button type="btn" onclick="retryPayment('<%=data.orderAmount%>')"><span class="fw-medium style" style="color: black;">Payment Failed? Retry</span></button>
+                                                                            <% if(data.paymentMethod==='UPI'&&data.paymentStatus==='Pending'){%>
+                                                                        <button type="btn" onclick="retryPayment('<%=data.orderAmount%>');this.style.display = 'none';"><span class="fw-medium style" style="color: black;">Payment Failed? Retry</span></button>
+                                                                        <%} %>
                                                                         <input type="hidden" id="status" name="status">
                                                                         <input type="hidden" id="OrderId" name="orderId" value="<%=data._id %>">
                                                                     </form>
@@ -362,17 +366,7 @@
                                                                         <% } %>
                                                                        
                                                                             
-                                                                        <!-- <div class="d-inline-flex">
-                                                                             <select class="form-select form-select-sm w-lg">
-                                                                                <option value="1">1</option>
-                                                                                <option value="2"selected>2</option>
-                                                                                <option value="3">3</option>
-                                                                                <option value="4">4</option>
-                                                                                <option value="5">5</option>
-                                                                                <option value="6">6</option>
-                                                                                <option value="7">7</option>
-                                                                                <option value="8">8</option>
-                                                                            </select> -->
+                                                                     
                                                                         <!-- </div>  -->
                                                                     </div>
                                                                 </div>
@@ -393,10 +387,55 @@
                                             <%}) %>
                 
                                             <%})%>
+                                            <% }else{%>
+                                                <p class="card-text text-dark fw-bold ">You didnt ordered yet, make your first order,   <a href="/shop" style="color: #fc4f4f;;">Shop Now</a></p>
+
+                                           <% } %>
+                                        </div>
+                                        <div class="pro-pagination-style text-center">
+                                            <ul>
+        
+                                                <nav aria-label="Page navigation" >
+                                                    <ul class="pagination justify-content-center" >
+                                                
+                                                        <% if (locals.currentPage > 1) { %>
+                                                
+                                                            <li class="page-item">
+                                                                <a href="?page=<%= locals.currentPage - 1 %>" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
+                                                            </li>
+                                                
+                                                        <% } %>
+                                                
+                                                        <% for (let i = 1; i <= locals.pages; i++) { %>
+                                                
+                                                            <li class="page-item <%= locals.currentPage === i ? 'active' : '' %>">
+                                                                <a href="?page=<%= i %>"><%= i %></a>
+                                                            </li>
+                                                
+                                                        <% } %>
+                                                
+                                                        <% if (locals.currentPage < locals.pages) { %>
+                                                
+                                                            <li class="page-item">
+                                                                <a href="?page=<%= locals.currentPage + 1 %>" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
+                                                            </li>
+                                                
+                                                        <% } %>
+        
+                                                       
+                                                        <li><a href="#"><i class="dlicon arrows-1_tail-right"></i></a></li>
+                                                
+                                                    </ul>
+                                                </nav>
+                                            
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-
 
 
 
@@ -407,36 +446,7 @@
                             </div>
                             <!-- Single Tab Content End -->
                             <!-- Single Tab Content Start -->
-                            <div class="tab-pane fade" id="download" role="tabpanel">
-                                <div class="myaccount-content">
-                                    <div class="myaccount-table table-responsive text-center">
-                                        <table class="table table-bordered">
-                                            <thead class="thead-light">
-                                                <tr>
-                                                    <th>Product</th>
-                                                    <th>Date</th>
-                                                    <th>Expire</th>
-                                                    <th>Download</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Haven - Free Real Estate PSD Template</td>
-                                                    <td>Aug 22, 2023</td>
-                                                    <td>Yes</td>
-                                                    <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>HasTech - Profolio Business Template</td>
-                                                    <td>Sep 12, 2023</td>
-                                                    <td>Never</td>
-                                                    <td><a href="#" class="check-btn sqr-btn "><i class="fa fa-cloud-download"></i> Download File</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <!-- Single Tab Content End -->
                             <!-- Single Tab Content Start -->
                             <div class="tab-pane fade" id="address-edit" role="tabpanel">
@@ -471,6 +481,7 @@
                                                 <div class="p-4 border-top">
                                                     <h5 class="font-size-14 mb-3">Shipping Info</h5>
                                                     <div class="row">
+                                                        <% if(addr.length>0) {%>
                                                         <% addr.forEach((addr)=>{ %>
                                                            <% for(let i=0;i<addr.address.length;i++){ %>
                                                           
@@ -496,7 +507,7 @@
                                                                     <p><strong><%=addr.address[i].name %></strong></p>
                                                                     
                                                                     <h5 class="font-size-14"><%=addr.address[i].addressData %></h5>
-                                                                    <p class="mb-1"><%=addr.address[i].locality %>, <%=addr.address[i].city %>,<br> <%=addr.address[i].state %></p>
+                                                                    <p class="mb-1"><%=addr.address[i].locality %>, <%=addr.address[i].city %>,<br> <%=addr.address[i].state %>- <%=addr.address[i].pincode %></p>
                                                                     <p class="mb-0">Mobile. <%=addr.address[i].mobile %></p>
                                                                 </div>
                                                             </div>
@@ -506,6 +517,10 @@
                                                      <%})%>
                                                     
                                                     </div>
+                                                <%}else{%>
+                                                    <p class="card-text text-dark fw-bold ">You have not any saved address, <a href="/addAddress">Add One</a></p>
+
+                                               <% }%>
                                                 </div>
                                             </div>
                                         </div>
@@ -535,72 +550,59 @@
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <div id="addproduct-accordion" class="custom-accordion">
-                                                                        <div class="card">
+                                                                        <div class="">
                                                                             <a href="#addproduct-billinginfo-collapse" class="text-dark" data-bs-toggle="collapse"
                                                                             aria-expanded="true" aria-controls="addproduct-billinginfo-collapse">
-                                                                            <div class="p-5">
-                                                                               
-                                                                                <% if(customer){ %>
-                                                                                <h4 class="justify-content-center fw-bolder">Available Coupens</h4>
-                                                                                <br>
-                                                                                <div class="row d-flex">
-                                                                                    <div class="col-md-8 d-flex flex-row justify-content-between ">
-                                                                                        <% customer?.coupen.forEach(data=>{  %>
-                                                                                    
-                                                                                        <div class="card">
-                                    
-                                                                                                <img class="card-img img-fluid" src="/static/productImage/<%=data.coupenId.Image%>" alt="Card image">
-                                                                                                <div class="card-img-overlay">
-                                                                                                    
-                                                                                                    <h3 class="text-dark d-flex justify-content-center fw-bold "><%=data.coupenId.name%></h3>
-                                                                                                    <h5 class="card-title text-dark d-flex justify-content-center fw-bold ">Get Extra <%=data.coupenId.offer %> % off</h5>
-                                                                                                    <br>
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-12 d-flex justify-content-between ">
-                                                                                                    <h5 class="pt-1" id="couponCode">Coupen Code: <span class="fw-bold"><%=data.coupenId.coupenCode %></span></h5>
-                                                                                                    <% if(data.isClaimed===true){%>
-                                                                                                        <p></p>
-                                                                                                    <%}else{%>
-                                                                                                    <a onclick="copyCoupon()">Copy</a>
-                                                                                                    <% } %>
-                                                                                                </div>
-                                                                                                </div>
-
-                                                                                                    <p class="card-text text-dark">only valid for Orders from ₹ <%=data.coupenId.minLimit %> - <%=data.coupenId.maxLimit %> .</p>
-                                                                                                    <br>
-                                                                                                <% if(data.isClaimed===true){%>
-                                                                                                    <p class="card-text text-dark fw-bold d-flex justify-content-end">Coupen Claimed</p>
-                                                                                                <%}else{%>
-
-                                                                                                    <% const currentDate=new Date(); %>
-                                                                                                    <% if(currentDate>data.validity){ %>
-                                                                                                        <% const formattedDate = new Date(data.validity).toLocaleDateString("en-GB").replace(/\//g, '-') %>
-                                                                                                            <p class="card-text text-dark fw-bold d-flex justify-content-end">Expired On <%=formattedDate %></p>
-                                                                                                    <% }else{ %>
-                                                                                                        <% const formattedDate = new Date(data.validity).toLocaleDateString("en-GB").replace(/\//g, '-') %>
-                                                                                                            <p class="card-text text-dark fw-bold d-flex justify-content-end">Valid till <%=formattedDate %></p>
+                                                                            <% if (customer?.coupen.length > 0) { %>
+                                                                                <div class="p-3">
+                                                                                    <h4 class="justify-content-center fw-bolder">Available Coupons</h4>
+                                                                                    <br>
+                                                                                    <div class="row">
+                                                                                        <% customer?.coupen.forEach(data => { %>
+                                                                                            <% if (data.coupenId) { %> <!-- Check if the coupon exists -->
+                                                                                                <div class="card col-md-4 m-2">
+                                                                                                    <img class="card-img img-fluid" src="/static/productImage/<%= data.coupenId.Image %>" alt="Card image">
+                                                                                                    <div class="card-img-overlay">
+                                                                                                        <h3 class="text-dark d-flex justify-content-center fw-bold "><%= data.coupenId.name %></h3>
+                                                                                                        <h5 class="card-title text-dark d-flex justify-content-center fw-bold ">Get Extra <%= data.coupenId.offer %> % off</h5>
+                                                                                                        <br>
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-md-12 d-flex justify-content-between ">
+                                                                                                                <h5 class="pt-1" id="couponCode">Coupon Code: <span class="fw-bold"><%= data.coupenId.coupenCode %></span></h5>
+                                                                                                                <% if (data.isClaimed === true) { %>
+                                                                                                                    <p></p>
+                                                                                                                <% } else { %>
+                                                                                                                    <a onclick="copyCoupon()">Copy</a>
+                                                                                                                <% } %>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <p class="card-text text-dark">only valid for Orders from ₹ <%= data.coupenId.minLimit %> - <%= data.coupenId.maxLimit %> .</p>
+                                                                                                        <br>
+                                                                                                        <% if (data.isClaimed === true) { %>
+                                                                                                            <p class="card-text text-dark fw-bold d-flex justify-content-end">Coupon Claimed</p>
+                                                                                                        <% } else { %>
+                                                                                                            <% const currentDate = new Date(); %>
+                                                                                                            <% if (currentDate > data.validity) { %>
+                                                                                                                <% const formattedDate = new Date(data.validity).toLocaleDateString("en-GB").replace(/\//g, '-') %>
+                                                                                                                <p class="card-text text-dark fw-bold d-flex justify-content-end">Expired On <%= formattedDate %></p>
+                                                                                                            <% } else { %>
+                                                                                                                <% const formattedDate = new Date(data.validity).toLocaleDateString("en-GB").replace(/\//g, '-') %>
+                                                                                                                <p class="card-text text-dark fw-bold d-flex justify-content-end">Valid till <%= formattedDate %></p>
                                                                                                             <% } %>
-                                                                                                    
-                                                                                                    <%}%>
-                                                                                                         <div class="d-flex justify-content-between ">
-                                                                                                            <a class="d-flex justify-content-end fw-bold" href="">View T&C</a>
-                                                                                                            </div> 
-                                                                                                        
+                                                                                                        <% } %>
+                                                                                                        <div class="d-flex justify-content-between ">
+                                                                                                            <!-- <a class="d-flex justify-content-end fw-bold" href="">View T&C</a> -->
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <% }) %>
                                                                                                 </div>
-                                                                                            </div>
-
-
-                                                                                            
-                                                                                                
-                                                                                                <br>
-                                                                                            </div>
-                                                                                <% }else{%>
-                                                                                     <p class="card-text text-dark fw-bold ">No coupons available</p>
-
-                                                                               <% } %>
+                                                                                            <% } %>
+                                                                                        <% }) %>
+                                                                                    </div>
+                                                                                </div>
+                                                                            <% } else { %>
+                                                                                <p class="card-text text-dark fw-bold">No coupons available</p>
+                                                                            <% } %>
+                                                                            
                                                                             </a>
                                             
                                                                             <!-- <div id="addproduct-billinginfo-collapse" class="collapse show"
@@ -829,6 +831,7 @@
                                     <div class="myaccount-table table-responsive text-center">
                                         <% if (wallet && wallet.balance !== undefined) { %>
                                        <p><b>Wallet Total : ₹ <%=wallet.balance %> .00</b></p>
+                                       <% if(wallet.balance>0){ %>
                                         <table class="table table-bordered">
                                             <thead class="thead-light">
                                                 <tr>
@@ -860,12 +863,57 @@
                                              
                                             </tbody>
                                         </table>
+                                        
+                                        <% }%>
+                                        
                                         <% } else { %>
                                             <p><b>No wallet data available.</b></p>
-                                        <% } %>
+                                            <% } %>
+                                        </div>
+                                        <div class="pro-pagination-style text-center">
+                                            <ul>
+        
+                                                <nav aria-label="Page navigation" >
+                                                    <ul class="pagination justify-content-center" >
+                                                
+                                                        <% if (locals.currentPage > 1) { %>
+                                                
+                                                            <li class="page-item">
+                                                                <a href="?page=<%= locals.currentPage - 1 %>" aria-label="Previous">
+                                                                    <span aria-hidden="true">&laquo;</span>
+                                                                </a>
+                                                            </li>
+                                                
+                                                        <% } %>
+                                                
+                                                        <% for (let i = 1; i <= locals.pages; i++) { %>
+                                                
+                                                            <li class="page-item <%= locals.currentPage === i ? 'active' : '' %>">
+                                                                <a href="?page=<%= i %>"><%= i %></a>
+                                                            </li>
+                                                
+                                                        <% } %>
+                                                
+                                                        <% if (locals.currentPage < locals.pages) { %>
+                                                
+                                                            <li class="page-item">
+                                                                <a href="?page=<%= locals.currentPage + 1 %>" aria-label="Next">
+                                                                    <span aria-hidden="true">&raquo;</span>
+                                                                </a>
+                                                            </li>
+                                                
+                                                        <% } %>
+        
+                                                       
+                                                        <li><a href="#"><i class="dlicon arrows-1_tail-right"></i></a></li>
+                                                
+                                                    </ul>
+                                                </nav>
+                                            
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                             <div class="tab-pane fade" id="referAndEarn" role="tabpanel">
                                 <div class="myaccount-content">
@@ -898,15 +946,15 @@
                                                     <div class="col-lg-12">
                                                         <div class="single-input-item">
                                                             <label for="new-pwd" >New password (leave blank to leave unchanged)</label>
-                                                            <input type="password" id="new-pwd" name="newPwd" required/>
-                                                            <span id="passwordError" style="color: red;"></span>
+                                                            <input type="password" onkeyup="newPassword(this)" id="newPwd" name="newPwd" required/>
+                                                            <span id="firstNameError4" style="color: red;"></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <div class="single-input-item">
                                                             <label for="confirm-pwd" >Confirm new password</label>
-                                                            <input type="password" id="confirmPasswordreset" required/>
-                                                            <span id="passwordMatchErrorreset" style="color: red;"></span>
+                                                            <input type="password" onkeyup="checkPasswordMatch(this)" id="confirmPasswordreset" required/>
+                                                            <span id="passwordMatchErrorreset4" style="color: red;"></span>
 
                                                         </div>
                                                     </div>
@@ -914,7 +962,7 @@
                                                 <p><span style="font-size: x-small;">*(password must contain 8 characters including uppercase, lowercase, and numbers)</p>
                                             </fieldset>
                                             <div class="single-input-item">
-                                                <button type="submit" class="check-btn sqr-btn" id="resetBtn">Save Changes</button>
+                                                <button type="submit" onclick="changed()" class="check-btn sqr-btn" id="resetBtn4">Save Changes</button>
                                             </div>
                                         </form>
                                     </div>
@@ -997,17 +1045,17 @@
                 </div>
             </div>
         </footer>
-        <div class="support-lists">
+        <!-- <div class="support-lists">
             <ul>
                 <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
                 <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
                 <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
             </ul>
-        </div>
-        <div class="view-demo-area">
+        </div> -->
+        <!-- <div class="view-demo-area">
             <a class="view-demo-btn-active" href="#">More Demos</a>
             
-        </div>
+        </div> -->
     </div>
 
     <!-- All JS is here
@@ -1492,57 +1540,44 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
 //resetpassword validation
 
-document.getElementById('new-pwd').addEventListener('input', function(event) {
-    console.log('kjkkhhh');
-    const password = this.value.trim();
-    console.log(password,'password');
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    const passwordError = document.getElementById('passwordError');
-    const resetBtn = document.getElementById('resetBtn');
+function newPassword(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+;
+    const firstNameError = document.getElementById('firstNameError4');
+    const submitBtn = document.getElementById('resetBtn4');
+    console.log(firstName);
+
 
     
-    if (!passwordRegex.test(password)) {
-        passwordError.textContent = 'Password should have 8 characters containing uppercase,symbols,lowercase, and numbers';
-        resetBtn.disabled = true;
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Password must have 8 charectors contain atleast one Uppercase, Lowercae, symbols and Number';
+        submitBtn.disabled = true;
     } else {
-        passwordError.textContent = ''; 
-        resetBtn.disabled = false;
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
     }
-});
-
-document.getElementById('resetForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('resetBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
+};
 
 
 
 
+    function checkPasswordMatch(tag) {
+            const password = document.getElementById('newPwd').value;
+            const confirmPassword = tag.value;
+            const errorSpan = document.getElementById('passwordMatchErrorreset4');
+            const resetBtn = document.getElementById('resetBtn4');
 
-        function checkPasswordMatch() {
-        const password = document.getElementById('new-pwd').value;
-        const confirmPassword = document.getElementById('confirmPasswordreset').value;
-        const errorSpan = document.getElementById('passwordMatchErrorreset');
-        const resetBtn = document.getElementById('resetBtn');
-
-        if (password === confirmPassword) {
-            errorSpan.textContent = '';
-            resetBtn.disabled = false; 
-        } else {
-            errorSpan.textContent = 'Password and Confirm Password do not match';
-            resetBtn.disabled = true; 
+            if (password === confirmPassword) {
+                errorSpan.textContent = '';
+                resetBtn.disabled = false; 
+            } else {
+                errorSpan.textContent = 'Password and Confirm Password do not match';
+                resetBtn.disabled = true; 
+            }
         }
-    }
 
-
-    document.getElementById('new-pwd').addEventListener('input', checkPasswordMatch);
-    document.getElementById('confirmPasswordreset').addEventListener('input', checkPasswordMatch);
-
-
+  
 
 
     //copy coupen
@@ -1725,7 +1760,27 @@ fetch('/retryPayment', {
         }
 
 
+       function changed(){
+        const Toast = Swal.mixin({
+                                toast: true,
+                                position: "bottom",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                customClass: {
+                                    popup: 'swal-toast',
+                                    title: 'swal-toast-title'
+                                },
+                                didOpen: (toast) => {
+                                    toast.style.backgroundColor = "black";
+                                    toast.style.color = "white";
+                                    toast.style.fontSize = "11px";
+                                }
+                            });
 
+                            Toast.fire({
+                                text: "Password changed successfully"
+                            });
+       }
 
 
 </script>

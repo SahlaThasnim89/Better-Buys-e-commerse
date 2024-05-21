@@ -48,17 +48,15 @@ admin_route.get('/addcategory',adminMiddleware.isLogged,categoryController.addCa
 admin_route.post('/addcategory',categoryController.addCategoryData)
 admin_route.post('/blockCategory',categoryController.blockCategory)
 admin_route.get('/editCategory/:id',categoryController.editCategory)
-admin_route.post('/editCategory/:id',categoryController.editedCategoryData)
-admin_route.post('/deleteCategory/:id',categoryController.deleteCategory)
+admin_route.post('/editCategory',categoryController.editedCategoryData)
 
 //for product
 admin_route.get('/products',adminMiddleware.isLogged,productController.product)
 admin_route.get('/addProduct',adminMiddleware.isLogged,productController.addProduct)
 admin_route.post('/addProduct',upload.array('images',4),productController.addingProduct)
 admin_route.get('/editProduct/:id',productController.editProduct)
-admin_route.post('/editProduct/:id',upload.array('images',4),productController.editedProductData)
+admin_route.post('/editProduct',upload.array('images',4),productController.editedProductData)
 admin_route.post('/unlistProduct',productController.blockProduct)
-admin_route.post('/deleteProduct/:id',productController.deleteProduct)
 
 
 //admin Order List

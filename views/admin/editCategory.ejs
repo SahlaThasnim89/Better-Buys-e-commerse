@@ -37,26 +37,31 @@
         <div class="p-4 border-top  d-flex justify-content-center pt-5    ">
          
             <div class="w-50 d-flex justify-content-center " style="background-color: white;">
-                <form id="myForm" action="/admin/editCategory/<%= category._id %>" method="post">
+                <form id="myForm" action="/admin/editCategory" method="post">
                     <div class="d-flex justify-content-end ">
                        <a href="/admin/Category"> <i class="ri-close-line text-dark " style="font-size: 1.4rem;"></i></a>
                     </div>
                     <div style="width: 40vw;padding: 2rem;">
-                        <h6 style="color: red;"><%=locals.msg %></h6> 
+                        
                         <div class="mb-3">
                             <label class="form-label" for="productname"> Name</label>
                             <input id="productname" name="CategoryName" value="<%=category.CategoryName %>" type="text" class="form-control" required>
                             <span id="firstNameError" style="color: red;"></span>
+                            <div class="d-flex justify-content-start" style="color: red;">
+                                <%=locals.msg%>
+                                </div>
                         </div>
         
                         <div class="mb-0">
                             <label class="form-label"  for="productdesc"> Description</label>
                             <textarea class="form-control" name="description" id="productdesc" rows="4" required >"<%= category.Description %>"</textarea>
+                            <span id="descError" style="color: red;"></span>
                         </div>
                         <br>
                      <div class="justify-content-center d-flex ">
-                       <button class="btn btn-dark "> <i class=" bx bx-file me-1"></i> Edit</button> 
+                       <button class="btn btn-dark" id="submitBtn" type="submit"> <i class=" bx bx-file me-1"></i> Edit</button> 
                     </div> 
+                    <input type="hidden" value="<%=category._id%>" name='id'>
                     
                     </div>
             </form>
@@ -268,7 +273,32 @@
 
     
     if (!firstNameRegex.test(firstName)) {
-        firstNameError.textContent = 'Invalid Name';
+        firstNameError.textContent = 'Invalid category Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+document.getElementById('productdesc').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('descError');
+    const submitBtn = document.getElementById('submitBtn');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'give a description of category';
         submitBtn.disabled = true;
     } else {
         firstNameError.textContent = ''; 

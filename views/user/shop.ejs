@@ -39,9 +39,9 @@
                                         <a href="#shop-1" class="active" data-bs-toggle="tab"><i class="dlicon ui-2_grid-45"></i></a>
                                         <a href="#shop-2" data-bs-toggle="tab"><i class="dlicon design_bullet-list-69"></i></a>
                                     </div>
-                                    <div class="shop-filter ml-50">
+                                    <!-- <div class="shop-filter ml-50">
                                         <a class="shop-filter-active" href="#">Filters <i class="fa fa-angle-down angle-down"></i> <i class="fa fa-angle-up angle-up"></i></a>
-                                    </div>
+                                    </div> -->
                                     <div class="shop-short-by ml-50">
                                         <span>Sort by <i class="fa fa-angle-down angle-down"></i> <i class="fa fa-angle-up angle-up"></i></span>
                                         <ul>
@@ -66,7 +66,7 @@
                             <div class="product-filter-wrapper">
                                 <div class="row">
                                     <!-- Product Filter -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
+                                    <!-- <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
                                         <div class="product-filter">
                                             <h5>Price</h5>
                                             <div class="price-filter">
@@ -77,9 +77,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- Product Filter -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
+                                    <!-- <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
                                         <div class="product-filter">
                                             <h5>Size</h5>
                                             <div class="product-size">
@@ -93,9 +93,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- Product Filter -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
+                                    <!-- <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
                                         <div class="product-filter">
                                             <h5>Color</h5>
                                             <div class="product-color">
@@ -109,9 +109,9 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- Product Filter -->
-                                    <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
+                                    <!-- <div class="col-md-3 col-sm-6 col-xs-12 mb-20">
                                         <div class="product-filter">
                                             <h5>Brands</h5>
                                             <div class="product-brands">
@@ -124,7 +124,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -145,24 +145,25 @@
                                                         <img class="hover-img" src="/static/productImage/<%=value.image[1] %>" alt="">
                                                         <% if (value.Quantity <= 0) { %>
                                                         <span class="badge-black badge-right-0 badge-top-0 badge-width-height-1">sold out</span>
-                                                        <% } %>
+                                                        <% }else{ %>
                                                             <% if(value.Offer>0) {%>
                                                         <span class="badge-black badge-left-20 badge-top-20 badge-width-height-2 badge-border-radius-100">- <%=value.Offer %> %</span>
                                                                 <% } %>
+                                                                <%}%>
                                                      
                                                     </a>
-                                                    <div class="product-action product-action-position-1">
+                                                    <!-- <div class="product-action product-action-position-1">
                                                         <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"><i class="fa fa-eye"></i><span>Quick Shop</span></a>
                                                         <a title="Add to Wishlist" href="#"><i class="fa fa-heart"></i><span>Add to Wishlist</span></a>
                                                         <a class="icon-blod" title="Add to Compare" href="#"><i class="dlicon arrows-4_compare"></i><span>Add to Compare</span></a>
-                                                        <a title="Add to Cart" href="" onclick="addtoCart('<%=value._id%>')"><i class="fa fa-shopping-cart"></i><span>Add to Cart</span></a>
-                                                    </div>
+                                                        <a title="Add to Cart" href="" onclick="addtoCart('')"><i class="fa fa-shopping-cart"></i><span>Add to Cart</span></a>
+                                                    </div> -->
                                                 </div>
                                                 <div class="product-content-2 title-font-width-400 text-center">
                                                     <h3><a href="product-details.html"><%=value.Category.CategoryName %></a></h3>
                                                     <h3><a href="product-details.html"><strong><%=value.Name %></strong></a></h3>
                                                     <div class="product-price">
-                                                        <%if(value.Offer>0){%>
+                                                        <%if(value.Offer>0 && value.Quantity > 0){%>
                                                             <span class="new-price"><s>₹ <%=value.Price %>.00</s><strong style="color: rgb(54, 176, 54);"> ₹ <%=Math.round(value.OfferPrice) %>.00</strong></span>
                                                             <%}else{%>
                                                                 <span class="new-price"><strong>₹ <%=value.Price %>.00</strong></span>
@@ -293,7 +294,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="sidebar-widget mb-70">
+                            <!-- <div class="sidebar-widget mb-70">
                                 <h4 class="pro-sidebar-title">Filter by price </h4>
                                 <div class="price-filter mt-60">
                                     <div id="slider-range"></div>
@@ -304,7 +305,7 @@
                                         <button type="button">Filter</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="sidebar-widget mb-60">
                                 <h4 class="pro-sidebar-title">Size</h4>
                                 <div class="sidebar-widget-size mt-45">
@@ -438,13 +439,13 @@
                 </div>
             </div>
         </footer>
-        <div class="support-lists">
+        <!-- <div class="support-lists">
             <ul>
                 <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
                 <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
                 <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
             </ul>
-        </div>
+        </div> -->
         
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">

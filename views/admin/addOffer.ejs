@@ -56,7 +56,8 @@
         
                         <div class="mb-2 col-md-12">
                             <label class="form-label" for="productdesc"> Discount</label>
-                            <input id="productname" name="discount" placeholder="Enter Discount" type="number" class="form-control" min="1" max="99" required>
+                            <input id="offer" onkeyup="addOffer(this)" name="discount" placeholder="Enter Discount" type="number" class="form-control" min="1" max="99" required>
+                            <span id="offerError" style="color: red;"></span>
                         </div>
 
                     
@@ -67,7 +68,7 @@
                            
                         <br>
                      <div class="justify-content-center d-flex  mt-3">
-                       <button type="submit" class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Add Offer</button> 
+                       <button type="submit" id="submitBtn" class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Add Offer</button> 
                     </div> 
                     
                     </div>
@@ -294,6 +295,25 @@
 
 
 <script>
+function addOffer(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('offerError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-') || offerValue < 0 || offerValue > 99)  {
+        firstNameError.textContent = 'Offer cannot be negative and must be less than or equal to 99';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+
         document.getElementById('productname').addEventListener('input', function(event) {
     const firstName = this.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
@@ -311,14 +331,7 @@
     }
 });
 
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
 
 
 

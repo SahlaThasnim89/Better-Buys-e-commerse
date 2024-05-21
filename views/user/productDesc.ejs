@@ -125,7 +125,7 @@
                                                 <%=data.Offer%>%
                                             </span><span style="color: rgb(161, 158, 158);"><s>
                                                     <%=data.Price %>
-                                                </s></span> ₹<%=data.OfferPrice %>
+                                                </s></span> ₹<%=Math.round(data.OfferPrice) %>
                                         </h3>
                                         <%}else{%>
                                             <h3>₹ <%=data.Price %>

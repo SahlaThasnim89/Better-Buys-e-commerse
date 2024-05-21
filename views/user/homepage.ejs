@@ -157,7 +157,7 @@
                                 <div class="same-style same-style-white cart-wrap">
                                     <a href="#" class="cart-active">
                                         <i class="dlicon shopping_bag-20"></i>
-                                        <span class="count-style">02</span>
+                                        <!-- <span class="count-style">02</span> -->
                                     </a>
                                 </div>
                                 <div class="same-style same-style-white header-search">
@@ -192,7 +192,7 @@
                                 <div class="same-style cart-wrap">
                                     <a href="#" class="cart-active">
                                         <i class="dlicon shopping_bag-20"></i>
-                                        <span class="count-style">02</span>
+                                        <!-- <span class="count-style">02</span> -->
                                     </a>
                                 </div>
                                 <div class="same-style header-off-canvas">
@@ -620,24 +620,25 @@
                                     <img class="hover-img" src="/static/productImage/<%=value.image[1] %>" alt="">
                                     <% if (value.Quantity <= 0) { %>
                                         <span class="badge-black badge-right-0 badge-top-0 badge-width-height-1">sold out</span>
-                                        <% } %>
+                                        <% }else{ %>
 
                                         <% if(value.Offer>0) {%>
                                             <span class="badge-black badge-left-20 badge-top-20 badge-width-height-2 badge-border-radius-100">- <%=value.Offer %> %</span>
                                                     <% } %>
+                                                    <%}%>
                                   
                                 </a>
-                                <div class="product-action product-action-position-2 action-inc-width-height">
+                                <!-- <div class="product-action product-action-position-2 action-inc-width-height">
                                     <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#"><i class="fa fa-eye"></i><span>Quick Shop</span></a>
                                     <a title="Add to Wishlist" href="#"><i class="fa fa-heart"></i><span>Add to Wishlist</span></a>
                                     <a class="icon-blod" title="Add to Compare" href="#"><i class="dlicon arrows-4_compare"></i><span>Add to Compare</span></a>
                                     <a title="Add to Cart" href="#"><i class="fa fa-shopping-cart"></i><span>Add to Cart</span></a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="product-content-2 title-font-width-400 text-center">
                                 <h3><a href="/product/<%=value._id %>"><%=value.Name %></a></h3>
-                                
-                                <%if(value.Offer>0){%>
+                                 
+                                <%if(value.Offer>0 && value.Quantity > 0){%>
                                     <span class="new-price"><s>₹ <%=value.Price %>.00</s><strong style="color: rgb(54, 176, 54);"> ₹ <%=Math.round(value.OfferPrice) %>.00</strong></span>
                                     <%}else{%>
                                         <span class="new-price"><strong>₹ <%=value.Price %>.00</strong></span>
@@ -953,13 +954,13 @@
                 </div>
             </div>
         </footer>
-        <div class="support-lists">
+        <!-- <div class="support-lists">
             <ul>
                 <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
                 <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
                 <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
             </ul>
-        </div>
+        </div> -->
         <!-- <div class="view-demo-area">
             <a class="view-demo-btn-active" href="#">More Demos</a>
             <div class="view-demo-aside-active">

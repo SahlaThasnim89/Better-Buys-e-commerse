@@ -121,22 +121,20 @@
 
 
 
-// Function to initiate the timer
+
 function initTimer(durationInSeconds) {
     const display = document.querySelector('#otpTimer');
     startTimer(durationInSeconds, display);
-
-    // Disable Resend OTP link initially
     toggleResendButton(false);
 }
 
-// Function to toggle the visibility and state of Resend OTP button
+
 function toggleResendButton(enabled) {
     const resendButton = document.getElementById('resendButton');
     resendButton.style.pointerEvents = enabled ? 'auto' : 'none';
 }
 
-// Function to start the timer
+
 function startTimer(duration, display) {
     let timer = duration, minutes, seconds;
     const intervalId = setInterval(function () {
@@ -149,12 +147,10 @@ function startTimer(duration, display) {
         display.textContent = minutes + ':' + seconds;
 
         if (--timer < 0) {
-            // Show the Resend OTP button when the timer reaches zero
             toggleResendButton(true);
-            // Hide the timer display or update it as needed
-            display.style.display = 'none'; // Change this line as per your requirement
+            display.style.display = 'none'; 
 
-            // Clear the interval
+  
             clearInterval(intervalId);
         }
     }, 1000);
@@ -162,7 +158,7 @@ function startTimer(duration, display) {
 
 // Function to resend OTP
 function resendOTP() {
-    toggleResendButton(false); // Disable the Resend OTP link to prevent multiple clicks
+    toggleResendButton(false); 
 
     fetch('/resendOTP', {
         method: 'POST',
@@ -172,20 +168,19 @@ function resendOTP() {
     })
     .then(response => response.json())
     .then(data => {
-        // Handle the response as needed
         console.log(data);
 
-        initTimer(60); // 60 seconds for testing, adjust as needed
+        initTimer(60);
     })
     .catch(error => {
         console.error('Error:', error);
-        toggleResendButton(true); // Enable Resend OTP link in case of an error
+        toggleResendButton(true); 
     });
 }
 
-// Initialize the timer when the page loads
+
 document.addEventListener('DOMContentLoaded', function () {
-    initTimer(60); // 60 seconds for testing, adjust as needed
+    initTimer(60); 
 });
 
 

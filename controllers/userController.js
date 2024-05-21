@@ -120,7 +120,7 @@ const OtpMailSending = async (userData, otp) => {
             service: 'gmail',
             auth: {
                 user: 'sahlathasnim2002@gmail.com',
-                pass: 'itiv ckgx dwce vxgg',
+                pass: 'zcvb kmwl uzmo vyza',
             },
         })
 
@@ -149,9 +149,22 @@ const EnteredOTP = async (req, res) => {
         ]
         const enteredOTP = combineOTP(otpParts)
 
-        if (req.session.otp) {
-            const storedOTP = req.session.otp
-            console.log(storedOTP);
+        if (req.session.otp && req.session.otpTimestamp) {
+            const storedOTP = req.session.otp;
+            console.log(storedOTP,'otp');
+            const otpTimestamp = req.session.otpTimestamp;
+
+          
+            const currentTime = new Date();
+            const differenceInMs = currentTime - otpTimestamp;
+            const differenceInMinutes = differenceInMs / (1000 * 60); 
+
+            if (differenceInMinutes > 1) {
+                req.flash('err', 'OTP has expired');
+                res.redirect('/otp');
+                return;
+            }
+
 
             // Check entered OTP is valid
             if (enteredOTP == storedOTP) {
@@ -207,6 +220,9 @@ const EnteredOTP = async (req, res) => {
             }
         }
 
+        req.session.otp = null;
+        req.session.otpTimestamp = null;
+
 
     } catch (error) {
         console.log(error.message);
@@ -259,7 +275,6 @@ const loginUser = async (req, res) => {
             }
         } else {
             const errormsg = "Email is not found";
-            console.log(errormsg, 'mmmmm');
             req.flash("err", errormsg);
             res.redirect('/login')
         }
@@ -289,7 +304,6 @@ const getEmail = async (req, res) => {
             }
         } else {
             const errormsg = "Email not registered";
-            console.log(errormsg, 'mmmmm');
             req.flash("err", errormsg);
             res.redirect('/forgetpw')
         }

@@ -43,13 +43,13 @@
                     </div>
                     <div style="width: 40vw;padding: 2rem;">
                         <% if(locals.error){ %>
-                            <h4><%=locals.error %></h4> 
+                            <h4 style="color: red;"><%=locals.error %></h4> 
                              <% } %>
                         <div class="mb-3">
                             <label class="form-label" for="productname"> Name</label>
                             <input id="productname" name="newCategory" placeholder="Enter Product Name" type="text" class="form-control" required>
                             <span id="firstNameError" style="color: red;"></span>
-                            <div class="text-danger d-flex justify-content-center">
+                            <div class="text-danger d-flex justify-content-start">
                                 <%=locals.msg%>
                                 </div>
                         </div>
@@ -57,10 +57,12 @@
                         <div class="mb-0">
                             <label class="form-label" for="productdesc"> Description</label>
                             <textarea class="form-control" name="description" id="productdesc" placeholder="Enter Description" rows="4" required></textarea>
+                            <span id="descError" style="color: red;"></span>
+
                         </div>
                         <br>
                      <div class="justify-content-center d-flex ">
-                       <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Add Category</button> 
+                       <button class="btn btn-dark" type="submit" id="submitBtn"> <i class=" bx bx-file me-1"></i> Add Category</button> 
                     </div> 
                     
                     </div>
@@ -304,7 +306,33 @@
 
     
     if (!firstNameRegex.test(firstName)) {
-        firstNameError.textContent = 'Invalid Name';
+        firstNameError.textContent = 'Invalid category Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submitBtn');
+    if (!submitBtn.disabled) {
+        this.submit();
+    }
+});
+
+
+document.getElementById('productdesc').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('descError');
+    const submitBtn = document.getElementById('submitBtn');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'give a description of category';
         submitBtn.disabled = true;
     } else {
         firstNameError.textContent = ''; 
@@ -320,6 +348,8 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         this.submit();
     }
 });
+
+
     </script>
 
 </body>

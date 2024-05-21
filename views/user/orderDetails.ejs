@@ -129,11 +129,11 @@
                                                             <%}else{%> 
                                                             
                                                                 <%if(item.products[0].status==='delivered'){%>
-                                                                    <button class="bg-dark d-flex flex-column" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><a class="mb-2 text-bg-dark" style="width: 6rem;" onclick="returnItem('<%=item.products[0]._id%>')">Return Item</a></button>                                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="exampleModal" data-whatever="@mdo">Open modal for @mdo</button> -->
+                                                                    <button id="returnButton" class="bg-dark d-flex flex-column" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><a class="mb-2 text-bg-dark" style="width: 6rem;" onclick="returnItem('<%=item.products[0]._id%>')">Return Item</a></button>                                                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="exampleModal" data-whatever="@mdo">Open modal for @mdo</button> -->
                                                                
 
                                                                 <%}else if(item.products[0].status==='cancelled'){%>
-                                                                    <h5 class="d-flex justify-content-start">You <span style="color: #fc4f4f; margin: 0 5px;"><b> cancelled </b></span> the Order</h5>
+                                                                    <h5 class="d-flex justify-content-start">Order Cancelled</h5>
                                
                                                                   
                                                         <%}else if(item.products[0].status!=='cancelled' && item.products[0].status!=='delivered') {%>
@@ -178,7 +178,7 @@
                                                 <img src="/static/productImage/<%=item.products[0].productId.image[0] %>" width="100" alt="">
                                                 <div class="m-5">
                                                 <h5 class="font-size-16"><%=item.products[0].productId.Name %></h5>
-                                                <h5 class="font-size-16"><%=item.products[0].quantity%> x ₹ <%=Math.round(item.products[0].productPrice) %>.00</h5>
+                                                <h5 class="font-size-16"><%=item.products[0].quantity%> x ₹ <%=Math.round(item.products[0].productPrice) %></h5>
                                                 <% amount=item.products[0].quantity*item.products[0].productPrice %>
                                                 <% if(item.CoupenOffer>0){%>
                                                     <h5 class="font-size-16"><strong>₹ <%=Math.round(amount) %></strong></h5>
@@ -453,7 +453,7 @@
          const cancelButton = document.getElementById('cancelButton');
     if (cancelButton) {
         const returnedText = document.createElement('span');
-        returnedText.textContent = 'Order returned';
+        returnedText.textContent = 'Order Cancelled';
         cancelButton.parentNode.replaceChild(returnedText, cancelButton);
     }
 
@@ -490,6 +490,7 @@
       if (!reason) {
         throw new Error('You must provide a reason for returning the item.');
       }
+   
       return reason;
     } catch (error) {
       Swal.showValidationMessage(error.message);
@@ -499,6 +500,7 @@
 }).then((result) => {
   if (result.isConfirmed) {
     const reason = result.value;
+    
     fetch('/returnOrder', {
       method: 'POST',
       headers: {

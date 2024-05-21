@@ -11,12 +11,19 @@ const Wallet=require('../model/walletModel')
 
 
 const myAccount=async(req,res)=>{
+    const limit = 3
+    const page = Number(req.query.page) || 1;
+    const skip = (page - 1) * limit;
+
+    const count = await Product.countDocuments()
+    const pages = Math.ceil(count / limit)
+
     const customer=await User.findOne({_id:req.session.user}).populate({path:'coupen.coupenId',model:'Coupen'})
     const addr=await Address.find({UserId:req.session.user})
-    const order=await Order.find({UserId:req.session.user}).populate('products.productId').sort({orderDate:-1})
+    const order=await Order.find({UserId:req.session.user}).populate('products.productId').sort({orderDate:-1}).skip(skip).limit(limit)
     const returnedOrder=await Order.find({UserId:req.session.user, 'products.status': 'returned'}).populate('products.productId')
     const offersFound = await Offer.find();
-    const wallet=await Wallet.findOne({userId:req.session.user}).sort({'transaction.returnDate':-1})
+    const wallet=await Wallet.findOne({userId:req.session.user}).sort({'transaction.returnDate':-1}).skip(skip).limit(limit)
     let total=0
 
         returnedOrder.forEach((item) => {
@@ -35,18 +42,23 @@ const myAccount=async(req,res)=>{
 
 
     const msg=req.flash('msg')
-    res.render('user/myAccount',{msg,addr,Orders:order,returnedOrder,total,customer,link,wallet})
+    res.render('user/myAccount',{msg,addr,Orders:order,returnedOrder,total,customer,link,wallet,pages,
+        currentPage: page})
 }
 
 
 const resetPassword=async(req,res)=>{
     try {
         const {currentPwd,newPwd}=req.body
+        console.log(currentPwd,newPwd);
         const newPw=await bcrypt.hash(newPwd,10)
+        console.log(newPw,'ffgd');
         const check=await User.findOne({_id:req.session.user})
+        console.log(check.password);
         if(check){
            const passwordCheck=await bcrypt.compare(currentPwd,check.password)
-           if(passwordCheck){
+           console.log(passwordCheck);
+           if(passwordCheck===true){
             const newPass=await User.findByIdAndUpdate({_id:req.session.user},{$set:{password:newPw}})
             res.redirect('/myAccount')
            }else{

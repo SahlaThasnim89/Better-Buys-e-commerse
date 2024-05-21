@@ -36,6 +36,7 @@
                                                     <th style="width: 100px; height: 57px;">total</th>
                                                 </tr>
                                             </thead>
+                                            <% let isStock=false %>
                                             <tbody>
                                                 <% data.products.forEach(value => { %>
                                                     <div id="cart-item">
@@ -65,7 +66,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <% let isStock=false %> 
+                                                     
                                                     <% if(value.productId.Quantity<value.quantity) {%>
                                                         <% isStock=true %> 
                                                         <input type="hidden" id="qtyy" value="true">
@@ -79,14 +80,14 @@
                                         </table>
                                     </div>
                                     <div class="cart-shiping-update-wrapper">
-                                        <div class="discount-code">
+                                        <!-- <div class="discount-code">
                                             <input type="text" required="" name="name" placeholder="Coupon code">
                                             <button class="coupon-btn" type="submit">Apply coupon</button>
                                         </div>
                                         <div class="cart-clear">
                                             <a href="#">Clear Cart</a>
                                             <a href="#">Update cart</a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -99,11 +100,12 @@
                                             </ul>
                                         </div>
                                         <div class="grand-btn">
-                                            <% if(isStock=true){ %> 
+                                            <% if (isStock===false) { %>
                                             <a href="/checkOut">Proceed to checkout</a>
-                                            <% }else{ %>
-                                                <a href="" disabled>Proceed to checkout</a>
-                                               <% } %>
+                                            <%}else{%>
+                                                <a onclick="stockOut()">Proceed to checkout</a>
+                                            <%}%>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -199,13 +201,13 @@
                 </div>
             </div>
         </footer>
-        <div class="support-lists">
+        <!-- <div class="support-lists">
             <ul>
                 <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
                 <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
                 <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
             </ul>
-        </div>
+        </div> -->
        
     </div>
 
@@ -301,8 +303,7 @@ function qtyControl(change,price,current){
             'Content-Type':'application/json'
         },body:JSON.stringify({change,current})
     })
- 
-    // window.location.href='/cart'
+
     
     }
 
@@ -416,19 +417,25 @@ function deleteItem(delet,qty) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ delet,qty })
-      });
-      
-      // Remove the element after the fetch request
-      di.remove();
-    }
-    window.location.href = '/cart';
+      }).then(response => response.json())  
+.then(data => {
+    console.log(data.total);
+  const a =   document.getElementById('subTotal') 
+    a.innerText = `₹${data.total}.00`
+    const b =   document.getElementById('Tota')
+    b.innerText = `₹${data.total}.00`
+    
+})
+di.remove();
+}
+    // window.location.href = '/cart';
   });
 }
 
 
-const check=document.getElementById('qtyy').value
-if(check){
-    
+// const check=document.getElementById('qtyy').value
+// if(check){
+  function stockOut(){ 
     const Toast = Swal.mixin({
         toast: true,
         position: "bottom",

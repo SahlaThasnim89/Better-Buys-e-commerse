@@ -218,7 +218,7 @@
 
 document.getElementById('firstName').addEventListener('input', function(event) {
     const firstName = this.value.trim();
-    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameRegex = /^[a-zA-Z]+$/;
     const firstNameError = document.getElementById('firstNameError');
     const submitBtn = document.getElementById('submitBtn');
 
@@ -247,7 +247,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
 document.getElementById('lastName').addEventListener('input', function(event) {
     const lastName = this.value.trim();
-    const lastNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const lastNameRegex = /^[a-zA-Z]+$/;
     const lastNameError = document.getElementById('lastNameError');
     const submitBtn = document.getElementById('submitBtn');
 

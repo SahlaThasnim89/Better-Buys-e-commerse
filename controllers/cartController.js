@@ -69,7 +69,20 @@ const qtyControll = async (req, res) => {
 const deleteItem = async (req, res) => {
     try {
          const { delet,qty } = req.body
-         const find = await Cart.findOneAndUpdate({ clientId: req.session.user }, { $pull: { products: { productId: delet } } })
+         const find = await Cart.findOneAndUpdate({ clientId: req.session.user }, { $pull: { products: { productId: delet } } }).populate('products.productId')
+         const deletedItem = find.products.find(item => item.productId._id.toString() === delet);
+         const deletedItemPrice = deletedItem.quantity * deletedItem.productId.OfferPrice;
+ 
+         let totalAmount = 0;
+         find.products.forEach(item => {
+             if (item.productId) {
+                 totalAmount += item.quantity * item.productId.OfferPrice;
+             }
+         });
+ 
+         let total = totalAmount - deletedItemPrice;
+ 
+         res.send({ total });
          res.redirect('/cart')
     } catch (error) {
         console.log(error.message);

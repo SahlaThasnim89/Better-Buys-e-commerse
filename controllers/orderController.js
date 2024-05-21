@@ -15,8 +15,9 @@ const Wallet = require('../model/walletModel')
 const orderProduct = async (req, res) => {
   try {
     const { total } = req.body
+    
     const { user } = req.session;
-    const {status}=req.body
+    const { status } = req.body
     console.log(status);
     const cart = await Cart.findOne({ clientId: user }).populate('products.productId');
     if (!cart || cart.products.length === 0) {
@@ -93,6 +94,7 @@ const orderProduct = async (req, res) => {
     });
 
     const orderSave = await order.save();
+    console.log(orderSave,'orderSave');
 
     if (!orderSave) {
       throw new Error('Order creation failed');
@@ -186,7 +188,7 @@ const orderProduct = async (req, res) => {
 
 
 //razorPay
-const razorPay=async(req,res)=>{
+const razorPay = async (req, res) => {
   try {
     const address = await Address.findOne({ UserId: req.session.user })
     if (address.address.length > 0) {
@@ -227,14 +229,16 @@ const razorPay=async(req,res)=>{
 //admin Order List
 const orderList = async (req, res) => {
   try {
-    const limit=6
-    const page=Number(req.query.page)||1;
-    const skip=(page-1)*limit;
-    const count=await Order.countDocuments()
-    const pages=Math.ceil(count/limit)
+    const limit = 6
+    const page = Number(req.query.page) || 1;
+    const skip = (page - 1) * limit;
+    const count = await Order.countDocuments()
+    const pages = Math.ceil(count / limit)
     const order = await Order.find().populate('products.productId').sort({ orderDate: -1 }).skip(skip).limit(limit);
-    res.render('admin/orderList', { order,pages,
-      currentPage:page })
+    res.render('admin/OrderList', {
+      order, pages,
+      currentPage: page
+    })
   } catch (error) {
     console.log(error.message);
   }
@@ -244,9 +248,18 @@ const orderList = async (req, res) => {
 const orderBrief = async (req, res) => {
   try {
     const orderid = req.params.id
-    const details = await Order.findOne({ _id: orderid }).populate('products.productId UserId')
-    res.render('admin/OrderBrief', { details })
-    console.log(details, 'details');
+    if (orderid.length === 24) {
+      const order = await Order.findOne({ _id: orderid })
+      if (order) {
+        const details = await Order.findOne({ _id: orderid }).populate('products.productId UserId')
+        res.render('admin/OrderBrief', { details })
+      } else {
+        res.redirect('/admin/error')
+      }
+    } else {
+      res.redirect('/admin/error')
+    }
+
   } catch (error) {
     console.log(error.message);
   }
@@ -273,10 +286,18 @@ const updateOrderStatus = async (req, res) => {
 const OrderDetails = async (req, res) => {
   try {
     const item = req.params.id
+    if (item.length === 24) {
+      const order = await Order.findOne({ 'products._id': item }, { 'products.$': 1, deliverAddress: 1 })
+      if (order) {
     const orderItem = await Order.findOne({ 'products._id': item }, { 'products.$': 1, deliverAddress: 1 }).populate('products.productId')
     const orderData = await Order.findOne({ _id: orderItem._id })
     res.render('user/orderDetails', { item: orderItem, orderData })
-
+  } else {
+    res.redirect('/error')
+  }
+} else {
+  res.redirect('/error')
+}
   } catch (error) {
     console.log(error.message);
   }
@@ -291,7 +312,7 @@ const orderCancel = async (req, res) => {
     const { cancel } = req.body
     const cancell = await Order.findOneAndUpdate({ UserId: user, 'products._id': cancel }, { $set: { 'products.$.status': 'cancelled' } });
     if (cancell) {
-      const credit = await Wallet.findOneAndUpdate({ userId: req.session.user },
+      const credit = await Wallet.findOneAndUpdate({ userId: req.session.user, paymentMethod: 'UPI' },
         {
           $inc: { balance: cancell.products[0].productPrice },
           $push: {
@@ -315,32 +336,31 @@ const orderCancel = async (req, res) => {
 
 const retryPayment = async (req, res) => {
   try {
-console.log('lklklklklklklkklklkllklklk');
-      const user = await User.findOne({ _id: req.session.user })
-      const amount = req.body.amount * 100
-      const options = {
-        amount,
-        currency: "INR",
-        receipt: 'sahlathasnim2002@gmail.com'
+    const user = await User.findOne({ _id: req.session.user })
+    const amount = req.body.amount * 100
+    const options = {
+      amount,
+      currency: "INR",
+      receipt: 'sahlathasnim2002@gmail.com'
+    }
+    instance.orders.create(options, async (err, order) => {
+      if (!err) {
+
+
+        res.send({
+          succes: true,
+          msg: 'ORDER created',
+          order_id: order.id,
+          amount,
+          key_id: process.env.RAZORPAY_IDKEY,
+          name: user.FullName,
+          email: user.email
+        })
+      } else {
+        console.error("Error creating order:", err);
+        res.status(500).send({ success: false, msg: "Failed to create order" });
       }
-      instance.orders.create(options, async (err, order) => {
-        if (!err) {
-
-
-          res.send({
-            succes: true,
-            msg: 'ORDER created',
-            order_id: order.id,
-            amount,
-            key_id: process.env.RAZORPAY_IDKEY,
-            name: user.FullName,
-            email: user.email
-          })
-        } else {
-          console.error("Error creating order:", err);
-          res.status(500).send({ success: false, msg: "Failed to create order" });
-        }
-      })
+    })
   } catch (err) {
     console.log(err.message)
   }
@@ -397,7 +417,7 @@ const approveReturnRequest = async (req, res) => {
       },
       { new: true, upsert: true }
     );
-    console.log(item,'item');
+    console.log(item, 'item');
     res.send({ item })
   } catch (error) {
     console.log(error.message);
@@ -420,11 +440,11 @@ const invoice = async (req, res) => {
 
 
 //retry success order
-const  retryUpdate= async (req, res) => {
+const retryUpdate = async (req, res) => {
   try {
     const { status, orderId } = req.body
     const { user } = req.session;
-    const update=await Order.findOneAndUpdate({UserId:user,_id:orderId},{$set:{paymentStatus:status}},{new:true})
+    const update = await Order.findOneAndUpdate({ UserId: user, _id: orderId }, { $set: { paymentStatus: status } }, { new: true })
   } catch {
     console.log(error.message);
   }

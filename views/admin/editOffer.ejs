@@ -47,7 +47,7 @@
                              <% } %>
                         <div class="mb-3">
                             <label class="form-label" for="productname">Offer Name</label>
-                            <input id="offername" name="offername" placeholder="Enter Name" type="text" value="<%=offer.offerName %>" class="form-control" required>
+                            <input id="productname" name="offername" placeholder="Enter Name" type="text" value="<%=offer.offerName %>" class="form-control" required>
                             <span id="firstNameError" style="color: red;"></span>
 
                             <div class="text-danger d-flex justify-content-center">
@@ -57,7 +57,9 @@
         
                         <div class="mb-2">
                             <label class="form-label" for="productdesc"> Discount</label>
-                            <input id="productname" name="discount" placeholder="Enter Discount" type="number" min="1" max="99" class="form-control" min="0" max="80" value="<%=offer.discount %>" required>
+                            <input id="offer" name="discount" onkeyup="editOffer(this)" placeholder="Enter Discount" type="number" min="1" max="99" class="form-control" value="<%=offer.discount %>" required>
+                            <span id="offerError" style="color: red;"></span>
+
                         </div>
                         <input type="hidden" name="id" value="<%=offer._id %>">
                         <input type="hidden" name="oldDiscount" value='<%=offer.discount %>'>
@@ -67,7 +69,7 @@
                         </div> -->
                         <br>
                      <div class="justify-content-center d-flex ">
-                       <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Edit Offer</button> 
+                       <button class="btn btn-dark"  type="submit" id="submitBtn"> <i class=" bx bx-file me-1"></i> Edit Offer</button> 
                     </div> 
                     
                     </div>
@@ -288,31 +290,41 @@
 <!-- JAVASCRIPT -->
 <script>
 
-// document.getElementById('offername').addEventListener('input', function(event) {
-//     const firstName = this.value.trim();
-//     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
-//     const firstNameError = document.getElementById('firstNameError');
-//     const submitBtn = document.getElementById('submitBtn');
+function editOffer(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('offerError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-') || offerValue < 0 || offerValue > 99)  {
+        firstNameError.textContent = 'Offer cannot be negative and must be less than or equal to 99';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+
+        document.getElementById('productname').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
 
 
     
-//     if (!firstNameRegex.test(firstName)) {
-//         firstNameError.textContent = 'Invalid Name';
-//         submitBtn.disabled = true;
-//     } else {
-//         firstNameError.textContent = ''; 
-//         submitBtn.disabled = false;
-//     }
-// });
-
-// document.getElementById('myForm').addEventListener('submit', function(event) {
-//     event.preventDefault();
-
-//     const submitBtn = document.getElementById('submitBtn');
-//     if (!submitBtn.disabled) {
-//         this.submit();
-//     }
-// });
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
 
 
 

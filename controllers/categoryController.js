@@ -34,10 +34,8 @@ const addCategory=async(req,res)=>{
 const addCategoryData=async(req,res)=>{
 try {
     const{newCategory,description}=req.body
-    const find=await Category.findOne({CategoryName:newCategory})
-    if(!find){
-        const check = await Category.findOne({ CategoryName: { $regex: new RegExp('^' + newCategory + '$', 'i') } });
-        if(!check){
+    const check = await Category.findOne({ CategoryName: { $regex: new RegExp('^' + newCategory + '$', 'i') } });
+     if(!check){
     const addedCategory=new Category({
     CategoryName:newCategory,
     Description:description
@@ -45,16 +43,9 @@ try {
     const addCategory=await addedCategory.save()
     res.redirect('/admin/category')
 }else{
-    const errormsg = "category already exists";
-    req.flash("err", errormsg);
+    req.flash("err", "category already exists");
     res.redirect('/admin/addcategory')
 }
-}else{
-    const errormsg = "category already exists";
-    req.flash("err", errormsg);
-    res.redirect('/admin/addcategory')
-}
-
 } catch (error) {
         console.log(error.message);
 }
@@ -66,9 +57,17 @@ try {
 const blockCategory=async(req,res)=>{
     try {
         const categoryId=req.body.id
+        if (categoryId.length === 24) {
         const checkCategory=await Category.findOne({_id:categoryId})
+        if(checkCategory){
         checkCategory.is_blocked=!checkCategory.is_blocked
         checkCategory.save()
+    }else{
+        res.redirect('/admin/error')
+    }
+    }else{
+        res.redirect('/admin/error')
+}
     } catch (error) {
         console.log(error.message);
     }
@@ -80,9 +79,18 @@ const blockCategory=async(req,res)=>{
 //to edit category
 const editCategory=async(req,res)=>{
     try {
+        const msg=req.flash('msg')
         const CategoryId=req.params.id
+        if (CategoryId.length === 24) {
         const category=await Category.findOne({_id:CategoryId})
-        res.render('admin/editCategory',{category})
+        if(category){
+            res.render('admin/editCategory',{category,msg})
+        }else{
+            res.redirect('/admin/error')
+        }
+    }else{
+        res.redirect('/admin/error')
+    }
     } catch (error) {
         console.log(error.message);
     }
@@ -94,11 +102,10 @@ const editCategory=async(req,res)=>{
 //to get edited data in category page
 const editedCategoryData=async(req,res)=>{
     try {
-        const CategoryId=req.params.id
-        const {CategoryName,description}=req.body
+        const {CategoryName,description,id}=req.body
         const check=await Category.findOne({CategoryName: { $regex: new RegExp(CategoryName, "i")}})
         if (!check) {
-            const edited=await Category.findByIdAndUpdate({_id:CategoryId},{
+            const edited=await Category.findByIdAndUpdate({_id:id},{
              CategoryName:CategoryName,
              Description:description
              },{new:true})
@@ -107,9 +114,9 @@ const editedCategoryData=async(req,res)=>{
             }
         }else{
             req.flash('msg','Category already exists')
-            const already=await Category.findOne({_id:CategoryId})
+            const already=await Category.findOne({_id:id})
             const msg=req.flash('msg')
-            res.render('admin/editCategory',{msg, category:already})
+            res.render('admin/editCategory',{category:already,msg})
         }
     } catch (error) {
         console.log(error.message);
@@ -120,19 +127,6 @@ const editedCategoryData=async(req,res)=>{
 
 
 
-//to delete category from the list
-const deleteCategory=async(req,res)=>{
-    try {
-        const categoryId=req.params.id
-        const toDelete=await Category.deleteOne({_id:categoryId})
-        res.redirect('/admin/category')
-    } catch (error) {
-        console.log(error.message);
-    }
-    
-}
-
-
 module.exports={
     category,
     addCategory,
@@ -140,5 +134,4 @@ module.exports={
     blockCategory,
     editCategory,
     editedCategoryData,
-    deleteCategory
 }

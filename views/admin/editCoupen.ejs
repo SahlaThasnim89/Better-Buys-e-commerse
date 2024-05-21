@@ -45,47 +45,59 @@
                        <div class="row">
                         <div class=" col-md-6 mb-1">
                             <label class="form-label" for="productname"> Name</label>
-                            <input id="name" name="name" placeholder="Enter Name" type="text" value="<%=edit.name %>" class="form-control" required>
-                           
+                            <input id="name" name="name" onkeyup="addName(this)" placeholder="Enter Name" type="text" value="<%=edit.name %>" class="form-control" required>
+                            <span id="firstNameError" style="color: red;"></span>
+
                         </div>
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Validity</label>
-                            <input id="valid" name="valid" placeholder="Enter Validity" type="number" min="1" value="<%=edit.validity %>" class="form-control" required>
-                           
+                            <input id="valid" onkeyup="addValidity(this)"  name="valid" placeholder="Enter Validity" type="number" min="1" value="<%=edit.validity %>" class="form-control" required>
+                            <span id="validityError" style="color: red;"></span>
+
                         </div>
                       
                         <div class=" col-md-3 mb-3">
                             <label class="form-label" for="productname"> Min. Limit</label>
-                            <input id="minimum" name="minimum" placeholder="Enter Minimum Limit" type="number" value="<%=edit.minLimit %>" min="1" class="form-control" required>
+                            <input id="minimum" name="minimum" onkeyup="addLimitMin(this)" placeholder="Enter Minimum Limit" type="number" value="<%=edit.minLimit %>" min="1" class="form-control" required>
+                            <span id="minError" style="color: red;"></span>
+
                         </div>
                         <div class=" col-md-3 mb-3">
                             <label class="form-label" for="productname"> Max. Limit</label>
-                            <input id="maximum" name="maximum" placeholder="Enter Maximum Limit" type="number" value="<%=edit.maxLimit %>" min="1" class="form-control" required>
+                            <input id="maximum" name="maximum" onkeyup="addLimitMax(this)" placeholder="Enter Maximum Limit" type="number" value="<%=edit.maxLimit %>" min="1" class="form-control" required>
+                            <span id="maxError" style="color: red;"></span>
                         </div>
                         <div class=" col-md-3 mb-3">
                           <label class="form-label" for="productname"> Min. Purchase</label>
-                          <input id="minimum" name="minBuy" placeholder="Enter Minimum Amount to purchase" type="number" value="<%=edit.minPurchase %>" min="1" class="form-control" required>
+                          <input id="minimum" name="minBuy" onkeyup="addMinBuy(this)" placeholder="Enter Minimum Amount to purchase" type="number" value="<%=edit.minPurchase %>" min="1" class="form-control" required>
+                          <span id="min" style="color: red;"></span>
                       </div>
                       <div class=" col-md-3 mb-3">
                           <label class="form-label" for="productname"> Max. Purchase</label>
-                          <input id="maximum" name="maxBuy" placeholder="Enter Maximum Amount to purchase" type="number" value="<%=edit.maxPurchase %>" min="1" class="form-control" required>
+                          <input id="maximum" name="maxBuy" onkeyup="addMaxBuy(this)" placeholder="Enter Maximum Amount to purchase" type="number" value="<%=edit.maxPurchase %>" min="1" class="form-control" required>
+                          <span id="max" style="color: red;"></span>
+
                       </div>
                         
                         <div class=" col-md-6 mb-3">
                             <label class="form-label" for="productname"> Offer</label>
-                            <input id="offer" name="offer" placeholder="Enter Offer Percentage" type="number" value="<%=edit.offer %>" min="1" max="99" class="form-control" required>
+                            <input id="offer" name="offer" onkeyup="addOffer(this)" placeholder="Enter Offer Percentage" type="number" value="<%=edit.offer %>" min="1" max="99" class="form-control" required>
+                            <span id="offerError" style="color: red;"></span>
+
                         </div>
                        
                         <div class=" col-md-6 mb-0">
                             <label class="form-label" for="productdesc"> Description</label>
-                            <textarea class="form-control" name="description" id="productdesc" placeholder="Enter Description" rows="1" required><%=edit.description %></textarea>
+                            <textarea class="form-control" onkeyup="adddesc(this)"  name="description" id="productdesc" placeholder="Enter Description" rows="1" required><%=edit.description %></textarea>
+                            <span id="descError" style="color: red;"></span>
+
                         </div>
                        
                     </div>
                     <input type="hidden" name="id" value="<%= edit._id %>">
                     
                      <div class="justify-content-center d-flex py-2">
-                       <button class="btn btn-dark"> <i class=" bx bx-file me-1"></i> Edit Coupen</button> 
+                       <button class="btn btn-dark" id="submitBtn" type="submit"> <i class=" bx bx-file me-1"></i> Edit Coupen</button> 
                     </div> 
                     
                     </div>
@@ -268,29 +280,142 @@
 
 
 
+<script>
+    
+    //form validate
+    function addName(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
 
-    <!-- <script>
-        function validateForm() {
-            var name = document.getElementById('productname').value;
-            var description = document.getElementById('productdesc').value;
-            var nameError = document.getElementById('nameError');
-            var descriptionError = document.getElementById('descriptionError');
-            nameError.innerHTML = "";
-            descriptionError.innerHTML = "";
+
     
-            if (name.trim() === "") {
-                nameError.innerHTML = "Name is required";
-                return false;
-            }
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+function addValidity(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('validityError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
     
-            if (description.trim() === "") {
-                descriptionError.innerHTML = "Description is required";
-                return false;
-            }
+    if (isNaN(offerValue) || firstName.startsWith('-'))  {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+function addLimitMin(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('minError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
     
-            document.getElementById('categoryForm').submit();
-        }
-    </script> -->
+    if (isNaN(offerValue) || firstName.startsWith('-'))  {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+function addLimitMax(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('maxError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-'))  {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+function addMinBuy(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('min');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-'))  {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+function addMaxBuy(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('max');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-'))  {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+function addOffer(tag) {
+        const firstName = tag.value.trim();
+        const firstNameError = document.getElementById('offerError');
+        const submitBtn = document.getElementById('submitBtn');
+        const offerValue = parseFloat(firstName);
+
+    
+    if (isNaN(offerValue) || firstName.startsWith('-') || offerValue < 0 || offerValue > 99)  {
+        firstNameError.textContent = 'Offer cannot be negative and must be less than or equal to 99';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+function adddesc(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('descError');
+    const submitBtn = document.getElementById('submitBtn');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+  
+</script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const form = document.getElementById(`myForm`);

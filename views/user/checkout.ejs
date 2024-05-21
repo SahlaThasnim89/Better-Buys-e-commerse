@@ -110,24 +110,26 @@
                                         <div class="single-input-item">
                                             <label for="first-name" class="required" placeholder="Enter name">Name
                                                 <span>*</span></label>
-                                            <input type="text" id="name" name="name" required />
+                                            <input type="text" id="name" onkeyup="editName(this)" name="name" required />
+                                            <span id="firstNameError" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required" placeholder="Enter Phone no.">Mobile
                                                 Number <span>*</span></label>
-                                            <input type="number" id="mobile" name="mobile" required pattern="[0-9]{10}"
+                                            <input type="number" id="mobile" onkeyup="editMobile(this)" name="mobile" required pattern="[0-9]{10}"
                                                 title="Please enter a 10-digit mobile number" />
+                                                <span id="mobileError" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required" placeholder="Enter email">email
                                                 <span>*</span></label>
-                                            <input type="email" id="email" name="email" required
-                                                pattern="^[A-Za-z0-9.%+-]+@gmail\.com$"
+                                            <input type="email" id="email" onkeyup="editEmail(this)" name="email" pattern="^[A-Za-z0-9.%+\\-]+@gmail\.com$" required
                                                 title="Please enter a valid email address" />
+                                                <span id="emailError" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -137,40 +139,45 @@
                                         <div class="single-input-item">
                                             <label for="first-name" class="required"
                                                 placeholder="Enter Postal code">Pincode <span>*</span></label>
-                                            <input type="number " id="pincode" name="pincode" required
+                                            <input type="number " id="pincode" onkeyup="editPin(this)" name="pincode" required
                                                 pattern="[0-9]{6}" title="Please enter a 6-digit pincode" />
+                                                <span id="pinError" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required">Locality <span>*</span></label>
-                                            <input type="text" id="locality" name="locality" required />
+                                            <input type="text" id="locality" onkeyup="editLocal(this)" name="locality" required />
+                                            <span id="localError" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
                                     <label for="display-name" class="required">Address <span>*</span></label>
-                                    <textarea type="text" id="address" rows="3" placeholder="Enter full address"
+                                    <textarea onkeyup="editAddress(this)" type="text" id="address" rows="3" placeholder="Enter full address"
                                         name="address" required></textarea>
+                                        <span id="addressError" style="color: red;"></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="first-name" class="required" placeholder="Enter City">City
                                                 <span>*</span></label>
-                                            <input type="text" id="city" name="city" required />
+                                            <input type="text" id="city" onkeyup="editCity(this)" name="city" required />
+                                            <span id="cityError" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required">State <span>*</span></label>
-                                            <input type="text" id="state" name="state" required />
+                                            <input type="text" id="state"  onkeyup="editState(this)"  name="state" required />
+                                            <span id="stateError" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
-                                    <a href="#"><button class="check-btn sqr-btn ">Cancel</button></a>
-                                    <button class="check-btn sqr-btn ">Edit address</button>
+                                    <a href="/checkOut"><button class="check-btn sqr-btn ">Cancel</button></a>
+                                    <button class="check-btn sqr-btn" id="submitBtn" type="submit">Edit address</button>
                                 </div>
                                 <input type="hidden" id="id" name="id">
 
@@ -210,27 +217,27 @@
                                         <div class="single-input-item">
                                             <label for="first-name" class="required" placeholder="Enter name">Name
                                                 <span>*</span></label>
-                                            <input type="text" id="firstName" name="name" required />
-                                            <span id="firstNameError" style="color: red;"></span>
+                                            <input type="text" id="firstName1" onkeyup="addName(this)" name="name" required />
+                                            <span id="firstNameError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required" placeholder="Enter Phone no.">Mobile
                                                 Number <span>*</span></label>
-                                            <input type="text" id="mobile" name="mobile" required pattern="[0-9]{10}"
+                                            <input type="text" id="mobile1" onkeyup="addMobile(this)" name="mobile" required pattern="[0-9]{10}"
                                                 title="Please enter a 10-digit mobile number" />
-                                            <span id="mobileError" style="color: red;"></span>
+                                            <span id="mobileError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required" placeholder="Enter email">email
                                                 <span>*</span></label>
-                                            <input type="text" id="email" name="email" required
+                                            <input type="text" id="email1" onkeyup="addMail(this)" name="email" required
                                                 pattern="^[A-Za-z0-9.%+-]+@gmail\.com$"
                                                 title="Please enter a valid email address" />
-                                            <span id="emailError" style="color: red;"></span>
+                                            <span id="emailError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -240,45 +247,45 @@
                                         <div class="single-input-item">
                                             <label for="first-name" class="required" placeholder="Enter Postal code">Zip
                                                 Number <span>*</span></label>
-                                            <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}"
+                                            <input type="text" id="pincode1" onkeyup="addPin(this)" name="pincode" required pattern="[0-9]{6}"
                                                 title="Please enter a 6-digit pincode" />
-                                            <span id="pinError" style="color: red;"></span>
+                                            <span id="pinError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required">Locality <span>*</span></label>
-                                            <input type="text" id="locality" name="locality" required />
-                                            <span id="localError" style="color: red;"></span>
+                                            <input type="text" onkeyup="addLocal(this)" id="locality1" name="locality" required />
+                                            <span id="localError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
                                     <label for="display-name" class="required">Address <span>*</span></label>
-                                    <textarea type="text" id="display-name" rows="3" placeholder="Enter full address"
-                                        id="address" name="address" required></textarea>
-                                    <span id="addressError" style="color: red;"></span>
+                                    <textarea onkeyup="addAddress(this)" type="text" id="address1" rows="3" placeholder="Enter full address"
+                                        id="address1" name="address" required></textarea>
+                                    <span id="addressError1" style="color: red;"></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="first-name" class="required" placeholder="Enter City">City
                                                 <span>*</span></label>
-                                            <input type="text" name="city" id="city" required />
-                                            <span id="cityError" style="color: red;"></span>
+                                            <input type="text" name="city" onkeyup="addCity(this)" id="city1" required />
+                                            <span id="cityError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="single-input-item">
                                             <label for="last-name" class="required">State <span>*</span></label>
-                                            <input type="text" id="state" name="state" required />
-                                            <span id="stateError" style="color: red;"></span>
+                                            <input type="text" id="state1" onkeyup="addState(this)" name="state" required />
+                                            <span id="stateError1" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item">
                                     <a href="/myAccount"><button class="check-btn sqr-btn ">Cancel</button></a>
-                                    <button class="check-btn sqr-btn " id="submitBtn" type="submit">Add address</button>
+                                    <button class="check-btn sqr-btn " id="submitBtn1" type="submit">Add address</button>
                                 </div>
 
                             </form>
@@ -367,57 +374,59 @@
                                                 <div class="billing-info mb-25">
                                                     <label>Full Name <abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="text" name="name" id="firstName" required>
-                                                    <span id="firstNameError" style="color: red;"></span>
+                                                    <input type="text" name="name" id="name3" required>
+                                                    <span id="firstNameError3" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info mb-25">
                                                     <label>Mobile Number <abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="text" name="mobile" id="mobile" required
+                                                    <input type="number" name="mobile" id="mobile3"
                                                         pattern="[0-9]{10}"
-                                                        title="Please enter a 10-digit mobile number">
-                                                    <span id="mobileError" style="color: red;"></span>
+                                                        title="Please enter a 10-digit mobile number" required>
+                                                    <span id="mobileError3" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info mb-25">
                                                     <label>Email <abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="email" name="email" id="email" required
+                                                    <input type="email" name="email" id="email3"
                                                         pattern="^[A-Za-z0-9.%+-]+@gmail\.com$"
-                                                        title="Please enter a valid email address">
-                                                    <span id="emailError" style="color: red;"></span>
+                                                        title="Please enter a valid email address" required>
+                                                    <span id="emailError3" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info mb-25">
                                                     <label>Pincode <abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="text" name="pincode" id="pincode" required
-                                                        pattern="[0-9]{6}" title="Please enter a 6-digit pincode">
+                                                    <input type="text" name="pincode" id="pincode3"
+                                                        pattern="[0-9]{6}" title="Please enter a 6-digit pincode" required>
+                                                        <span id="pinError3" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
                                                 <div class="billing-info mb-25">
                                                     <label>Locality <abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="text" name="locality" id="locality" required>
-                                                    <span id="localError" style="color: red;"></span>
+                                                    <input type="text" name="locality" id="locality3" required>
+                                                    <span id="localError3" style="color: red;"></span>
                                                 </div>
                                             </div>
                                             <div class="additional-info-wrap">
                                                 <label>Address</label>
-                                                <textarea placeholder="Enter your address here. " name="address"
+                                                <textarea placeholder="Enter your address here. " name="address" id="address3"
                                                     required></textarea>
+                                                    <span id="addressError3" style="color: red;"></span>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="billing-info mb-25">
                                                     <label>City <abbr class="required" title="required">*</abbr></label>
-                                                    <input type="text" name="city" id="address" required>
+                                                    <input type="text" name="city" id="city3" required>
                                                 </div>
-                                                <span id="addressError" style="color: red;"></span>
+                                                <span id="cityError3" style="color: red;"></span>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="billing-select mb-25">
@@ -433,7 +442,7 @@
                                                 </div>
                                             </div>
                                             <div class="Place-order mt-30">
-                                                <input class="bg-dark text-white" id="submitBtn" type="submit"
+                                                <input class="bg-dark text-white" id="submitBtn3" type="submit"
                                                     style="height: 4rem;" value="Save and Deliver Here">
                                             </div>
                                         </div>
@@ -500,7 +509,7 @@
                                                                 </h5>
                                                                 <p class="mb-1">
                                                                     <%=id.address[i].locality %>, <%=id.address[i].city
-                                                                            %>, <%=id.address[i].state %>
+                                                                            %>, <%=id.address[i].state %>- <%=id.address[i].pincode %>
                                                                 </p>
                                                                 <br>
 
@@ -562,7 +571,7 @@
 
 
                                                 <% } %>
-                                                <a class="d-flex justify-content-start pb-60" href="/shop"><button class="btn btn-dark text-white rounded-0  !important">Shop More</button></a>
+                                                <!-- <a class="d-flex justify-content-start pb-60" href="/shop"><button class="btn btn-dark text-white rounded-0  !important">Shop More</button></a> -->
 
 
 
@@ -590,6 +599,7 @@
 
                                                     <% let checkTotal=0 %>
                                                         <% let Total=0 %>
+                                                        <% let isStock = false; %>
                                                             <% check.products.forEach(value=>{%>
                                                                 <% checkTotal=value.productId.OfferPrice*value.quantity
                                                                     %>
@@ -600,6 +610,9 @@
                                                                                         <%=parseInt(checkTotal) %>
                                                                                     </span>
                                                                         </li>
+                                                                        <% if (value.productId.Quantity < value.quantity) { %>
+                                                                            <% isStock = true; %>
+                                                                        <% } %>
                                                                         <!-- <li>Product Name X 1 <span>$329 </span></li> -->
                                                                         <%}) %>
                                                 </ul>
@@ -696,16 +709,26 @@
                                         style="background-color: black;">
                                         <%= locals.msg %>
                                     </div>
+                                    
+                                    
+                                     
+
+                                                
                                     <div class="Place-order mt-30">
                                         
                                         <!-- <a href="#" id="placeOrderBtn">Place Order</a> -->
-                                       
+                                        <% console.log(isStock,'oooooo'); %>
+                                        <% if (isStock===false) { %>
                                             <button class="btn btn-dark btn-hover" id="placeOrderBtn" type="button"
                                             onclick="Submit(getTotalAmount() ,'<%= check.clientId %>')"
                                             style="border-radius: 0 !important; height: 2rem;">Place Order</button>
-                                       
-                                      
+                                            <%}else{%>
+                                                <button class="btn btn-dark btn-hover" id="placeOrderBtn" type="button"
+                                                onclick="stockOut()"
+                                                style="border-radius: 0 !important; height: 2rem;">Place Order</button>  
+                                                <%}%>
                                     </div>
+                                    
                                     <input type="hidden" name="total" value="<%=parseInt(Total)%>">
                                     <input type="hidden" id="status" name="status">
 
@@ -797,13 +820,13 @@
             </div>
         </div>
     </footer>
-    <div class="support-lists">
+    <!-- <div class="support-lists">
         <ul>
             <li><a href="#"><i class="dlicon ui-3_chat-46"></i></a></li>
             <li><a href="#"><i class=" dlicon ui-3_phone"></i></a></li>
             <li><a href="#"><i class="dlicon ui-1_email-85"></i></a></li>
         </ul>
-    </div>
+    </div> -->
 
     </div>
     <style>
@@ -839,6 +862,37 @@
 
 
     <script>
+//qty check
+function stockOut(){ 
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "bottom",
+        showConfirmButton: false,
+        timer: 2000,
+        customClass: {
+          popup: 'swal-toast',
+          title: 'swal-toast-title'
+        },
+        didOpen: (toast) => {
+          toast.style.backgroundColor = "black";
+          toast.style.color = "white"; 
+          toast.style.fontSize = "11px"; 
+        }
+      });
+
+      Toast.fire({
+        text: "Item is stock out"
+      });
+      
+}
+
+
+
+
+
+
+
+//total
         function getTotalAmount() {
             var totalText = document.getElementById('totalSpan').innerText;
             var amount = parseFloat(totalText.replace('₹', '').replace('.00', '').trim());
@@ -1101,14 +1155,13 @@
         }
 
 
-//validate address form
-
-   
-document.getElementById('firstName').addEventListener('input', function(event) {
+        //validate address form for first user
+           
+document.getElementById('name3').addEventListener('input', function(event) {
     const firstName = this.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
-    const firstNameError = document.getElementById('firstNameError');
-    const submitBtn = document.getElementById('submitBtn');
+    const firstNameError = document.getElementById('firstNameError3');
+    const submitBtn = document.getElementById('submitBtn3');
 
 
     
@@ -1121,18 +1174,159 @@ document.getElementById('firstName').addEventListener('input', function(event) {
     }
 });
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
+
+document.getElementById('mobile3').addEventListener('input', function(event) {
+    const mobile = this.value.trim();
+    const mobileRegex = /^\d{10}$/;
+    const mobileError = document.getElementById('mobileError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    if (!mobileRegex.test(mobile)) {
+        mobileError.textContent = 'Invalid Mobile';
+        submitBtn.disabled = true;
+    } else {
+        mobileError.textContent = '';
+        submitBtn.disabled = false;
     }
 });
 
 
-document.getElementById('mobile').addEventListener('input', function(event) {
-    const mobile = this.value.trim();
+
+document.getElementById('email3').addEventListener('input', function(event) {
+    const email = this.value.trim();
+    const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
+    const emailError = document.getElementById('emailError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    if (!emailRegex.test(email)) {
+        emailError.textContent = 'Invalid Email';
+        submitBtn.disabled = true;
+    } else {
+        emailError.textContent = '';
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+document.getElementById('pincode3').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[0-9]{6}$/;
+    const firstNameError = document.getElementById('pinError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Zip';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+document.getElementById('locality3').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('localError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+document.getElementById('address3').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('addressError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+
+document.getElementById('city3').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('cityError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+document.getElementById('state3').addEventListener('input', function(event) {
+    const firstName = this.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('stateError3');
+    const submitBtn = document.getElementById('submitBtn3');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+});
+
+
+
+
+
+
+
+
+//validate edit address
+    function editName(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = '';
+        submitBtn.disabled = false;
+    }
+}
+
+
+
+function editMobile(tag) {
+    const mobile = tag.value.trim();
     const mobileRegex = /^\d{10}$/;
     const mobileError = document.getElementById('mobileError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1144,21 +1338,12 @@ document.getElementById('mobile').addEventListener('input', function(event) {
         mobileError.textContent = '';
         submitBtn.disabled = false;
     }
-});
-
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
+};
 
 
 
-document.getElementById('email').addEventListener('input', function(event) {
-    const email = this.value.trim();
+function editEmail(tag) {
+    const email = tag.value.trim();
     const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
     const emailError = document.getElementById('emailError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1170,19 +1355,12 @@ document.getElementById('email').addEventListener('input', function(event) {
         emailError.textContent = '';
         submitBtn.disabled = false;
     }
-});
+};
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
 
-document.getElementById('pincode').addEventListener('input', function(event) {
-    const firstName = this.value.trim();
+function editPin(tag) {
+    const firstName = tag.value.trim();
     const firstNameRegex = /^[0-9]{6}$/;
     const firstNameError = document.getElementById('pinError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1195,20 +1373,12 @@ document.getElementById('pincode').addEventListener('input', function(event) {
         firstNameError.textContent = ''; 
         submitBtn.disabled = false;
     }
-});
-
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
+};
 
 
-document.getElementById('locality').addEventListener('input', function(event) {
-    const firstName = this.value.trim();
+
+function editLocal(tag) {
+    const firstName = tag.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
     const firstNameError = document.getElementById('localError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1221,16 +1391,8 @@ document.getElementById('locality').addEventListener('input', function(event) {
         firstNameError.textContent = ''; 
         submitBtn.disabled = false;
     }
-});
+};
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
 
 
 document.getElementById('address').addEventListener('input', function(event) {
@@ -1249,19 +1411,11 @@ document.getElementById('address').addEventListener('input', function(event) {
     }
 });
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
 
 
 
-document.getElementById('city').addEventListener('input', function(event) {
-    const firstName = this.value.trim();
+function editCity(tag) {
+    const firstName = tag.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
     const firstNameError = document.getElementById('cityError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1274,20 +1428,11 @@ document.getElementById('city').addEventListener('input', function(event) {
         firstNameError.textContent = ''; 
         submitBtn.disabled = false;
     }
-});
-
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
-    }
-});
+};
 
 
-document.getElementById('state').addEventListener('input', function(event) {
-    const firstName = this.value.trim();
+function editState(tag) {
+    const firstName = tag.value.trim();
     const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
     const firstNameError = document.getElementById('stateError');
     const submitBtn = document.getElementById('submitBtn');
@@ -1300,16 +1445,158 @@ document.getElementById('state').addEventListener('input', function(event) {
         firstNameError.textContent = ''; 
         submitBtn.disabled = false;
     }
-});
+};
 
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const submitBtn = document.getElementById('submitBtn');
-    if (!submitBtn.disabled) {
-        this.submit();
+
+
+
+//validate add address form
+
+   
+function addName(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('firstNameError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Name';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
     }
-});
+};
+
+
+
+function addMobile(tag) {
+    const mobile = tag.value.trim();
+    const mobileRegex = /^\d{10}$/;
+    const mobileError = document.getElementById('mobileError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    if (!mobileRegex.test(mobile)) {
+        mobileError.textContent = 'Invalid Mobile';
+        submitBtn.disabled = true;
+    } else {
+        mobileError.textContent = '';
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+function addMail(tag) {
+    const email = tag.value.trim();
+    const emailRegex = /^[A-Za-z0-9.%+-]+@gmail\.com$/;
+    const emailError = document.getElementById('emailError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    if (!emailRegex.test(email)) {
+        emailError.textContent = 'Invalid Email';
+        submitBtn.disabled = true;
+    } else {
+        emailError.textContent = '';
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+function addPin(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[0-9]{6}$/;
+    const firstNameError = document.getElementById('pinError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid Zip';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+function addLocal(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('localError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+function addAddress(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('addressError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+
+function addCity(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('cityError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
+
+function addState(tag) {
+    const firstName = tag.value.trim();
+    const firstNameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+    const firstNameError = document.getElementById('stateError1');
+    const submitBtn = document.getElementById('submitBtn1');
+
+    
+    if (!firstNameRegex.test(firstName)) {
+        firstNameError.textContent = 'Invalid';
+        submitBtn.disabled = true;
+    } else {
+        firstNameError.textContent = ''; 
+        submitBtn.disabled = false;
+    }
+};
+
+
 
 
 

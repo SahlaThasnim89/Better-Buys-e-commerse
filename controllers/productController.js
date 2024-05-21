@@ -1,42 +1,44 @@
 const Product = require('../model/productModel')
 const Category = require('../model/CategoryModel')
-const Offer=require('../model/offerModel')
+const Offer = require('../model/offerModel')
+const Order = require('../model/orderModel')
 const moment = require('moment');
-const currentDate=moment(); 
+const currentDate = moment();
 
 
 
 const product = async (req, res) => {
     try {
 
-        const limit=4
-        const page=Number(req.query.page)||1;
-        const skip=(page-1)*limit;
+        const limit = 4
+        const page = Number(req.query.page) || 1;
+        const skip = (page - 1) * limit;
 
-        const count=await Product.countDocuments()
-        const pages=Math.ceil(count/limit)
+        const count = await Product.countDocuments()
+        const pages = Math.ceil(count / limit)
 
 
         const product = await Product.find().populate('Category').skip(skip).limit(limit)
         const modifiedProducts = product.map(product => ({
             Name: product.Name,
             Description: product.Description,
-            CategoryName: product.Category ? product.Category.CategoryName : 'Uncategorized', 
+            CategoryName: product.Category ? product.Category.CategoryName : 'Uncategorized',
             Price: product.Price,
             is_listed: product.is_listed,
             Quantity: product.Quantity,
             date: product.date,
             image: product.image,
             _id: product._id,
-            OfferPrice:product.OfferPrice,
-            Offer:product.Offer
+            OfferPrice: product.OfferPrice,
+            Offer: product.Offer
         }));
-        const offers=await Offer.find()
-        res.render('admin/products', { product: modifiedProducts ,
-                                        pages,
-                                        currentPage:page,
-                                        offers
-                                    });
+        const offers = await Offer.find()
+        res.render('admin/products', {
+            product: modifiedProducts,
+            pages,
+            currentPage: page,
+            offers
+        });
     } catch (error) {
         console.error(error);
     }
@@ -63,9 +65,8 @@ const addingProduct = async (req, res) => {
             Quantity: req.body.stock,
             date: currentDate.format('DD/MM/YYYY'),
             image: images,
-            OfferPrice:req.body.price
+            OfferPrice: req.body.price
         })
-        console.log(addedProduct);
         const newCategory = await addedProduct.save()
         res.redirect('/admin/products')
     } catch (error) {
@@ -79,12 +80,16 @@ const addingProduct = async (req, res) => {
 const editProduct = async (req, res) => {
     try {
         const productId = req.params.id;
-        if (product.length === 24) {
-        const msg=req.flash('err')
-        const product = await Product.findOne({ _id: productId })
-        const category=await Category.find()
-        res.render('admin/editProduct', { product,category,msg})
-        }else{
+        if (productId.length === 24) {
+            const msg = req.flash('err')
+            const product = await Product.findOne({ _id: productId })
+            if (product) {
+                const category = await Category.find()
+                res.render('admin/editProduct', { product, category, msg })
+            } else {
+                res.redirect('/admin/error')
+            }
+        } else {
             res.redirect('/admin/error')
         }
     } catch (error) {
@@ -96,32 +101,31 @@ const editProduct = async (req, res) => {
 //to get edited product data in list
 const editedProductData = async (req, res) => {
     try {
-        const { productName, Description, category, price, stock,id,offer } = req.body
-        const newPrice=price-(price*offer/100)
-        if(price<=0 || stock<0 ){
-            req.flash('err','price and quantity cannot be a negative value')
+        const { productName, Description, category, price, stock, id, offer } = req.body
+        const newPrice = price - (price * offer / 100)
+        if (price <= 0 || stock < 0) {
+            req.flash('err', 'price and quantity cannot be a negative value')
             res.redirect(`/admin/editProduct/${id}`)
         }
         const image = req.files.map(file => file.filename)
-        const previous=await Product.findOne({_id:req.body.id})
-       
-        let img=[]
+        const previous = await Product.findOne({ _id: id })
+
+        let img = []
         if (previous.image && previous.image.length > 0) {
-        for(let i=0;i<4;i++){
-            if(previous.image[i]!==req.body.pic[i]){
-                image.forEach(e=>{
-                    console.log(e,req.body.pic[i]);
-                    if(e.split(' - ')[1]==req.body.pic[i].split(' - ')[1]){
-                        img[i]=e 
-                    }
-                })
-            }else{
-                
-                img[i]=previous.image[i]
+            for (let i = 0; i < 4; i++) {
+                if (previous.image[i] !== req.body.pic[i]) {
+                    image.forEach(e => {
+                        if (e.split(' - ')[1] == req.body.pic[i].split(' - ')[1]) {
+                            img[i] = e
+                        }
+                    })
+                } else {
+
+                    img[i] = previous.image[i]
+                }
             }
         }
-    }
-        const edited = await Product.findByIdAndUpdate({ _id: req.body.id }, {
+        const edited = await Product.findByIdAndUpdate({ _id: id }, {
             Name: productName,
             Description: Description,
             Category: category,
@@ -129,9 +133,9 @@ const editedProductData = async (req, res) => {
             Quantity: stock,
             date: currentDate.format('DD/MM/YYYY'),
             image: img,
-            OfferPrice:newPrice
+            OfferPrice: newPrice
         }, { new: true })
-      
+
         if (edited) {
             res.redirect('/admin/products')
         }
@@ -146,27 +150,18 @@ const editedProductData = async (req, res) => {
 const blockProduct = async (req, res) => {
     try {
         const ProductId = req.body.id
-        if (ProductId.length === 24) {
-        const ProductStatus = await Product.findOne({ _id: ProductId })
-        ProductStatus.is_listed = !ProductStatus.is_listed
-        ProductStatus.save()
-        }else{
-            res.redirect('/admin/error')
-        }
-    } catch (error) {  
-        console.log(error.message);
-    }
-}
-
-
-//to delete product
-const deleteProduct = async (req, res) => {
-    try {
-        const productId = req.params.id
-        if (productId.length === 24) {
-        const toDelete = await Product.deleteOne({ _id: productId })
-        res.redirect('/admin/products')
-        }else{
+        const check = await Order.findOne({ 'products.productId': ProductId, 'products.status': 'Placed' })
+        if (!check) {
+            if (ProductId.length === 24) {
+                const ProductStatus = await Product.findOne({ _id: ProductId })
+                if (ProductStatus) {
+                    ProductStatus.is_listed = !ProductStatus.is_listed
+                    ProductStatus.save()
+                }
+            } else {
+                res.redirect('/admin/error')
+            }
+        } else {
             res.redirect('/admin/error')
         }
     } catch (error) {
@@ -175,12 +170,12 @@ const deleteProduct = async (req, res) => {
 }
 
 
+
 module.exports = {
     product,
     addProduct,
     addingProduct,
     editProduct,
     editedProductData,
-    blockProduct,
-    deleteProduct
+    blockProduct
 }

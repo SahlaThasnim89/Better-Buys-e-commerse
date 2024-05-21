@@ -204,8 +204,8 @@ const home = async (req, res) => {
 
         //pending orders
         const countPending = await Order.countDocuments({ status: 'pending' });
-        
-        
+
+
         //order of the day
         const startOfDay = new Date();
         startOfDay.setHours(0, 0, 0, 0);
@@ -218,13 +218,13 @@ const home = async (req, res) => {
                 $lte: endOfDay
             }
         }).count();
-       
 
 
 
 
 
-        res.render('admin/homepage', { sales, orderCount, user, revenue, Total, ProductCount, prod, product, statusCounts, CountByCategory, totaProducts, bestSellingTen, topUsers, countPending,CurrentDayOrders })
+
+        res.render('admin/homepage', { sales, orderCount, user, revenue, Total, ProductCount, prod, product, statusCounts, CountByCategory, totaProducts, bestSellingTen, topUsers, countPending, CurrentDayOrders })
     } catch (error) {
         console.log(error.message);
     }
@@ -295,13 +295,13 @@ const forAddOffer = async (req, res) => {
 const AddingOffer = async (req, res) => {
     try {
         const { name, discount } = req.body
-        // const check=await Offer.find({})
         const offerData = new Offer({
             offerName: name,
-            discount: discount,
+            discount: discount
         })
         await offerData.save()
         res.redirect('/admin/offers')
+
     } catch (error) {
         console.log(error.message);
     }
@@ -312,8 +312,17 @@ const AddingOffer = async (req, res) => {
 const EditPage = async (req, res) => {
     try {
         let offerId = req.params.id
-        const offer = await Offer.findOne({ _id: offerId })
-        res.render('admin/editOffer', { offer })
+        if (offerId.length === 24) {
+            const offer = await Offer.findOne({ _id: offerId })
+            if (offer) {
+                const offer = await Offer.findOne({ _id: offerId })
+                res.render('admin/editOffer', { offer })
+            } else {
+                res.redirect('/admin/error')
+            }
+        } else {
+            res.redirect('/admin/error')
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -323,6 +332,7 @@ const EditPage = async (req, res) => {
 const editOffer = async (req, res) => {
     try {
         const OfferId = req.params.id
+
         const { offername, discount, oldDiscount } = req.body
         const check = await Offer.findOne({ discount: discount })
         if (!check) {
@@ -357,8 +367,17 @@ const editOffer = async (req, res) => {
 const removeOffer = async (req, res) => {
     try {
         const id = req.params.id
-        const toDelete = await Offer.deleteOne({ _id: id })
-        res.redirect('/admin/offers')
+        if (id.length === 24) {
+            const check = await Offer.findOne({ _id: id })
+            if (!check) {
+                const toDelete = await Offer.deleteOne({ _id: id })
+                res.redirect('/admin/offers')
+            } else {
+                res.redirect('/admin/error')
+            }
+        } else {
+            res.redirect('/admin/error')
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -415,6 +434,8 @@ const salesReport = async (req, res) => {
         const limit = 10;
         const page = Number(req.query.page) || 1;
         const skip = (page - 1) * limit;
+        const count = await Product.countDocuments()
+        const pages = Math.ceil(count / limit)
         const basis = req.params.id;
 
         let order;
@@ -466,19 +487,22 @@ const salesReport = async (req, res) => {
             }
 
             order = await Order.find({
-                orderDate: { $gte: range.start, $lt: range.end },
+                orderDate: { $gte: range.start, $lt: range.end }, 'products.status': 'delivered'
             })
                 .populate("UserId products.productId")
                 .skip(skip)
                 .limit(limit);
         } else {
-            order = await Order.find()
+            order = await Order.find({ 'products.status': 'delivered' })
                 .populate("UserId products.productId")
                 .skip(skip)
                 .limit(limit);
         }
 
-        res.render("admin/salesReport", { order, customDate });
+        res.render("admin/salesReport", {
+            order, customDate, pages,
+            currentPage: page
+        });
     } catch (error) {
         console.error("Error generating sales report:", error.message);
     }
@@ -488,24 +512,17 @@ const salesReport = async (req, res) => {
 const getcustomDate = async (req, res) => {
     try {
         const { startDate, endDate } = req.body
-        console.log(startDate, endDate, 'opop');
-        let order;
-        const range = {};
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-
-        range.start = new Date(start.getFullYear(), start.getMonth(), 1);
-        range.end = new Date(end.getFullYear(), end.getMonth() + 1, 0);
-
-        order = await Order.find({
-            orderDate: { $gte: range.start, $lt: range.end },
+        const order = await Order.find({
+            orderDate: { $gte: startDate, $lte: endDate }, 'products.status': 'delivered'
         })
             .populate("UserId products.productId")
+        res.send({ order })
 
     } catch (error) {
         console.log(error.message);
     }
 }
+
 
 const returnList = async (req, res) => {
     try {
@@ -572,16 +589,16 @@ const chart = async (req, res) => {
 }
 
 
-const ledgerBook=async(req,res)=>{
+const ledgerBook = async (req, res) => {
     try {
-        const orders=await Order.find({'products.status':'delivered'})
-       res.render('admin/ledgerBook',{orders}) 
+        const orders = await Order.find({ 'products.status': 'delivered' })
+        res.render('admin/ledgerBook', { orders })
     } catch (error) {
         console.log(error.message);
     }
 }
 
-const adError=async(req,res)=>{
+const adError = async (req, res) => {
     try {
         res.render("admin/404page")
     } catch (error) {
