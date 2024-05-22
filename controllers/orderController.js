@@ -94,7 +94,6 @@ const orderProduct = async (req, res) => {
     });
 
     const orderSave = await order.save();
-    console.log(orderSave,'orderSave');
 
     if (!orderSave) {
       throw new Error('Order creation failed');
@@ -229,7 +228,7 @@ const razorPay = async (req, res) => {
 //admin Order List
 const orderList = async (req, res) => {
   try {
-    const limit = 6
+    const limit = 10
     const page = Number(req.query.page) || 1;
     const skip = (page - 1) * limit;
     const count = await Order.countDocuments()
@@ -291,7 +290,12 @@ const OrderDetails = async (req, res) => {
       if (order) {
     const orderItem = await Order.findOne({ 'products._id': item }, { 'products.$': 1, deliverAddress: 1 }).populate('products.productId')
     const orderData = await Order.findOne({ _id: orderItem._id })
-    res.render('user/orderDetails', { item: orderItem, orderData })
+    // let priceAfterCoupen=0
+    // if(orderItem.CoupenOffer>0){
+    //   let coupenOffer=orderItem.orderAmount*orderItem.CoupenOffer/100
+    //   priceAfterCoupen=orderItem.orderAmount-coupenOffer
+    // }
+    res.render('user/orderDetails', { item: orderItem, orderData})
   } else {
     res.redirect('/error')
   }

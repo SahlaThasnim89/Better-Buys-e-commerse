@@ -1,6 +1,6 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb+srv://Sahla:123sahala@ecomarese.ee0tfwe.mongodb.net/?retryWrites=true&w=majority&appName=Ecomarese")
-// mongoose.connect("mongodb://127.0.0.1:27017/users_list")
+// mongoose.connect("mongodb+srv://Sahla:123sahala@ecomarese.ee0tfwe.mongodb.net/?retryWrites=true&w=majority&appName=Ecomarese")
+mongoose.connect("mongodb://127.0.0.1:27017/users_list")
 const morgan=require('morgan')
 const express=require("express")
 const session=require("express-session")

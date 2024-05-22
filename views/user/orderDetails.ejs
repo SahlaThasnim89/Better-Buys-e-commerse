@@ -125,7 +125,7 @@
                                                             <h5 class="d-flex justify-content-start">You <span style="color: #fc4f4f; margin: 0 5px;"><b> returned </b></span> the Order</h5>
                                                         
                                                         <% }else if(item.products[0].returnReason!=='None') {%>
-                                                            <h5 class="d-flex justify-content-start"><span style="color: #fc4f4f; margin: 0 5px;"><b> Return requested </b></span></h5>
+                                                            <h5 class="d-flex justify-content-start">Return requested</h5>
                                                             <%}else{%> 
                                                             
                                                                 <%if(item.products[0].status==='delivered'){%>
@@ -180,8 +180,8 @@
                                                 <h5 class="font-size-16"><%=item.products[0].productId.Name %></h5>
                                                 <h5 class="font-size-16"><%=item.products[0].quantity%> x ₹ <%=Math.round(item.products[0].productPrice) %></h5>
                                                 <% amount=item.products[0].quantity*item.products[0].productPrice %>
-                                                <% if(item.CoupenOffer>0){%>
-                                                    <h5 class="font-size-16"><strong>₹ <%=Math.round(amount) %></strong></h5>
+                                                <% if(orderData.CoupenOffer>0){%>
+                                                    <h5 class="font-size-16"><strong>₹ <%=Math.round(amount-(amount*orderData.CoupenOffer/100)) %></strong></h5>
                                                     <h5 class="font-size-16" style="color: rgb(53, 163, 53);">Coupen applied for this order</h5>                                                   
                                                 <%}else{%>
                                                     <h5 class="font-size-16"><strong>₹ <%=Math.round(amount) %></strong></h5>
@@ -475,7 +475,9 @@
        // order return
 
         function returnItem(item){
-
+            console.log(item,'item');
+   
+            
             Swal.fire({
   text: "Please provide a reason for returning the item",
   input: "text",
@@ -501,18 +503,27 @@
   if (result.isConfirmed) {
     const reason = result.value;
     
+    const returnButton = document.getElementById('returnButton');
+    if (returnButton) {
+        const returnedText = document.createElement('span');
+        returnedText.textContent = 'Return requested';
+        returnButton.parentNode.replaceChild(returnedText, returnButton);
+    }
+    
     fetch('/returnOrder', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ reason,item})
+
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to send reason to backend.');
-      }
-    
+        if (!response.ok) {
+            throw new Error('Failed to send reason to backend.');
+        }
+
+         
     })
     .catch(error => {
       console.error('Error sending reason to backend:', error);
@@ -529,42 +540,7 @@
 
         }
 
-//             Swal.fire({
-//   text: "Please provide a reason for returning the item",
-//   input: "text",
-//   inputAttributes: {
-//     autocapitalize: "off"
-//   },
-//   showCancelButton: true,
-//   confirmButtonText: "Submit",
-//   showLoaderOnConfirm: true,
-//   preConfirm: async (login) => {
-//     try {
-//       const githubUrl = `
-//         https://api.github.com/users/${login}
-//       `;
-//       const response = await fetch(githubUrl);
-//       if (!response.ok) {
-//         return Swal.showValidationMessage(`
-//           ${JSON.stringify(await response.json())}
-//         `);
-//       }
-//       return response.json();
-//     } catch (error) {
-//       Swal.showValidationMessage(`
-//         Request failed: ${error}
-//       `);
-//     }
-//   },
-//   allowOutsideClick: () => !Swal.isLoading()
-// }).then((result) => {
-//   if (result.isConfirmed) {
-//     Swal.fire({
-//       title: `${result.value.login}'s avatar`,
-//       imageUrl: result.value.avatar_url
-//     });
-//   }
-// }); 
+
 
 
 

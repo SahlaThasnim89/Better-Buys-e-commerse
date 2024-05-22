@@ -149,22 +149,9 @@ const EnteredOTP = async (req, res) => {
         ]
         const enteredOTP = combineOTP(otpParts)
 
-        if (req.session.otp && req.session.otpTimestamp) {
-            const storedOTP = req.session.otp;
-            console.log(storedOTP,'otp');
-            const otpTimestamp = req.session.otpTimestamp;
-
-          
-            const currentTime = new Date();
-            const differenceInMs = currentTime - otpTimestamp;
-            const differenceInMinutes = differenceInMs / (1000 * 60); 
-
-            if (differenceInMinutes > 1) {
-                req.flash('err', 'OTP has expired');
-                res.redirect('/otp');
-                return;
-            }
-
+        if (req.session.otp) {
+            const storedOTP = req.session.otp
+            console.log(storedOTP);
 
             // Check entered OTP is valid
             if (enteredOTP == storedOTP) {
@@ -204,6 +191,7 @@ const EnteredOTP = async (req, res) => {
                     );
                 }
                 req.session.refferer = null
+                req.session.otp=null
                 res.redirect('/')
             } else {
                 req.flash('err', 'OTP is incorrect');
@@ -220,9 +208,6 @@ const EnteredOTP = async (req, res) => {
             }
         }
 
-        req.session.otp = null;
-        req.session.otpTimestamp = null;
-
 
     } catch (error) {
         console.log(error.message);
@@ -230,12 +215,17 @@ const EnteredOTP = async (req, res) => {
 }
 
 
+
+
 const resendOtp = async (req, res) => {
     try {
         req.session.otp = undefined
         if (req.session.otp === undefined) {
+            console.log('iuiiyu');
             req.session.otp = generateOTP()
+            console.log('ipopip');
             await OtpMailSending(req.session.userData, req.session.otp);
+            console.log('ytutytuytu');
             res.redirect('/otp')
         }
     } catch (error) {

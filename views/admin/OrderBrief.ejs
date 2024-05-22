@@ -145,14 +145,14 @@
                                                                     <% details.products.forEach((product)=>{ %>
                                                                     <tr>
                                                                         <td><img src="/static/productImage/<%=product.productId.image[0]%>" height="100" alt=""><br><span><%=product.productId.Name%></span></td>
-                                                                        <td ><%=product.productPrice%>.00
+                                                                        <td ><%=Math.round(product.productPrice)%>.00
                                                                         <% if(product.productId.Offer>0) {%>
                                                                         <p>(<%=product.productId.Offer %>% off)</p>
                                                                         <%}%>
                                                                     </td>
                                                                     
                                                                         <td><%=product.quantity %></td>
-                                                                        <td><%=product.productPrice*product.quantity %>.00</td>
+                                                                        <td><%=Math.round(product.productPrice*product.quantity) %>.00</td>
                                                                         <% if(product.status==='returned'){%>
                                                                             <td><p>Order return approved</p></td>
                                                                         
