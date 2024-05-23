@@ -95,6 +95,7 @@ const insertUser = async (req, res) => {
         const userData = { FullName, email, mobile, password: passwordHash }
         req.session.userData = userData
         req.session.otp = generateOTP();
+        req.session.otpTimestamp = Date.now();
         console.log(req.session.otp);
         await OtpMailSending(req.session.userData, req.session.otp);
         res.redirect("/otp")
@@ -149,9 +150,19 @@ const EnteredOTP = async (req, res) => {
         ]
         const enteredOTP = combineOTP(otpParts)
 
+        const otpExpirationTime = 60000; 
+
         if (req.session.otp) {
             const storedOTP = req.session.otp
+            const otpTimestamp = req.session.otpTimestamp;
             console.log(storedOTP);
+
+            if (Date.now() - otpTimestamp > otpExpirationTime) {
+                req.session.otp = null;
+                req.session.otpTimestamp = null;
+                req.flash('err', 'OTP has expired');
+                return res.redirect('/otp');
+            }
 
             // Check entered OTP is valid
             if (enteredOTP == storedOTP) {
@@ -192,6 +203,8 @@ const EnteredOTP = async (req, res) => {
                 }
                 req.session.refferer = null
                 req.session.otp=null
+                req.session.otpTimestamp = null;
+                req.session.email=req.session.Use
                 res.redirect('/')
             } else {
                 req.flash('err', 'OTP is incorrect');
@@ -219,13 +232,10 @@ const EnteredOTP = async (req, res) => {
 
 const resendOtp = async (req, res) => {
     try {
-        req.session.otp = undefined
-        if (req.session.otp === undefined) {
-            console.log('iuiiyu');
+        req.session.otp = null
+        if (req.session.otp === null) {
             req.session.otp = generateOTP()
-            console.log('ipopip');
             await OtpMailSending(req.session.userData, req.session.otp);
-            console.log('ytutytuytu');
             res.redirect('/otp')
         }
     } catch (error) {

@@ -905,8 +905,10 @@
                                                     <div class="col-lg-12">
                                                         <div class="single-input-item">
                                                             <label for="new-pwd" >New password (leave blank to leave unchanged)</label>
-                                                            <input type="password" onkeyup="newPassword(this)" id="newPwd" name="newPwd" required/>
+                                                            <input type="password" onkeyup="newPassword(this);checkSame(this)" id="newPwd" name="newPwd" required/>
                                                             <span id="firstNameError4" style="color: red;"></span>
+                                                            <span id="SamePassword" style="color: red;"></span>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
@@ -921,7 +923,7 @@
                                                 <p><span style="font-size: x-small;">*(password must contain 8 characters including uppercase, lowercase, and numbers)</p>
                                             </fieldset>
                                             <div class="single-input-item">
-                                                <button type="submit" onclick="changed()" class="check-btn sqr-btn" id="resetBtn4">Save Changes</button>
+                                                <button id="resetBtn4" type="submit" onclick="changed()" class="check-btn sqr-btn">Save Changes</button>
                                             </div>
                                         </form>
                                     </div>
@@ -1017,12 +1019,29 @@
         </div> -->
     </div>
 
-    <!-- All JS is here
+    <!-- All JS is here  
 ============================================ -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
+function checkSame(tag) {  
+const newPassword = tag.value;
+const currentPassword = document.getElementById("currentpwd").value;
+  const errorSpan = document.getElementById('SamePassword');
+  const resetBtn = document.getElementById('resetBtn4');
+
+
+  if (newPassword === currentPassword) {
+
+    errorSpan.textContent = "New password cannot be the same as current password.";
+    resetBtn.disabled = true; 
+  }else{
+    errorSpan.textContent = '';
+    resetBtn.disabled = false; 
+  }
+}
 
 
 

@@ -37,7 +37,9 @@ const myAccount=async(req,res)=>{
 
 
         //refferral
-        const baseURL = "https://betterbuys.cloud/register";
+        // const baseURL = "https://betterbuys.cloud/register";
+        const baseURL = "http://localhost:3000/register";
+        
         const referralCode =await User.findOne({_id:req.session.user})
         const referralLink = `${baseURL}?ref=${referralCode._id}`;
         const link=await User.findOneAndUpdate({_id:referralCode._id},{$set:{refferalLink:referralLink}},{new:true})    
